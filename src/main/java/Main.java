@@ -23,14 +23,14 @@ public class Main extends JFrame {
         public void run() {
             if (name.equals("121")){
                 try {
-                    new Server();
+                    new WIWServer();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
             if (name.equals("КПП")){
                 try {
-                    new Client("КПП");
+                    new WiWClient("КПП");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -38,7 +38,7 @@ public class Main extends JFrame {
             }
             if (name.equals("КТП")){
                 try {
-                    new Client("КТП");
+                    new WiWClient("КТП");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

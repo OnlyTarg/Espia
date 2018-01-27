@@ -49,7 +49,7 @@ public class JustLook extends JFrame{
     public void window() {
         //Создаю основное окно
         frame = new JFrame();
-        frame.setTitle("Client");
+        frame.setTitle("WiWClient");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(227,500);
         frame.setVisible(true);

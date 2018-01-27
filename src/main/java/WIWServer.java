@@ -23,14 +23,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Server extends JFrame{
+public class WIWServer extends JFrame{
     JFrame frame;
     JButton b1,b2,b3,b4,b5,b6,b7;
     JLabel countClients;
 
     public List  listOfClients = Collections.synchronizedList(new ArrayList<NewConnection>());;
 
-    public Server() throws IOException {
+    public WIWServer() throws IOException {
 
         createWindow();
         createButtons();
@@ -128,6 +128,7 @@ public class Server extends JFrame{
                 System.out.println(b1.getActionListeners().length);
 
 
+
                 Color buttoncolor = b.getBackground();
                 try {
                     if (buttoncolor.equals(Color.RED)) {
@@ -154,6 +155,7 @@ public class Server extends JFrame{
                     }
                 }catch (Exception ex){
                     ex.printStackTrace();
+
                 }
 
             }
@@ -384,7 +386,7 @@ public class Server extends JFrame{
 
 
     public static void main(String[] args) throws IOException {
-        Server w = new Server();
+        WIWServer w = new WIWServer();
 
 
     }

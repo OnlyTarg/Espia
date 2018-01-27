@@ -15,7 +15,7 @@ import java.net.SocketException;
 /**
  * Created by CleBo on 23.11.2017.
  */
-public class Client extends JFrame{
+public class WiWClient extends JFrame{
     String name;
     JFrame frame;
     InetAddress ipAddress;
@@ -25,7 +25,7 @@ public class Client extends JFrame{
     JButton b1,b2,b3,b4,b5,b6,b7;
     JLabel connectionStatus= new JLabel("Статус соединения");
 
-    public Client(String s) throws IOException {
+    public WiWClient(String s) throws IOException {
         this.name = s;
         window();
         buttons();
@@ -51,7 +51,7 @@ public class Client extends JFrame{
     public void window() {
         //Создаю основное окно
         frame = new JFrame();
-        frame.setTitle("Client");
+        frame.setTitle("WiWClient");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(227,500);
         frame.setVisible(true);
@@ -174,6 +174,7 @@ public class Client extends JFrame{
             try{
                 value = datain.readUTF();
 
+
             }catch (SocketException e){
                 connectionStatus.setForeground(Color.RED);
                 connectionStatus.setBounds(65,430,200,30);
@@ -273,7 +274,7 @@ public class Client extends JFrame{
     }
 
     public static void main(String[] args) throws IOException {
-        Client w = new Client("КПП");
+        WiWClient w = new WiWClient("КПП");
 
 
     }

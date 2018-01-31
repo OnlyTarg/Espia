@@ -3,6 +3,8 @@
  */
 
 import com.google.gson.Gson;
+
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -24,6 +26,8 @@ public class WiWClient extends JFrame{
     DataOutputStream dataout;
     JButton b1,b2,b3,b4,b5,b6,b7;
     JLabel connectionStatus= new JLabel("Статус соединения");
+    Clip clipClick,clipZvonok,clipDoor;
+    File wavClick,wavZvonok,wavDoor;
 
     public WiWClient(String s) throws IOException {
         this.name = s;
@@ -32,20 +36,6 @@ public class WiWClient extends JFrame{
         createClient();
         readData();
         close();
-    }
-
-    private class StatusButtons {
-        Color b1,b2,b3,b4,b5,b6,b7;
-
-        public StatusButtons(JButton b1, JButton b2, JButton b3, JButton b4, JButton b5, JButton b6, JButton b7) {
-            this.b1 = b1.getBackground();
-            this.b2 = b2.getBackground();
-            this.b3 = b3.getBackground();
-            this.b4 = b4.getBackground();
-            this.b5 = b5.getBackground();
-            this.b6 = b6.getBackground();
-            this.b7 = b7.getBackground();
-        }
     }
 
     public void window() {
@@ -121,6 +111,77 @@ public class WiWClient extends JFrame{
         frame.add(b7);
         frame.add(connectionStatus);
     }
+
+    //методы для воспросизведения звуков
+    public void soundDoor(){
+        try {
+            wavDoor = new File("C:/Users/CleBo/IdeaProjects/PControler/src/main/resources/door.wav");
+            clipDoor = AudioSystem.getClip();
+            AudioInputStream ais = AudioSystem.getAudioInputStream(wavDoor);
+            clipDoor.open(ais);
+            clipDoor.start();
+            ais.close();
+        } catch (LineUnavailableException e) {
+            e.printStackTrace();
+        } catch (UnsupportedAudioFileException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+    public void soundClick(){
+        try {
+            wavClick = new File("C:/Users/CleBo/IdeaProjects/PControler/src/main/resources/click.wav");
+            clipClick = AudioSystem.getClip();
+            AudioInputStream ais = AudioSystem.getAudioInputStream(wavClick);
+            clipClick.open(ais);
+            clipClick.start();
+            ais.close();
+        } catch (LineUnavailableException e) {
+            e.printStackTrace();
+        } catch (UnsupportedAudioFileException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+    public void soundZvonok(){
+        try {
+            wavZvonok = new File("C:/Users/CleBo/IdeaProjects/PControler/src/main/resources/zv1.wav");
+            clipZvonok = AudioSystem.getClip();
+            AudioInputStream ais = AudioSystem.getAudioInputStream(wavZvonok);
+            clipZvonok.open(ais);
+            ais.close();
+            clipZvonok.start();
+        } catch (LineUnavailableException e) {
+            e.printStackTrace();
+        } catch (UnsupportedAudioFileException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+
+    private class StatusButtons {
+        Color b1,b2,b3,b4,b5,b6,b7;
+
+        public StatusButtons(JButton b1, JButton b2, JButton b3, JButton b4, JButton b5, JButton b6, JButton b7) {
+            this.b1 = b1.getBackground();
+            this.b2 = b2.getBackground();
+            this.b3 = b3.getBackground();
+            this.b4 = b4.getBackground();
+            this.b5 = b5.getBackground();
+            this.b6 = b6.getBackground();
+            this.b7 = b7.getBackground();
+        }
+    }
+
+
     private void createClient() {
         //Создаю клиент
         try {
@@ -164,9 +225,6 @@ public class WiWClient extends JFrame{
 
 
     }
-
-
-
     public void readData()  {
         //Метод принимает данные от сервера
         String value = "";
@@ -231,28 +289,30 @@ public class WiWClient extends JFrame{
     public void switchchoice (String color,JButton b){
         if (color.equals("green")) {
             if (b.getBackground().equals(Color.GREEN)) {
+                //DONOTHING
             }
             if (b.getBackground().equals(Color.RED)) {
-                //DONOTHING
                 b.setBackground(Color.GREEN);
+                soundZvonok();
             }
         }
         if (color.equals("red")) {
             if(b.getBackground().equals(Color.GREEN)){
                 b.setBackground(Color.RED);
+                soundDoor();
             }
             if(b.getBackground().equals(Color.RED)){
                 //DONOTHING
             }
         }
     }
-
     public ActionListener OnlineListener (JButton b) {
         //Создаю слушатель, такой же как на сервере.
         //Изменяет состояние кнопок и передает инфо на сервер
         ActionListener actionListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                soundClick();
                 try {
                     if (b.getBackground().equals(Color.RED)) {
                         b.setBackground(Color.GREEN);

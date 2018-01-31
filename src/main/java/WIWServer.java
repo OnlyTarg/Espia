@@ -12,6 +12,7 @@
 
 import com.google.gson.Gson;
 
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -27,13 +28,71 @@ public class WIWServer extends JFrame{
     JFrame frame;
     JButton b1,b2,b3,b4,b5,b6,b7;
     JLabel countClients;
+    Clip clipClick,clipZvonok,clipDoor;
+    File wavClick,wavZvonok,wavDoor;
+
+
 
     public List  listOfClients = Collections.synchronizedList(new ArrayList<NewConnection>());;
+
+    public void soundDoor(){
+        try {
+            wavDoor = new File("C:/Users/CleBo/IdeaProjects/PControler/src/main/resources/door.wav");
+            clipDoor = AudioSystem.getClip();
+            AudioInputStream ais = AudioSystem.getAudioInputStream(wavDoor);
+            clipDoor.open(ais);
+            clipDoor.start();
+            ais.close();
+        } catch (LineUnavailableException e) {
+            e.printStackTrace();
+        } catch (UnsupportedAudioFileException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+    public void soundClick(){
+        try {
+            wavClick = new File("C:/Users/CleBo/IdeaProjects/PControler/src/main/resources/click.wav");
+            clipClick = AudioSystem.getClip();
+            AudioInputStream ais = AudioSystem.getAudioInputStream(wavClick);
+            clipClick.open(ais);
+            clipClick.start();
+            ais.close();
+        } catch (LineUnavailableException e) {
+            e.printStackTrace();
+        } catch (UnsupportedAudioFileException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+    public void soundZvonok(){
+        try {
+            wavZvonok = new File("C:/Users/CleBo/IdeaProjects/PControler/src/main/resources/zv1.wav");
+            clipZvonok = AudioSystem.getClip();
+            AudioInputStream ais = AudioSystem.getAudioInputStream(wavZvonok);
+            clipZvonok.open(ais);
+            ais.close();
+            clipZvonok.start();
+        } catch (LineUnavailableException e) {
+            e.printStackTrace();
+        } catch (UnsupportedAudioFileException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
     public WIWServer() throws IOException {
 
         createWindow();
         createButtons();
+
 
         CreateServer ser = new CreateServer();
 
@@ -125,6 +184,7 @@ public class WIWServer extends JFrame{
 
             @Override
             public  void actionPerformed(ActionEvent e) {
+                soundClick();
                 System.out.println(b1.getActionListeners().length);
 
 
@@ -169,26 +229,36 @@ public class WIWServer extends JFrame{
         Работает только в офлайне
        */
 
-        ActionListener actionListener = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("ONLYSERVER");
-                Color buttoncolor = b.getBackground();
-                try {
-                    if (buttoncolor.equals(Color.RED)) {
-                        b.setBackground(Color.GREEN);
+        ActionListener actionListener = null;
+        try {
+            actionListener = new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    System.out.println("ONLYSERVER");
+                    soundClick();
+                    Color buttoncolor = b.getBackground();
+                    try {
+                        //clipClick.start();
+                        if (buttoncolor.equals(Color.RED)) {
+                            b.setBackground(Color.GREEN);
 
 
-                    } else {
-                        b.setBackground(Color.RED);
+                        } else {
+                            b.setBackground(Color.RED);
 
 
+                        }
+
+
+                    }catch (Exception ex){
+                        ex.printStackTrace();
                     }
-                }catch (Exception ex){
-                    ex.printStackTrace();
+
                 }
-            }
-        };
+            };
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return actionListener;
     }
 
@@ -257,10 +327,13 @@ public class WIWServer extends JFrame{
         private void readData() throws IOException {
             //Метод для принятия данных от клиента
             String value = "";
+
             while(true) {
+
                 try {
                     value = datain.readUTF();
                     String[] temp = value.split(" ");
+
                     switch (temp[0]) {
                         //case "value" - положение кнопок
                         case "10":
@@ -316,12 +389,15 @@ public class WIWServer extends JFrame{
                 }
                 if (b.getBackground().equals(Color.RED)) {
                     b.setBackground(Color.GREEN);
+                    soundZvonok();
                 }
 
             }
             if (color.equals("red")) {
                 if(b.getBackground().equals(Color.GREEN)){
                     b.setBackground(Color.RED);
+                    soundDoor();
+
                 }
                 if(b.getBackground().equals(Color.RED)){
                     //DONOTHING

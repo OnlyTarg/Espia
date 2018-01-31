@@ -33,6 +33,7 @@ public class Main extends JFrame {
                     new WiWClient("КПП");
                 } catch (IOException e) {
                     e.printStackTrace();
+                    System.out.println("Misstake");
                 }
 
             }

@@ -53,7 +53,7 @@ public class Main extends JFrame {
 
     private void createwindow() {
         mainWindow = new JFrame();
-        mainWindow.setTitle("PConrol");
+        mainWindow.setTitle("Espia");
         mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainWindow.setSize(227, 300);
         mainWindow.setVisible(true);

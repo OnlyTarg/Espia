@@ -1,128 +1,93 @@
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import static javax.swing.JOptionPane.showInputDialog;
 
 /**
  * Created by CleBo on 19.01.2018.
  */
 public class Main extends JFrame {
 
-    JFrame mainWindow;
-    JButton b1,b2,b3;
-    JLabel label;
-    public class CreateClient extends Thread{
-        String name;
-        public CreateClient(String name) throws IOException {
-            this.name = name;
+
+    String ipKPP="", ipKTP="", ipServer="",ip120="";
+    String currentIP;
+    ArrayList<String> listIP;
+
+    public Main() {
+
+        try {
+            currentIP = Inet4Address.getLocalHost().getHostAddress();
+            InputStream in = getClass().getResourceAsStream("/listIP.txt");
+            readListIP(in);
+        }catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Ошибка при считывании файла");
         }
 
-        @Override
-        public void run() {
-            if (name.equals("121")){
-                try {
-                    new WIWServer();
-                } catch (IOException e) {
-                    e.printStackTrace();
+        try {
+            if(listIP.contains(currentIP)){
+                if (currentIP.equals(ipKPP)){
+                    new Client("КПП-1");
+                }
+                if (currentIP.equals(ipKTP)){
+                    new Client("КПП-2(КТП)");
+                }
+                if (currentIP.equals(ipServer)){
+                    new Server("ЦУС(121)");
+                }
+                if (currentIP.equals(ip120)){
+                    new Client120("ЦУС(120)");
                 }
             }
-            if (name.equals("КПП")){
-                try {
-                    new WiWClient("КПП");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    System.out.println("Misstake");
-                }
+            else {
+                new EspiaJL();
 
             }
-            if (name.equals("КТП")){
-                try {
-                    new WiWClient("КТП");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-            }
-
-
-
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
-    }
-
-    private void createwindow() {
-        mainWindow = new JFrame();
-        mainWindow.setTitle("Espia");
-        mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainWindow.setSize(227, 300);
-        mainWindow.setVisible(true);
-        mainWindow.setResizable(false);
-    }
-    private void createButtons() {
-        mainWindow.setLayout(null);
-
-        b1 = new JButton("121");
-        b2 = new JButton("КПП");
-        b3 = new JButton("КТП");
-        label = new JLabel("Оберіть користувача:");
-
-        b1.addActionListener(Listener(b1));
-        b2.addActionListener(Listener(b2));
-        b3.addActionListener(Listener(b3));
 
 
 
-        Font fontGlobal = new Font("Times new Roman",Font.BOLD,20);
-        b1.setFont(fontGlobal);
-        b2.setFont(fontGlobal);
-        b3.setFont(fontGlobal);
-        label.setFont(fontGlobal);
 
-        b1.setBounds(10, 70, 200, 50);
-        b2.setBounds(10, 130, 200, 50);
-        b3.setBounds(10, 190, 200, 50);
-        label.setBounds(10, 10, 200, 50);
-
-        b1.setBackground(Color.YELLOW);
-        b2.setBackground(Color.YELLOW);
-        b3.setBackground(Color.YELLOW);
-
-        mainWindow.add(b1);
-        mainWindow.add(b2);
-        mainWindow.add(b3);
-        mainWindow.add(label);
 
     }
+    public void enterName() {
+
+    }
+    private void readListIP(InputStream input){
+        Scanner scanner = new Scanner(input,"Cp1251");
+        listIP = new ArrayList<>();
+        while (scanner.hasNext()) {
+            String line = scanner.nextLine();
+            String [] values = line.split("=");
+            listIP.add(values[1]);
+        }
+        ipKPP = listIP.get(0).trim();
+        ipKTP = listIP.get(1).trim();
+        ipServer = listIP.get(2).trim();
+        ip120 = listIP.get(3).trim();
+        scanner.close();
+    }
+
+
+
 
     public static void main(String[] args) throws IOException, InterruptedException {
         Main main = new Main();
-        main.createwindow();
-        main.createButtons();
+        }
 
-    }
-    private ActionListener Listener (JButton b) {
-        /*Создаю слушатель для кнопок
-        При нажатии на кнопку, она изменяет цвет на противоположный,
-        в зависимости от того какой цвет был установлен до нажатия.
-        Работает только в офлайне
-       */
-
-        ActionListener actionListener = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                mainWindow.setVisible(false);
-                try {
-                    CreateClient newClient = new CreateClient(b.getText());
-                    newClient.start();
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
-
-
-
-            }
-        };
-        return actionListener;
-    }
 }

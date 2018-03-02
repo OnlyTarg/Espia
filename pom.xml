@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -6,7 +6,7 @@
 
     <groupId>com.Pav.Avdonin</groupId>
     <artifactId>Espia</artifactId>
-    <version>1.0-SNAPSHOT</version><name>PControl</name>
+    <version>1.4</version><name>PControl</name>
 
 
     <properties>
@@ -41,12 +41,12 @@
                             <!--<classpathLayoutType>simple</classpathLayoutType>-->
                             <mainClass>Main</mainClass>
                         </manifest>
-                        <!-- manifestEntries - A list of key/value pairs to add to the manifest.-->
-                        <!--<manifestEntries>
-                            <Class-Path>../lib/</Class-Path>
-                        </manifestEntries>-->
-                        <!--типа создает index file с которого берет class path jar файл-->
-                        <!--<index>true</index>-->
+                         manifestEntries - A list of key/value pairs to add to the manifest.
+                        <manifestEntries>
+                            <Class-Path>../libs/</Class-Path>
+                        </manifestEntries>
+                        <!--типа создает index file с которого берет class path jar файл
+                        <index>true</index>-->
                     </archive>
 
                 </configuration>
@@ -72,6 +72,7 @@
                 </executions>
             </plugin>
             <!--Копирование всех ресурсов в указанную папку в папке target  https://habrahabr.ru/post/131164/-->
+            
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>2.5</version>
@@ -85,7 +86,7 @@
                         <configuration>
                             <outputDirectory>${project.build.outputDirectory}/com/khmb/${project.name}</outputDirectory>
                             <resources>
-                                <resource>
+                                <!--<resource>
                                     <directory>${project.build.sourceDirectory}/com/khmb/${project.name}</directory>
                                     <filtering>true</filtering>
                                     <includes>
@@ -95,9 +96,10 @@
                                 <resource>
                                     <directory>${project.build.sourceDirectory}/com/khmb/${project.name}</directory>
                                     <includes>
-                                        <include>**/*.png</include>
+                                        <include>**/*.wav</include>
+                                        <include>**/*.txt</include>
                                     </includes>
-                                </resource>
+                                </resource>-->
                             </resources>
                         </configuration>
                     </execution>
@@ -105,7 +107,9 @@
             </plugin>
 
         </plugins>
+
     </build>
+
     <dependencies>
         <dependency>
             <groupId>com.google.code.gson</groupId>

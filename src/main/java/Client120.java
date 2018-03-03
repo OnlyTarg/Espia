@@ -596,7 +596,7 @@ public class Client120 {
             }
             if (b.getBackground().equals(Color.RED)) {
                 b.setBackground(Color.GREEN);
-                binfo.setText(when);
+                binfo.setText(time());
                 bwho.setText(name);
                 soundZvonok();
 
@@ -605,7 +605,7 @@ public class Client120 {
         if (color.equals("red")) {
             if (b.getBackground().equals(Color.GREEN)) {
                 b.setBackground(Color.RED);
-                binfo.setText(when);
+                binfo.setText(time());
                 bwho.setText(name);
 
                 soundDoor();

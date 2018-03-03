@@ -2,35 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ff78ac46-bd81-43bd-a781-f5ba79e53888" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/JustLook.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/click.wav" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/Espia-1.0-SNAPSHOT.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/JustLook$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/JustLook$StatusButtons.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/JustLook.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/Main$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/Main$CreateClient.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/WIWServer$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/WIWServer$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/WIWServer$CreateServer.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/WIWServer$NewConnection.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/WIWServer$StatusButtons.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/WIWServer.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/WiWClient$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/WiWClient$StatusButtons.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/WiWClient.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/click.wav" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/PControler.iml" afterPath="$PROJECT_DIR$/Espia.iml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/WIWServer.java" afterPath="$PROJECT_DIR$/src/main/java/Server.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/WiWClient.java" afterPath="$PROJECT_DIR$/src/main/java/Client.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Main.class" afterPath="$PROJECT_DIR$/target/classes/Main.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Plan.txt" afterPath="$PROJECT_DIR$/Plan.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Main.java" afterPath="$PROJECT_DIR$/src/main/java/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Client.java" afterPath="$PROJECT_DIR$/src/main/java/Client.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Client120.java" afterPath="$PROJECT_DIR$/src/main/java/Client120.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/EspiaJL.java" afterPath="$PROJECT_DIR$/src/main/java/EspiaJL.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Server.java" afterPath="$PROJECT_DIR$/src/main/java/Server.java" />
     </list>
     <ignored path="PControler.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -62,10 +38,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1496">
+            <state relative-caret-position="803">
               <caret line="81" column="35" selection-start-line="81" selection-start-column="35" selection-end-line="81" selection-end-column="35" />
               <folding>
                 <element signature="docComment;class#Main#0" expanded="false" />
@@ -74,11 +50,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EspiaJL.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="EspiaJL.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/EspiaJL.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="182">
-              <caret line="557" column="36" selection-start-line="557" selection-start-column="33" selection-end-line="557" selection-end-column="36" />
+            <state relative-caret-position="260">
+              <caret line="662" column="33" selection-start-line="662" selection-start-column="24" selection-end-line="662" selection-end-column="33" />
               <folding>
                 <element signature="docComment;class#EspiaJL#0" expanded="false" />
                 <element signature="method#buttons#0;class#EspiaJL#0" expanded="false" />
@@ -96,11 +72,8 @@
                 <element signature="e#21476#21533#0" expanded="false" />
                 <element signature="method#switchchoice#0;class#EspiaJL#0" expanded="false" />
                 <element signature="e#21929#21955#0" expanded="false" />
-                <element signature="e#22559#22585#0" expanded="false" />
-                <element signature="method#OnlineListener#0;class#EspiaJL#0" expanded="false" />
-                <element signature="e#22741#22785#0" expanded="false" />
-                <element signature="class#22892:24232" expanded="false" />
-                <element signature="method#actionPerformed#0;class#22892:24232" expanded="false" />
+                <element signature="e#22563#22589#0" expanded="false" />
+                <element signature="e#22745#22789#0" expanded="false" />
                 <element signature="method#close#0;class#EspiaJL#0" expanded="false" />
                 <element signature="method#time#0;class#EspiaJL#0" expanded="false" />
               </folding>
@@ -111,33 +84,36 @@
       <file leaf-file-name="Server.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Server.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="182">
-              <caret line="637" column="80" selection-start-line="637" selection-start-column="77" selection-end-line="637" selection-end-column="80" />
+            <state relative-caret-position="260">
+              <caret line="219" column="29" selection-start-line="219" selection-start-column="20" selection-end-line="219" selection-end-column="29" />
               <folding>
+                <element signature="method#Server#0;class#Server#0" expanded="false" />
                 <element signature="class#CreateServer#0;class#Server#0" expanded="false" />
                 <element signature="method#CreateServer#0;class#CreateServer#0;class#Server#0" expanded="false" />
                 <element signature="e#2554#2650#0" expanded="false" />
-                <element signature="method#switchchoice#0;class#NewConnection#0;class#Server#0" expanded="false" />
                 <element signature="method#run#0;class#NewConnection#0;class#Server#0" expanded="false" />
                 <element signature="method#close#0;class#NewConnection#0;class#Server#0" expanded="false" />
                 <element signature="class#StatusButtons#0;class#Server#0" expanded="false" />
                 <element signature="method#StatusButtons#0;class#StatusButtons#0;class#Server#0" expanded="false" />
-                <element signature="e#15545#15566#0" expanded="false" />
+                <element signature="class#Migalkaa#0;class#Server#0" expanded="false" />
+                <element signature="method#Migalkaa#0;class#Migalkaa#0;class#Server#0" expanded="false" />
+                <element signature="method#action#0;class#Migalkaa#0;class#Server#0" expanded="false" />
+                <element signature="method#run#0;class#Migalkaa#0;class#Server#0" expanded="false" />
+                <element signature="method#createWindow#0;class#Server#0" expanded="false" />
+                <element signature="e#15549#15570#0" expanded="false" />
                 <element signature="method#createButtons#0;class#Server#0" expanded="false" />
                 <element signature="method#soundDoor#0;class#Server#0" expanded="false" />
                 <element signature="method#soundClick#0;class#Server#0" expanded="false" />
                 <element signature="method#soundZvonok#0;class#Server#0" expanded="false" />
                 <element signature="method#time#0;class#Server#0" expanded="false" />
+                <element signature="method#readAllowedClients#0;class#Server#0" expanded="false" />
                 <element signature="method#writeStatusOFButtons#0;class#Server#0" expanded="false" />
                 <element signature="method#readStatusOFButtons#0;class#Server#0" expanded="false" />
                 <element signature="method#readListofPersons#0;class#Server#0" expanded="false" />
                 <element signature="method#choiceWhoAndWhen#0;class#Server#0" expanded="false" />
-                <element signature="method#OnlineListener#0;class#Server#0" expanded="false" />
-                <element signature="class#28754:30340" expanded="false" />
-                <element signature="method#actionPerformed#0;class#28754:30340" expanded="false" />
                 <element signature="method#OfflineListener#0;class#Server#0" expanded="false" />
-                <element signature="class#30785:31606" expanded="false" />
-                <element signature="method#actionPerformed#0;class#30785:31606" expanded="false" />
+                <element signature="class#30789:31610" expanded="false" />
+                <element signature="method#actionPerformed#0;class#30789:31610" expanded="false" />
                 <element signature="method#main#0;class#Server#0" expanded="false" />
               </folding>
             </state>
@@ -147,8 +123,8 @@
       <file leaf-file-name="Client.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Client.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="182">
-              <caret line="250" column="39" selection-start-line="250" selection-start-column="32" selection-end-line="250" selection-end-column="39" />
+            <state relative-caret-position="326">
+              <caret line="539" column="33" selection-start-line="539" selection-start-column="24" selection-end-line="539" selection-end-column="33" />
               <folding>
                 <element signature="docComment;class#Client#0" expanded="false" />
                 <element signature="method#window#0;class#Client#0" expanded="false" />
@@ -159,14 +135,11 @@
                 <element signature="method#time#0;class#Client#0" expanded="false" />
                 <element signature="method#switchchoice#0;class#Client#0" expanded="false" />
                 <element signature="e#15011#15037#0" expanded="false" />
-                <element signature="e#15641#15667#0" expanded="false" />
+                <element signature="e#15645#15671#0" expanded="false" />
                 <element signature="class#StatusButtons#0;class#Client#0" expanded="false" />
                 <element signature="method#StatusButtons#0;class#StatusButtons#0;class#Client#0" expanded="false" />
-                <element signature="method#OnlineListener#0;class#Client#0" expanded="false" />
-                <element signature="e#17861#17905#0" expanded="false" />
-                <element signature="class#18012:19357" expanded="false" />
-                <element signature="method#actionPerformed#0;class#18012:19357" expanded="false" />
-                <element signature="e#18126#18180#0" expanded="false" />
+                <element signature="e#17865#17909#0" expanded="false" />
+                <element signature="e#18130#18184#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -175,8 +148,8 @@
       <file leaf-file-name="Client120.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Client120.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="182">
-              <caret line="497" column="17" selection-start-line="497" selection-start-column="16" selection-end-line="497" selection-end-column="17" />
+            <state relative-caret-position="260">
+              <caret line="643" column="35" selection-start-line="643" selection-start-column="26" selection-end-line="643" selection-end-column="35" />
               <folding>
                 <element signature="docComment;class#Client120#0" expanded="false" />
                 <element signature="e#1012#1082#0" expanded="false" />
@@ -196,8 +169,8 @@
                 <element signature="e#20553#20610#0" expanded="false" />
                 <element signature="method#switchchoice#0;class#Client120#0" expanded="false" />
                 <element signature="e#21007#21033#0" expanded="false" />
-                <element signature="e#21637#21663#0" expanded="false" />
-                <element signature="e#21819#21863#0" expanded="false" />
+                <element signature="e#21641#21667#0" expanded="false" />
+                <element signature="e#21823#21867#0" expanded="false" />
                 <element signature="method#close#0;class#Client120#0" expanded="false" />
                 <element signature="method#time#0;class#Client120#0" expanded="false" />
               </folding>
@@ -229,12 +202,12 @@
         <option value="$PROJECT_DIR$/src/main/java/WIWServer.java" />
         <option value="$PROJECT_DIR$/src/main/java/WiWClient.java" />
         <option value="$PROJECT_DIR$/src/main/java/JustLook.java" />
-        <option value="$PROJECT_DIR$/src/main/java/EspiaJL.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Client.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/Client120.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Server.java" />
         <option value="$PROJECT_DIR$/src/main/java/Main.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Server.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Client.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Client120.java" />
+        <option value="$PROJECT_DIR$/src/main/java/EspiaJL.java" />
       </list>
     </option>
   </component>
@@ -281,7 +254,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -357,7 +330,7 @@
         </subPane>
       </pane>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -733,12 +706,11 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297491" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="DB Browser" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32616082" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="DB Execution Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -760,6 +732,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32930845" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32616082" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32842582" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
@@ -820,14 +793,11 @@
             <element signature="method#time#0;class#Client#0" expanded="false" />
             <element signature="method#switchchoice#0;class#Client#0" expanded="false" />
             <element signature="e#15011#15037#0" expanded="false" />
-            <element signature="e#15641#15667#0" expanded="false" />
+            <element signature="e#15645#15671#0" expanded="false" />
             <element signature="class#StatusButtons#0;class#Client#0" expanded="false" />
             <element signature="method#StatusButtons#0;class#StatusButtons#0;class#Client#0" expanded="false" />
-            <element signature="method#OnlineListener#0;class#Client#0" expanded="false" />
-            <element signature="e#17861#17905#0" expanded="false" />
-            <element signature="class#18012:19357" expanded="false" />
-            <element signature="method#actionPerformed#0;class#18012:19357" expanded="false" />
-            <element signature="e#18126#18180#0" expanded="false" />
+            <element signature="e#17865#17909#0" expanded="false" />
+            <element signature="e#18130#18184#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -863,30 +833,33 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
+            <element signature="method#Server#0;class#Server#0" expanded="false" />
             <element signature="class#CreateServer#0;class#Server#0" expanded="false" />
             <element signature="method#CreateServer#0;class#CreateServer#0;class#Server#0" expanded="false" />
             <element signature="e#2554#2650#0" expanded="false" />
-            <element signature="method#switchchoice#0;class#NewConnection#0;class#Server#0" expanded="false" />
             <element signature="method#run#0;class#NewConnection#0;class#Server#0" expanded="false" />
             <element signature="method#close#0;class#NewConnection#0;class#Server#0" expanded="false" />
             <element signature="class#StatusButtons#0;class#Server#0" expanded="false" />
             <element signature="method#StatusButtons#0;class#StatusButtons#0;class#Server#0" expanded="false" />
-            <element signature="e#15545#15566#0" expanded="false" />
+            <element signature="class#Migalkaa#0;class#Server#0" expanded="false" />
+            <element signature="method#Migalkaa#0;class#Migalkaa#0;class#Server#0" expanded="false" />
+            <element signature="method#action#0;class#Migalkaa#0;class#Server#0" expanded="false" />
+            <element signature="method#run#0;class#Migalkaa#0;class#Server#0" expanded="false" />
+            <element signature="method#createWindow#0;class#Server#0" expanded="false" />
+            <element signature="e#15549#15570#0" expanded="false" />
             <element signature="method#createButtons#0;class#Server#0" expanded="false" />
             <element signature="method#soundDoor#0;class#Server#0" expanded="false" />
             <element signature="method#soundClick#0;class#Server#0" expanded="false" />
             <element signature="method#soundZvonok#0;class#Server#0" expanded="false" />
             <element signature="method#time#0;class#Server#0" expanded="false" />
+            <element signature="method#readAllowedClients#0;class#Server#0" expanded="false" />
             <element signature="method#writeStatusOFButtons#0;class#Server#0" expanded="false" />
             <element signature="method#readStatusOFButtons#0;class#Server#0" expanded="false" />
             <element signature="method#readListofPersons#0;class#Server#0" expanded="false" />
             <element signature="method#choiceWhoAndWhen#0;class#Server#0" expanded="false" />
-            <element signature="method#OnlineListener#0;class#Server#0" expanded="false" />
-            <element signature="class#28754:30340" expanded="false" />
-            <element signature="method#actionPerformed#0;class#28754:30340" expanded="false" />
             <element signature="method#OfflineListener#0;class#Server#0" expanded="false" />
-            <element signature="class#30785:31606" expanded="false" />
-            <element signature="method#actionPerformed#0;class#30785:31606" expanded="false" />
+            <element signature="class#30789:31610" expanded="false" />
+            <element signature="method#actionPerformed#0;class#30789:31610" expanded="false" />
             <element signature="method#main#0;class#Server#0" expanded="false" />
           </folding>
         </state>
@@ -906,14 +879,11 @@
             <element signature="method#time#0;class#Client#0" expanded="false" />
             <element signature="method#switchchoice#0;class#Client#0" expanded="false" />
             <element signature="e#15011#15037#0" expanded="false" />
-            <element signature="e#15641#15667#0" expanded="false" />
+            <element signature="e#15645#15671#0" expanded="false" />
             <element signature="class#StatusButtons#0;class#Client#0" expanded="false" />
             <element signature="method#StatusButtons#0;class#StatusButtons#0;class#Client#0" expanded="false" />
-            <element signature="method#OnlineListener#0;class#Client#0" expanded="false" />
-            <element signature="e#17861#17905#0" expanded="false" />
-            <element signature="class#18012:19357" expanded="false" />
-            <element signature="method#actionPerformed#0;class#18012:19357" expanded="false" />
-            <element signature="e#18126#18180#0" expanded="false" />
+            <element signature="e#17865#17909#0" expanded="false" />
+            <element signature="e#18130#18184#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -949,30 +919,33 @@
         <state relative-caret-position="1496">
           <caret line="391" column="34" selection-start-line="391" selection-start-column="34" selection-end-line="391" selection-end-column="34" />
           <folding>
+            <element signature="method#Server#0;class#Server#0" expanded="false" />
             <element signature="class#CreateServer#0;class#Server#0" expanded="false" />
             <element signature="method#CreateServer#0;class#CreateServer#0;class#Server#0" expanded="false" />
             <element signature="e#2554#2650#0" expanded="false" />
-            <element signature="method#switchchoice#0;class#NewConnection#0;class#Server#0" expanded="false" />
             <element signature="method#run#0;class#NewConnection#0;class#Server#0" expanded="false" />
             <element signature="method#close#0;class#NewConnection#0;class#Server#0" expanded="false" />
             <element signature="class#StatusButtons#0;class#Server#0" expanded="false" />
             <element signature="method#StatusButtons#0;class#StatusButtons#0;class#Server#0" expanded="false" />
-            <element signature="e#15545#15566#0" expanded="false" />
+            <element signature="class#Migalkaa#0;class#Server#0" expanded="false" />
+            <element signature="method#Migalkaa#0;class#Migalkaa#0;class#Server#0" expanded="false" />
+            <element signature="method#action#0;class#Migalkaa#0;class#Server#0" expanded="false" />
+            <element signature="method#run#0;class#Migalkaa#0;class#Server#0" expanded="false" />
+            <element signature="method#createWindow#0;class#Server#0" expanded="false" />
+            <element signature="e#15549#15570#0" expanded="false" />
             <element signature="method#createButtons#0;class#Server#0" expanded="false" />
             <element signature="method#soundDoor#0;class#Server#0" expanded="false" />
             <element signature="method#soundClick#0;class#Server#0" expanded="false" />
             <element signature="method#soundZvonok#0;class#Server#0" expanded="false" />
             <element signature="method#time#0;class#Server#0" expanded="false" />
+            <element signature="method#readAllowedClients#0;class#Server#0" expanded="false" />
             <element signature="method#writeStatusOFButtons#0;class#Server#0" expanded="false" />
             <element signature="method#readStatusOFButtons#0;class#Server#0" expanded="false" />
             <element signature="method#readListofPersons#0;class#Server#0" expanded="false" />
             <element signature="method#choiceWhoAndWhen#0;class#Server#0" expanded="false" />
-            <element signature="method#OnlineListener#0;class#Server#0" expanded="false" />
-            <element signature="class#28754:30340" expanded="false" />
-            <element signature="method#actionPerformed#0;class#28754:30340" expanded="false" />
             <element signature="method#OfflineListener#0;class#Server#0" expanded="false" />
-            <element signature="class#30785:31606" expanded="false" />
-            <element signature="method#actionPerformed#0;class#30785:31606" expanded="false" />
+            <element signature="class#30789:31610" expanded="false" />
+            <element signature="method#actionPerformed#0;class#30789:31610" expanded="false" />
             <element signature="method#main#0;class#Server#0" expanded="false" />
           </folding>
         </state>
@@ -992,14 +965,11 @@
             <element signature="method#time#0;class#Client#0" expanded="false" />
             <element signature="method#switchchoice#0;class#Client#0" expanded="false" />
             <element signature="e#15011#15037#0" expanded="false" />
-            <element signature="e#15641#15667#0" expanded="false" />
+            <element signature="e#15645#15671#0" expanded="false" />
             <element signature="class#StatusButtons#0;class#Client#0" expanded="false" />
             <element signature="method#StatusButtons#0;class#StatusButtons#0;class#Client#0" expanded="false" />
-            <element signature="method#OnlineListener#0;class#Client#0" expanded="false" />
-            <element signature="e#17861#17905#0" expanded="false" />
-            <element signature="class#18012:19357" expanded="false" />
-            <element signature="method#actionPerformed#0;class#18012:19357" expanded="false" />
-            <element signature="e#18126#18180#0" expanded="false" />
+            <element signature="e#17865#17909#0" expanded="false" />
+            <element signature="e#18130#18184#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1035,30 +1005,33 @@
         <state relative-caret-position="1562">
           <caret line="394" column="13" selection-start-line="394" selection-start-column="13" selection-end-line="394" selection-end-column="13" />
           <folding>
+            <element signature="method#Server#0;class#Server#0" expanded="false" />
             <element signature="class#CreateServer#0;class#Server#0" expanded="false" />
             <element signature="method#CreateServer#0;class#CreateServer#0;class#Server#0" expanded="false" />
             <element signature="e#2554#2650#0" expanded="false" />
-            <element signature="method#switchchoice#0;class#NewConnection#0;class#Server#0" expanded="false" />
             <element signature="method#run#0;class#NewConnection#0;class#Server#0" expanded="false" />
             <element signature="method#close#0;class#NewConnection#0;class#Server#0" expanded="false" />
             <element signature="class#StatusButtons#0;class#Server#0" expanded="false" />
             <element signature="method#StatusButtons#0;class#StatusButtons#0;class#Server#0" expanded="false" />
-            <element signature="e#15545#15566#0" expanded="false" />
+            <element signature="class#Migalkaa#0;class#Server#0" expanded="false" />
+            <element signature="method#Migalkaa#0;class#Migalkaa#0;class#Server#0" expanded="false" />
+            <element signature="method#action#0;class#Migalkaa#0;class#Server#0" expanded="false" />
+            <element signature="method#run#0;class#Migalkaa#0;class#Server#0" expanded="false" />
+            <element signature="method#createWindow#0;class#Server#0" expanded="false" />
+            <element signature="e#15549#15570#0" expanded="false" />
             <element signature="method#createButtons#0;class#Server#0" expanded="false" />
             <element signature="method#soundDoor#0;class#Server#0" expanded="false" />
             <element signature="method#soundClick#0;class#Server#0" expanded="false" />
             <element signature="method#soundZvonok#0;class#Server#0" expanded="false" />
             <element signature="method#time#0;class#Server#0" expanded="false" />
+            <element signature="method#readAllowedClients#0;class#Server#0" expanded="false" />
             <element signature="method#writeStatusOFButtons#0;class#Server#0" expanded="false" />
             <element signature="method#readStatusOFButtons#0;class#Server#0" expanded="false" />
             <element signature="method#readListofPersons#0;class#Server#0" expanded="false" />
             <element signature="method#choiceWhoAndWhen#0;class#Server#0" expanded="false" />
-            <element signature="method#OnlineListener#0;class#Server#0" expanded="false" />
-            <element signature="class#28754:30340" expanded="false" />
-            <element signature="method#actionPerformed#0;class#28754:30340" expanded="false" />
             <element signature="method#OfflineListener#0;class#Server#0" expanded="false" />
-            <element signature="class#30785:31606" expanded="false" />
-            <element signature="method#actionPerformed#0;class#30785:31606" expanded="false" />
+            <element signature="class#30789:31610" expanded="false" />
+            <element signature="method#actionPerformed#0;class#30789:31610" expanded="false" />
             <element signature="method#main#0;class#Server#0" expanded="false" />
           </folding>
         </state>
@@ -1078,14 +1051,11 @@
             <element signature="method#time#0;class#Client#0" expanded="false" />
             <element signature="method#switchchoice#0;class#Client#0" expanded="false" />
             <element signature="e#15011#15037#0" expanded="false" />
-            <element signature="e#15641#15667#0" expanded="false" />
+            <element signature="e#15645#15671#0" expanded="false" />
             <element signature="class#StatusButtons#0;class#Client#0" expanded="false" />
             <element signature="method#StatusButtons#0;class#StatusButtons#0;class#Client#0" expanded="false" />
-            <element signature="method#OnlineListener#0;class#Client#0" expanded="false" />
-            <element signature="e#17861#17905#0" expanded="false" />
-            <element signature="class#18012:19357" expanded="false" />
-            <element signature="method#actionPerformed#0;class#18012:19357" expanded="false" />
-            <element signature="e#18126#18180#0" expanded="false" />
+            <element signature="e#17865#17909#0" expanded="false" />
+            <element signature="e#18130#18184#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1121,30 +1091,33 @@
         <state relative-caret-position="1562">
           <caret line="394" column="13" selection-start-line="394" selection-start-column="13" selection-end-line="394" selection-end-column="13" />
           <folding>
+            <element signature="method#Server#0;class#Server#0" expanded="false" />
             <element signature="class#CreateServer#0;class#Server#0" expanded="false" />
             <element signature="method#CreateServer#0;class#CreateServer#0;class#Server#0" expanded="false" />
             <element signature="e#2554#2650#0" expanded="false" />
-            <element signature="method#switchchoice#0;class#NewConnection#0;class#Server#0" expanded="false" />
             <element signature="method#run#0;class#NewConnection#0;class#Server#0" expanded="false" />
             <element signature="method#close#0;class#NewConnection#0;class#Server#0" expanded="false" />
             <element signature="class#StatusButtons#0;class#Server#0" expanded="false" />
             <element signature="method#StatusButtons#0;class#StatusButtons#0;class#Server#0" expanded="false" />
-            <element signature="e#15545#15566#0" expanded="false" />
+            <element signature="class#Migalkaa#0;class#Server#0" expanded="false" />
+            <element signature="method#Migalkaa#0;class#Migalkaa#0;class#Server#0" expanded="false" />
+            <element signature="method#action#0;class#Migalkaa#0;class#Server#0" expanded="false" />
+            <element signature="method#run#0;class#Migalkaa#0;class#Server#0" expanded="false" />
+            <element signature="method#createWindow#0;class#Server#0" expanded="false" />
+            <element signature="e#15549#15570#0" expanded="false" />
             <element signature="method#createButtons#0;class#Server#0" expanded="false" />
             <element signature="method#soundDoor#0;class#Server#0" expanded="false" />
             <element signature="method#soundClick#0;class#Server#0" expanded="false" />
             <element signature="method#soundZvonok#0;class#Server#0" expanded="false" />
             <element signature="method#time#0;class#Server#0" expanded="false" />
+            <element signature="method#readAllowedClients#0;class#Server#0" expanded="false" />
             <element signature="method#writeStatusOFButtons#0;class#Server#0" expanded="false" />
             <element signature="method#readStatusOFButtons#0;class#Server#0" expanded="false" />
             <element signature="method#readListofPersons#0;class#Server#0" expanded="false" />
             <element signature="method#choiceWhoAndWhen#0;class#Server#0" expanded="false" />
-            <element signature="method#OnlineListener#0;class#Server#0" expanded="false" />
-            <element signature="class#28754:30340" expanded="false" />
-            <element signature="method#actionPerformed#0;class#28754:30340" expanded="false" />
             <element signature="method#OfflineListener#0;class#Server#0" expanded="false" />
-            <element signature="class#30785:31606" expanded="false" />
-            <element signature="method#actionPerformed#0;class#30785:31606" expanded="false" />
+            <element signature="class#30789:31610" expanded="false" />
+            <element signature="method#actionPerformed#0;class#30789:31610" expanded="false" />
             <element signature="method#main#0;class#Server#0" expanded="false" />
           </folding>
         </state>
@@ -1164,14 +1137,11 @@
             <element signature="method#time#0;class#Client#0" expanded="false" />
             <element signature="method#switchchoice#0;class#Client#0" expanded="false" />
             <element signature="e#15011#15037#0" expanded="false" />
-            <element signature="e#15641#15667#0" expanded="false" />
+            <element signature="e#15645#15671#0" expanded="false" />
             <element signature="class#StatusButtons#0;class#Client#0" expanded="false" />
             <element signature="method#StatusButtons#0;class#StatusButtons#0;class#Client#0" expanded="false" />
-            <element signature="method#OnlineListener#0;class#Client#0" expanded="false" />
-            <element signature="e#17861#17905#0" expanded="false" />
-            <element signature="class#18012:19357" expanded="false" />
-            <element signature="method#actionPerformed#0;class#18012:19357" expanded="false" />
-            <element signature="e#18126#18180#0" expanded="false" />
+            <element signature="e#17865#17909#0" expanded="false" />
+            <element signature="e#18130#18184#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1207,30 +1177,33 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
+            <element signature="method#Server#0;class#Server#0" expanded="false" />
             <element signature="class#CreateServer#0;class#Server#0" expanded="false" />
             <element signature="method#CreateServer#0;class#CreateServer#0;class#Server#0" expanded="false" />
             <element signature="e#2554#2650#0" expanded="false" />
-            <element signature="method#switchchoice#0;class#NewConnection#0;class#Server#0" expanded="false" />
             <element signature="method#run#0;class#NewConnection#0;class#Server#0" expanded="false" />
             <element signature="method#close#0;class#NewConnection#0;class#Server#0" expanded="false" />
             <element signature="class#StatusButtons#0;class#Server#0" expanded="false" />
             <element signature="method#StatusButtons#0;class#StatusButtons#0;class#Server#0" expanded="false" />
-            <element signature="e#15545#15566#0" expanded="false" />
+            <element signature="class#Migalkaa#0;class#Server#0" expanded="false" />
+            <element signature="method#Migalkaa#0;class#Migalkaa#0;class#Server#0" expanded="false" />
+            <element signature="method#action#0;class#Migalkaa#0;class#Server#0" expanded="false" />
+            <element signature="method#run#0;class#Migalkaa#0;class#Server#0" expanded="false" />
+            <element signature="method#createWindow#0;class#Server#0" expanded="false" />
+            <element signature="e#15549#15570#0" expanded="false" />
             <element signature="method#createButtons#0;class#Server#0" expanded="false" />
             <element signature="method#soundDoor#0;class#Server#0" expanded="false" />
             <element signature="method#soundClick#0;class#Server#0" expanded="false" />
             <element signature="method#soundZvonok#0;class#Server#0" expanded="false" />
             <element signature="method#time#0;class#Server#0" expanded="false" />
+            <element signature="method#readAllowedClients#0;class#Server#0" expanded="false" />
             <element signature="method#writeStatusOFButtons#0;class#Server#0" expanded="false" />
             <element signature="method#readStatusOFButtons#0;class#Server#0" expanded="false" />
             <element signature="method#readListofPersons#0;class#Server#0" expanded="false" />
             <element signature="method#choiceWhoAndWhen#0;class#Server#0" expanded="false" />
-            <element signature="method#OnlineListener#0;class#Server#0" expanded="false" />
-            <element signature="class#28754:30340" expanded="false" />
-            <element signature="method#actionPerformed#0;class#28754:30340" expanded="false" />
             <element signature="method#OfflineListener#0;class#Server#0" expanded="false" />
-            <element signature="class#30785:31606" expanded="false" />
-            <element signature="method#actionPerformed#0;class#30785:31606" expanded="false" />
+            <element signature="class#30789:31610" expanded="false" />
+            <element signature="method#actionPerformed#0;class#30789:31610" expanded="false" />
             <element signature="method#main#0;class#Server#0" expanded="false" />
           </folding>
         </state>
@@ -1250,14 +1223,11 @@
             <element signature="method#time#0;class#Client#0" expanded="false" />
             <element signature="method#switchchoice#0;class#Client#0" expanded="false" />
             <element signature="e#15011#15037#0" expanded="false" />
-            <element signature="e#15641#15667#0" expanded="false" />
+            <element signature="e#15645#15671#0" expanded="false" />
             <element signature="class#StatusButtons#0;class#Client#0" expanded="false" />
             <element signature="method#StatusButtons#0;class#StatusButtons#0;class#Client#0" expanded="false" />
-            <element signature="method#OnlineListener#0;class#Client#0" expanded="false" />
-            <element signature="e#17861#17905#0" expanded="false" />
-            <element signature="class#18012:19357" expanded="false" />
-            <element signature="method#actionPerformed#0;class#18012:19357" expanded="false" />
-            <element signature="e#18126#18180#0" expanded="false" />
+            <element signature="e#17865#17909#0" expanded="false" />
+            <element signature="e#18130#18184#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1339,7 +1309,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1977">
           <caret line="362" column="29" selection-start-line="362" selection-start-column="29" selection-end-line="362" selection-end-column="29" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1351,35 +1320,48 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="803">
+          <caret line="81" column="35" selection-start-line="81" selection-start-column="35" selection-end-line="81" selection-end-column="35" />
+          <folding>
+            <element signature="docComment;class#Main#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Server.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="637" column="80" selection-start-line="637" selection-start-column="77" selection-end-line="637" selection-end-column="80" />
+        <state relative-caret-position="260">
+          <caret line="219" column="29" selection-start-line="219" selection-start-column="20" selection-end-line="219" selection-end-column="29" />
           <folding>
+            <element signature="method#Server#0;class#Server#0" expanded="false" />
             <element signature="class#CreateServer#0;class#Server#0" expanded="false" />
             <element signature="method#CreateServer#0;class#CreateServer#0;class#Server#0" expanded="false" />
             <element signature="e#2554#2650#0" expanded="false" />
-            <element signature="method#switchchoice#0;class#NewConnection#0;class#Server#0" expanded="false" />
             <element signature="method#run#0;class#NewConnection#0;class#Server#0" expanded="false" />
             <element signature="method#close#0;class#NewConnection#0;class#Server#0" expanded="false" />
             <element signature="class#StatusButtons#0;class#Server#0" expanded="false" />
             <element signature="method#StatusButtons#0;class#StatusButtons#0;class#Server#0" expanded="false" />
-            <element signature="e#15545#15566#0" expanded="false" />
+            <element signature="class#Migalkaa#0;class#Server#0" expanded="false" />
+            <element signature="method#Migalkaa#0;class#Migalkaa#0;class#Server#0" expanded="false" />
+            <element signature="method#action#0;class#Migalkaa#0;class#Server#0" expanded="false" />
+            <element signature="method#run#0;class#Migalkaa#0;class#Server#0" expanded="false" />
+            <element signature="method#createWindow#0;class#Server#0" expanded="false" />
+            <element signature="e#15549#15570#0" expanded="false" />
             <element signature="method#createButtons#0;class#Server#0" expanded="false" />
             <element signature="method#soundDoor#0;class#Server#0" expanded="false" />
             <element signature="method#soundClick#0;class#Server#0" expanded="false" />
             <element signature="method#soundZvonok#0;class#Server#0" expanded="false" />
             <element signature="method#time#0;class#Server#0" expanded="false" />
+            <element signature="method#readAllowedClients#0;class#Server#0" expanded="false" />
             <element signature="method#writeStatusOFButtons#0;class#Server#0" expanded="false" />
             <element signature="method#readStatusOFButtons#0;class#Server#0" expanded="false" />
             <element signature="method#readListofPersons#0;class#Server#0" expanded="false" />
             <element signature="method#choiceWhoAndWhen#0;class#Server#0" expanded="false" />
-            <element signature="method#OnlineListener#0;class#Server#0" expanded="false" />
-            <element signature="class#28754:30340" expanded="false" />
-            <element signature="method#actionPerformed#0;class#28754:30340" expanded="false" />
             <element signature="method#OfflineListener#0;class#Server#0" expanded="false" />
-            <element signature="class#30785:31606" expanded="false" />
-            <element signature="method#actionPerformed#0;class#30785:31606" expanded="false" />
+            <element signature="class#30789:31610" expanded="false" />
+            <element signature="method#actionPerformed#0;class#30789:31610" expanded="false" />
             <element signature="method#main#0;class#Server#0" expanded="false" />
           </folding>
         </state>
@@ -1387,8 +1369,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Client.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="250" column="39" selection-start-line="250" selection-start-column="32" selection-end-line="250" selection-end-column="39" />
+        <state relative-caret-position="326">
+          <caret line="539" column="33" selection-start-line="539" selection-start-column="24" selection-end-line="539" selection-end-column="33" />
           <folding>
             <element signature="docComment;class#Client#0" expanded="false" />
             <element signature="method#window#0;class#Client#0" expanded="false" />
@@ -1399,22 +1381,19 @@
             <element signature="method#time#0;class#Client#0" expanded="false" />
             <element signature="method#switchchoice#0;class#Client#0" expanded="false" />
             <element signature="e#15011#15037#0" expanded="false" />
-            <element signature="e#15641#15667#0" expanded="false" />
+            <element signature="e#15645#15671#0" expanded="false" />
             <element signature="class#StatusButtons#0;class#Client#0" expanded="false" />
             <element signature="method#StatusButtons#0;class#StatusButtons#0;class#Client#0" expanded="false" />
-            <element signature="method#OnlineListener#0;class#Client#0" expanded="false" />
-            <element signature="e#17861#17905#0" expanded="false" />
-            <element signature="class#18012:19357" expanded="false" />
-            <element signature="method#actionPerformed#0;class#18012:19357" expanded="false" />
-            <element signature="e#18126#18180#0" expanded="false" />
+            <element signature="e#17865#17909#0" expanded="false" />
+            <element signature="e#18130#18184#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Client120.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="497" column="17" selection-start-line="497" selection-start-column="16" selection-end-line="497" selection-end-column="17" />
+        <state relative-caret-position="260">
+          <caret line="643" column="35" selection-start-line="643" selection-start-column="26" selection-end-line="643" selection-end-column="35" />
           <folding>
             <element signature="docComment;class#Client120#0" expanded="false" />
             <element signature="e#1012#1082#0" expanded="false" />
@@ -1434,8 +1413,8 @@
             <element signature="e#20553#20610#0" expanded="false" />
             <element signature="method#switchchoice#0;class#Client120#0" expanded="false" />
             <element signature="e#21007#21033#0" expanded="false" />
-            <element signature="e#21637#21663#0" expanded="false" />
-            <element signature="e#21819#21863#0" expanded="false" />
+            <element signature="e#21641#21667#0" expanded="false" />
+            <element signature="e#21823#21867#0" expanded="false" />
             <element signature="method#close#0;class#Client120#0" expanded="false" />
             <element signature="method#time#0;class#Client120#0" expanded="false" />
           </folding>
@@ -1444,8 +1423,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/EspiaJL.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="557" column="36" selection-start-line="557" selection-start-column="33" selection-end-line="557" selection-end-column="36" />
+        <state relative-caret-position="260">
+          <caret line="662" column="33" selection-start-line="662" selection-start-column="24" selection-end-line="662" selection-end-column="33" />
           <folding>
             <element signature="docComment;class#EspiaJL#0" expanded="false" />
             <element signature="method#buttons#0;class#EspiaJL#0" expanded="false" />
@@ -1463,23 +1442,10 @@
             <element signature="e#21476#21533#0" expanded="false" />
             <element signature="method#switchchoice#0;class#EspiaJL#0" expanded="false" />
             <element signature="e#21929#21955#0" expanded="false" />
-            <element signature="e#22559#22585#0" expanded="false" />
-            <element signature="method#OnlineListener#0;class#EspiaJL#0" expanded="false" />
-            <element signature="e#22741#22785#0" expanded="false" />
-            <element signature="class#22892:24232" expanded="false" />
-            <element signature="method#actionPerformed#0;class#22892:24232" expanded="false" />
+            <element signature="e#22563#22589#0" expanded="false" />
+            <element signature="e#22745#22789#0" expanded="false" />
             <element signature="method#close#0;class#EspiaJL#0" expanded="false" />
             <element signature="method#time#0;class#EspiaJL#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1496">
-          <caret line="81" column="35" selection-start-line="81" selection-start-column="35" selection-end-line="81" selection-end-column="35" />
-          <folding>
-            <element signature="docComment;class#Main#0" expanded="false" />
           </folding>
         </state>
       </provider>

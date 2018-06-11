@@ -11,7 +11,7 @@
 
 
 import com.google.gson.Gson;
-import jdk.nashorn.internal.scripts.JO;
+import org.apache.commons.io.FileUtils;
 
 import javax.sound.sampled.*;
 import javax.swing.*;
@@ -21,15 +21,23 @@ import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.net.SocketException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+
+import static com.oracle.jrockit.jfr.DataType.UTF8;
 
 
 public class Server extends JFrame {
+    Properties properties = new Properties();
+    File client = new File("clients.txt");
+    File logFile = new File("log.txt");
     String name;
     JFrame frame;
     JButton b1,b2,b3,b4,b5,b6,b7,b8;
@@ -43,10 +51,25 @@ public class Server extends JFrame {
     transient Clip clipClick,clipZvonok,clipDoor;
     transient public List  listOfClients = Collections.synchronizedList(new ArrayList<NewConnection>());;
     ArrayList<String> allowedClients;
+    transient Logger logger= Logger.getLogger(Main.class.getName());
 
+    private void createLogger() {
+        SimpleFormatter txtFormatter = new SimpleFormatter ();
+        FileHandler fh = null;
+        try {
+            fh = new FileHandler("logFile.txt",true);
+            fh.setFormatter(txtFormatter);
+            logger.addHandler(fh);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null,"Помилка при створенні логгера");
 
+        }
+    }
 
     public Server(String name) throws IOException, ClassNotFoundException {
+        properties.load(getClass().getResourceAsStream("/pr.properties"));
+        createLogger();
+
         this.name = name;
         readListofPersons();
         createWindow();
@@ -68,9 +91,12 @@ public class Server extends JFrame {
         private Socket socket;
         private ServerSocket server;
 
+
         public CreateServer (){
+
             try{
-                server = new ServerSocket(6666);
+                server = new ServerSocket((Integer.valueOf(properties.getProperty("port"))));
+                System.out.println(server.getLocalPort());
                 frame.repaint();
                 int temp = 0;//временная переменная для if else что ниже
 
@@ -109,24 +135,49 @@ public class Server extends JFrame {
                     socket=server.accept();
                     System.out.println("Somebody is connected");
                     NewConnection connection = new NewConnection(socket);
+                    connection.setName(socket.getRemoteSocketAddress().toString().substring(1,socket.getRemoteSocketAddress().toString().indexOf(":")));
+
                     connection.start();
                     listOfClients.add(connection);
+                    FileUtils.writeStringToFile(client,"","UTF8");
+                    for (int i = 0; i <listOfClients.size() ; i++) {
+                        FileUtils.writeStringToFile(client,listOfClients.get(i).toString()+"\r\n","UTF8",true);
+                    }
+                    //FileUtils.writeStringToFile(client,listOfClients.toString()+"\r\n","UTF8");
+
+
+
+
+
+
+
                 }
 
             }catch (Exception e){
-                e.printStackTrace();
+                StackTraceElement [] stack = e.getStackTrace();
+                logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
+                JOptionPane.showMessageDialog(null,"Помилка при створенні серверу");
             }
         }
     }
+
     public class NewConnection extends Thread{
 
         private Socket socket;
         DataOutputStream dataout;
+
         DataInputStream datain;
 
+        @Override
+        public String toString() {
+            return socket.getInetAddress().toString();
+        }
 
         public NewConnection(Socket socket){
             this.socket = socket;
+            //Thread.currentThread().setName("asa");
+            //System.out.println(currentThread());
+
         }
 
         private void readData() throws IOException {
@@ -186,10 +237,24 @@ public class Server extends JFrame {
                             break;
                     }
                     writeStatusOFButtons();
-                }catch(Exception e){
-                    e.printStackTrace();
-                    System.out.println(Thread.currentThread()+" disconnected");
+                } catch (SocketException e){
+                    logger.log(Level.INFO,Thread.currentThread().getName()+" disconnected\r\n");
                     listOfClients.remove(currentThread());
+                    FileUtils.writeStringToFile(client,"","UTF8");
+                    for (int i = 0; i <listOfClients.size() ; i++) {
+                        FileUtils.writeStringToFile(client,listOfClients.get(i).toString()+"\r\n","UTF8",true);
+                    }
+                    countClients.setText("Кількість клієнтів - " +listOfClients.size());
+                    close();
+                    break;
+                } catch(Exception e){
+                    StackTraceElement [] stack = e.getStackTrace();
+                    logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected\r\n");
+                    listOfClients.remove(currentThread());
+                    FileUtils.writeStringToFile(client,"","UTF8");
+                    for (int i = 0; i <listOfClients.size() ; i++) {
+                        FileUtils.writeStringToFile(client,listOfClients.get(i).toString()+"\r\n","UTF8",true);
+                    }
                     countClients.setText("Кількість клієнтів - " +listOfClients.size());
                     close();
                     break;
@@ -228,9 +293,6 @@ public class Server extends JFrame {
             }
             //пересылаем полученные данные всем пользователям из списка лист
 
-
-
-
             for (int i = 0; i <listOfClients.size() ; i++) {
                 try{
                     NewConnection con = (NewConnection)listOfClients.get(i);
@@ -238,8 +300,10 @@ public class Server extends JFrame {
                     con.dataout.flush();
 
                 }catch(Exception e){
-                    JOptionPane.showMessageDialog(null,"Misstake in concorrensy");
-                    e.printStackTrace();
+                    StackTraceElement [] stack = e.getStackTrace();
+                    logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
+                    //JOptionPane.showMessageDialog(null,"Помилка в передачі даних до всіх клієнтів. Зверніться до Адміністратора.");
+                    //e.printStackTrace();
                 }
             }
         }
@@ -250,6 +314,7 @@ public class Server extends JFrame {
 
                 datain = new DataInputStream(socket.getInputStream());
                 dataout = new DataOutputStream(socket.getOutputStream());
+
                 countClients.setText("Кількість клієнтів - " +listOfClients.size());
                 //отправка состояния кнопок клиентам
                 Gson gson = new Gson();
@@ -261,11 +326,20 @@ public class Server extends JFrame {
                         b4.getText(),b5.getText(),b6.getText(),b7.getText(),b8.getText());
                 dataout.writeUTF(gson.toJson(statusButtons));
                 dataout.flush();
+                CheckingSignal checkingSignal = new CheckingSignal(this);
+                checkingSignal.setDaemon(true);
+                checkingSignal.start();
                 readData();
+                checkingSignal.interrupt();
 
-            }catch (IOException e){
-                e.printStackTrace();
-                JOptionPane.showMessageDialog(null,"Mistake in method run()");
+
+            } catch(SocketException e){
+                StackTraceElement [] stack = e.getStackTrace();
+                logger.log(Level.INFO,Thread.currentThread().getName()+" disconnected \r\n");
+            } catch (IOException e){
+                StackTraceElement [] stack = e.getStackTrace();
+                logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
+                //JOptionPane.showMessageDialog(null,"Помилка при створенні з'єднання з клієнтом "+Thread.currentThread());
             }
 
         }
@@ -277,7 +351,9 @@ public class Server extends JFrame {
                 socket.close();
 
             } catch (IOException e) {
-                JOptionPane.showMessageDialog(null,"Stream don't close");
+                StackTraceElement [] stack = e.getStackTrace();
+                logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
+                JOptionPane.showMessageDialog(null,"Помилка при зикритті потоків. ");
             }
 
 
@@ -361,7 +437,9 @@ public class Server extends JFrame {
                     }
 
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    //e.printStackTrace();
+                    StackTraceElement [] stack = e.getStackTrace();
+                    logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
                 }
             }
             migalka--;
@@ -378,14 +456,18 @@ public class Server extends JFrame {
                 if (b.equals(b7)) action(countMigalka[3]);
                 if (b.equals(b8)) action(countMigalka[3]);
             }catch (Exception e){
-                JOptionPane.showMessageDialog(null,"Одновременное нажатие");
-                e.printStackTrace();
+                StackTraceElement [] stack = e.getStackTrace();
+                logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
+                /*JOptionPane.showMessageDialog(null,"Проінформуйте про дану помилку адміністратора");
+                e.printStackTrace();*/
             }
 
 
         }
 
     }
+
+
 
     private void createWindow() {
         //Создаю основно окно
@@ -420,8 +502,10 @@ try{
         b8.setText(listOfPersons.get(7));}
 
 catch(Exception e){
-    e.printStackTrace();
-    JOptionPane.showMessageDialog(null,e.getMessage());
+    StackTraceElement [] stack = e.getStackTrace();
+    logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
+    /*e.printStackTrace();
+    JOptionPane.showMessageDialog(null,"Помилка при створенні інтерфейсу");*/
 }
 listOfPersons.clear();
 
@@ -575,57 +659,7 @@ listOfPersons.clear();
         frame.add(b8who);
 
     }
-    public void soundDoor(){
-        try {
-            clipDoor = AudioSystem.getClip();
-            InputStream input = new BufferedInputStream(getClass().getResourceAsStream("door.wav"));
-            AudioInputStream ais = AudioSystem.getAudioInputStream(input);
-            clipDoor.open(ais);
-            clipDoor.start();
-            ais.close();
-        } catch (LineUnavailableException e) {
-            e.printStackTrace();
-        } catch (UnsupportedAudioFileException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
-    }
-    public void soundClick(){
-        try {
-            clipClick = AudioSystem.getClip();
-            InputStream input = new BufferedInputStream(getClass().getResourceAsStream("click1.wav"));
-            AudioInputStream ais = AudioSystem.getAudioInputStream(input);
-            clipClick.open(ais);
-            clipClick.start();
-            ais.close();
-        } catch (LineUnavailableException e) {
-            e.printStackTrace();
-        } catch (UnsupportedAudioFileException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-    public void soundZvonok(){
-        try {
-            clipZvonok = AudioSystem.getClip();
-            InputStream input = new BufferedInputStream(getClass().getResourceAsStream("zv1.wav"));
-            AudioInputStream ais = AudioSystem.getAudioInputStream(input);
-            clipZvonok.open(ais);
-            clipZvonok.start();
-            ais.close();
-        } catch (LineUnavailableException e) {
-            e.printStackTrace();
-        } catch (UnsupportedAudioFileException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
     public String time (){
         DateFormat df = new SimpleDateFormat("dd.MM HH:mm");
         Date currenttime = Calendar.getInstance().getTime();
@@ -639,18 +673,20 @@ listOfPersons.clear();
             Scanner scanner = new Scanner(in, "Cp1251");
             allowedClients = new ArrayList<>();
             while (scanner.hasNext()) {
-                String client = scanner.nextLine();
-                allowedClients.add(client.trim());
+                String[] client = scanner.nextLine().split(":");
+                allowedClients.add(client[0]);
             }
             scanner.close();
         }
             catch(Exception e){
-                e.printStackTrace();
-                System.out.println("Ошибка при считывании файл разрешенных клиентов");
+                StackTraceElement [] stack = e.getStackTrace();
+                logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
+                /*e.printStackTrace();
+                System.out.println("Помилка при зчитуванні файлу дозволених клієнтів");*/
             }
 
     }
-    private  void writeStatusOFButtons() throws IOException {
+    private void writeStatusOFButtons() throws IOException {
         StatusButtons statusButtons = new StatusButtons(b1.getBackground(),b2.getBackground(),b3.getBackground(),
                 b4.getBackground(),b5.getBackground(),b6.getBackground(),b7.getBackground(),b8.getBackground(),
                 b1info.getText(),b2info.getText(),b3info.getText(),b4info.getText(),
@@ -664,7 +700,7 @@ listOfPersons.clear();
         out.close();
         file.close();
     }
-    private  void readStatusOFButtons() throws IOException, ClassNotFoundException {
+    private void readStatusOFButtons() throws IOException, ClassNotFoundException {
         try{
 
             FileInputStream input = new FileInputStream("status.txt");
@@ -701,12 +737,14 @@ listOfPersons.clear();
             b8who.setText(statusButtons.b8who);
 
         }catch (Exception e){
-            JOptionPane.showMessageDialog(null,"Misstake from read class");
-            System.out.println("Misstake from read class");
+            StackTraceElement [] stack = e.getStackTrace();
+            logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
+            //JOptionPane.showMessageDialog(null,"Помилка при зчитуванні попередніх змін.");
+
         }
 
     }
-    private  void readListofPersons() throws IOException, ClassNotFoundException {
+    private void readListofPersons() throws IOException, ClassNotFoundException {
         try{
 
             InputStream in = getClass().getResourceAsStream("/list.txt");
@@ -716,22 +754,15 @@ listOfPersons.clear();
             while (scanner.hasNext()) {
                 String line = scanner.nextLine();
                 listOfPersons.add(line.trim());
-
             }
             scanner.close();
             in.close();
 
-
-
-
-
-
-
-
-
         }catch (Exception e){
-            e.printStackTrace();
-            System.out.println("Misstake from read list");
+            StackTraceElement [] stack = e.getStackTrace();
+            logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
+            /*e.printStackTrace();
+            JOptionPane.showMessageDialog(null,"Помилка під зчитування файлу з списком керівників");*/
         }
 
     }
@@ -749,7 +780,134 @@ listOfPersons.clear();
         bwho.setText(who.toString());
     }
 
+    public void soundDoor(){
+        try {
+            clipDoor = AudioSystem.getClip();
+            InputStream input = new BufferedInputStream(getClass().getResourceAsStream("door.wav"));
+            AudioInputStream ais = AudioSystem.getAudioInputStream(input);
+            clipDoor.open(ais);
+            clipDoor.start();
+            ais.close();
+        } catch (LineUnavailableException e) {
+            StackTraceElement [] stack = e.getStackTrace();
+            logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
+            /*JOptionPane.showMessageDialog(null,"Помилка під час програвання аудіо (1)");
+            e.printStackTrace();*/
+        } catch (UnsupportedAudioFileException e) {
+            StackTraceElement [] stack = e.getStackTrace();
+            logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
+           /* JOptionPane.showMessageDialog(null,"Помилка під час програвання аудіо (2)");
+            e.printStackTrace();*/
+        } catch (IOException e) {
+            StackTraceElement [] stack = e.getStackTrace();
+            logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
+            /*JOptionPane.showMessageDialog(null,"Помилка під час програвання аудіо (3)");
+            e.printStackTrace();*/
+        }
 
+    }
+    public void soundClick(){
+        try {
+            clipClick = AudioSystem.getClip();
+            InputStream input = new BufferedInputStream(getClass().getResourceAsStream("click1.wav"));
+            AudioInputStream ais = AudioSystem.getAudioInputStream(input);
+            clipClick.open(ais);
+            clipClick.start();
+            ais.close();
+        } catch (LineUnavailableException e) {
+            JOptionPane.showMessageDialog(null,"Помилка під час програвання аудіо (1)");
+            e.printStackTrace();
+        } catch (UnsupportedAudioFileException e) {
+            JOptionPane.showMessageDialog(null,"Помилка під час програвання аудіо (2)");
+            e.printStackTrace();
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null,"Помилка під час програвання аудіо (3)");
+            e.printStackTrace();
+        }
+
+    }
+    public void soundZvonok(){
+        try {
+            clipZvonok = AudioSystem.getClip();
+            InputStream input = new BufferedInputStream(getClass().getResourceAsStream("zv1.wav"));
+            AudioInputStream ais = AudioSystem.getAudioInputStream(input);
+            clipZvonok.open(ais);
+            clipZvonok.start();
+            ais.close();
+        } catch (LineUnavailableException e) {
+            StackTraceElement [] stack = e.getStackTrace();
+            logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
+            /*JOptionPane.showMessageDialog(null,"Помилка під час програвання аудіо (1)");
+            e.printStackTrace();*/
+        } catch (UnsupportedAudioFileException e) {
+            StackTraceElement [] stack = e.getStackTrace();
+            logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
+            /*JOptionPane.showMessageDialog(null,"Помилка під час програвання аудіо (2)");
+            e.printStackTrace();*/
+        } catch (IOException e) {
+            StackTraceElement [] stack = e.getStackTrace();
+            logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
+            /*JOptionPane.showMessageDialog(null,"Помилка під час програвання аудіо (3)");
+            e.printStackTrace();*/
+        }
+
+    }
+
+    private class CheckingSignal extends Thread{
+        NewConnection con;
+        public CheckingSignal(NewConnection connection){
+            this.con = connection;
+        }
+
+        @Override
+        public void run() {
+            this.setName(con.getName()+"(signal)");
+            while(!Thread.currentThread().isInterrupted()){
+                try {
+                    con.dataout.writeUTF("Connection test");
+                    con.dataout.flush();
+                    Thread.currentThread().sleep(10000);
+
+                } catch (IOException e) {
+                    StackTraceElement [] stack = e.getStackTrace();
+                    logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
+                    break;
+                } catch (InterruptedException e) {
+                    logger.log(Level.INFO,Thread.currentThread().getName()+" shutdown, becouse main Thread was closed \r\n");
+                   // System.out.println(Thread.currentThread().getName()+" shutdown, becouse main Thread was closed");
+                    break;
+                }
+
+            }
+
+           /* int tempForException = 0;
+            try {
+
+                while (true) {
+
+                    for (int i = 0; i < listOfClients.size(); i++) {
+                        NewConnection con = (NewConnection) listOfClients.get(i);
+                        tempForException = i;
+                        con.dataout.writeUTF("Connection test");
+                        con.dataout.flush();
+                        //JOptionPane.showMessageDialog(null, "Something sent");
+                        //JOptionPane.showMessageDialog(null,"Данные отправлены клиенту");
+                    }
+                    Thread.currentThread().sleep(15000);
+                }
+
+
+            } catch (IOException e) {
+                StackTraceElement [] stack = e.getStackTrace();
+                logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
+                //JOptionPane.showMessageDialog(null,"Помилка (код 05/1). Клієнт не може отримувати дані. Перевірте з'єднання." + listOfClients.get(tempForException));
+            } catch (InterruptedException e) {
+                StackTraceElement [] stack = e.getStackTrace();
+                logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
+                //JOptionPane.showMessageDialog(null,"Помилка (код 05/2). Клієнт не може отримувати дані. Перевірте з'єднання.");
+            }*/
+        }
+    }
     private ActionListener OnlineListener (JButton b,JButton binfo, JButton bwho) {
 
         /*Создаю слушатель для кнопок
@@ -793,7 +951,10 @@ listOfPersons.clear();
                     }
 
                 }catch (Exception ex){
-                    ex.printStackTrace();
+                    StackTraceElement [] stack = ex.getStackTrace();
+                    logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
+                    /*ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null,"Помилка в передачі даних.(клас OnlineListener)");*/
 
                 }
 
@@ -838,23 +999,23 @@ listOfPersons.clear();
                        // writeStatusOFButtons(s,"status.txt");
 
                     }catch (Exception ex){
-                        ex.printStackTrace();
+                        StackTraceElement [] stack = ex.getStackTrace();
+                        logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
+                        /*ex.printStackTrace();
+                        JOptionPane.showMessageDialog(null,"Помилка в передачі даних.(клас OflineListener)");*/
                     }
 
 
                 }
             };
         } catch (Exception e) {
-            e.printStackTrace();
+            StackTraceElement [] stack = e.getStackTrace();
+            logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
+            /*e.printStackTrace();
+            JOptionPane.showMessageDialog(null,"Помилка в передачі даних.(клас OflineListener)");*/
         }
         return actionListener;
     }
-
-
-
-
-
-
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         Server s = new Server("121(ЦУС)");

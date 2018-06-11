@@ -1,3 +1,5 @@
+import jdk.nashorn.internal.scripts.JO;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -9,6 +11,7 @@ import java.net.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static javafx.scene.input.KeyCode.J;
 import static javax.swing.JOptionPane.showInputDialog;
 
 /**
@@ -28,6 +31,7 @@ public class Main extends JFrame {
             InputStream in = getClass().getResourceAsStream("/listIP.txt");
             readListIP(in);
         }catch (UnknownHostException e) {
+            JOptionPane.showMessageDialog(null,e.getMessage());
             e.printStackTrace();
         }
         catch (Exception e) {
@@ -36,28 +40,41 @@ public class Main extends JFrame {
         }
 
         try {
+
             if(listIP.contains(currentIP)){
                 if (currentIP.equals(ipKPP)){
                     new Client("КПП-1");
+
                 }
                 if (currentIP.equals(ipKTP)){
                     new Client("КПП-2(КТП)");
+
                 }
                 if (currentIP.equals(ipServer)){
                     new Server("ЦУС(121)");
+
                 }
                 if (currentIP.equals(ip120)){
                     new Client120("ЦУС(120)");
+
                 }
             }
             else {
-                new EspiaJL();
+                if (currentIP.equals("127.0.0.1")){
+                    JOptionPane.showMessageDialog(null,"Компьютер не підключений до мережі. Перевірте підключення та спробуйте щє раз.");
+                }
+                else {
+                    new EspiaJL();
+                }
+
 
             }
         } catch (IOException e) {
             e.printStackTrace();
+            JOptionPane.showMessageDialog(null,e.getMessage());
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+            JOptionPane.showMessageDialog(null,e.getMessage());
         }
 
 

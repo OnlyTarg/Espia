@@ -12,21 +12,27 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.net.SocketException;
+import java.net.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Properties;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 /**
  * Created by CleBo on 23.11.2017.
  */
 public class Client extends JFrame{
+    Properties properties = new Properties();
     String name;
+    String currentIP = Inet4Address.getLocalHost().getHostAddress();
     JFrame frame;
+    boolean isAllowed;
     InetAddress ipAddress;
     Socket socket;
     DataInputStream datain;
@@ -35,9 +41,26 @@ public class Client extends JFrame{
     JButton b1info,b2info,b3info,b4info,b5info,b6info,b7info,b8info;
     JButton b1who,b2who,b3who,b4who,b5who,b6who,b7who,b8who;
     JLabel connectionStatus= new JLabel("Статус соединения");
+    transient Logger logger= Logger.getLogger(Main.class.getName());
+
+    private void createLogger() {
+        SimpleFormatter txtFormatter = new SimpleFormatter ();
+        FileHandler fh = null;
+        try {
+            fh = new FileHandler("logFile.txt",true);
+            fh.setFormatter(txtFormatter);
+            logger.addHandler(fh);
+        } catch (IOException e) {
+            StackTraceElement [] stack = e.getStackTrace();
+            logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
+           /* JOptionPane.showMessageDialog(null,"Помилка при створенні логгера");*/
+
+        }
+    }
 
     public Client(String s) throws IOException {
-
+        createLogger();
+        properties.load(getClass().getResourceAsStream("/pr.properties"));
         this.name = s;
         window();
         buttons();
@@ -240,21 +263,27 @@ public class Client extends JFrame{
 
     }
     private void createClient() {
+        isAllowed = false;
         boolean isConnected = false;
         //Создаю клиент
         try {
+            int serverPort = Integer.valueOf(properties.getProperty("port"));
+            String address = properties.getProperty("ServerIP"); //10.244.1.121    localhost
             while(!isConnected) {
-                int serverPort = 6666;
-                String address = "10.244.1.121"; //10.244.1.121    localhost
+
                 connectionStatus.setForeground(Color.BLACK);
                 connectionStatus.setText("З'єднання......");
                 ipAddress = InetAddress.getByName(address);
                 frame.repaint();
                 try{
                 socket = new Socket(ipAddress, serverPort);
+                    socket.setSoTimeout(30000);
+                //socket = new Socket(ipAddress, serverPort);
                     isConnected=true;
                 }catch (Exception e){
-                    e.printStackTrace();
+                    StackTraceElement [] stack = e.getStackTrace();
+                    logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
+                   /* e.printStackTrace();*/
                     //connectionStatus.setText("");
                     for (int i = 30; i >= 0; i--) {
                         connectionStatus.setText("З'єднання "+i);
@@ -267,7 +296,8 @@ public class Client extends JFrame{
 
             datain = new DataInputStream(socket.getInputStream());
             dataout = new DataOutputStream(socket.getOutputStream());
-
+            dataout.writeUTF("candidate_"+currentIP);
+            dataout.flush();
 
 
 
@@ -276,48 +306,66 @@ public class Client extends JFrame{
             connectionStatus.setBounds(32,490,200,30);
             connectionStatus.setText("Підключено");
             //Прием состояния кнопок (цвет кнопок) сервера на момент подключения
+            frame.setVisible(false);
             Gson gson = new Gson();
-            String msg = datain.readUTF();
-            StatusButtons statusButtons = gson.fromJson(msg,StatusButtons.class);
-            b1.setBackground(statusButtons.b1);
-            b2.setBackground(statusButtons.b2);
-            b3.setBackground(statusButtons.b3);
-            b4.setBackground(statusButtons.b4);
-            b5.setBackground(statusButtons.b5);
-            b6.setBackground(statusButtons.b6);
-            b7.setBackground(statusButtons.b7);
-            b8.setBackground(statusButtons.b8);
-            b1info.setText(statusButtons.b1info);
-            b2info.setText(statusButtons.b2info);
-            b3info.setText(statusButtons.b3info);
-            b4info.setText(statusButtons.b4info);
-            b5info.setText(statusButtons.b5info);
-            b6info.setText(statusButtons.b6info);
-            b7info.setText(statusButtons.b7info);
-            b8info.setText(statusButtons.b8info);
-            b1who.setText(statusButtons.b1who);
-            b2who.setText(statusButtons.b2who);
-            b3who.setText(statusButtons.b3who);
-            b4who.setText(statusButtons.b4who);
-            b5who.setText(statusButtons.b5who);
-            b6who.setText(statusButtons.b6who);
-            b7who.setText(statusButtons.b7who);
-            b8who.setText(statusButtons.b8who);
-            b1.setText(statusButtons.b1name);
-            b2.setText(statusButtons.b2name);
-            b3.setText(statusButtons.b3name);
-            b4.setText(statusButtons.b4name);
-            b5.setText(statusButtons.b5name);
-            b6.setText(statusButtons.b6name);
-            b7.setText(statusButtons.b7name);
-            b8.setText(statusButtons.b8name);
+            String msg="";
+            int checker = 0;
+            while (checker!=1) {
+                try {
+                    msg = datain.readUTF();
+                } catch (IOException e) {
+                    StackTraceElement [] stack = e.getStackTrace();
+                    logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
+                    /*JOptionPane.showMessageDialog(null, e.getMessage());*/
+
+                }
+                if (msg.length() > 500) {
+                    StatusButtons statusButtons = gson.fromJson(msg, StatusButtons.class);
+                    b1.setBackground(statusButtons.b1);
+                    b2.setBackground(statusButtons.b2);
+                    b3.setBackground(statusButtons.b3);
+                    b4.setBackground(statusButtons.b4);
+                    b5.setBackground(statusButtons.b5);
+                    b6.setBackground(statusButtons.b6);
+                    b7.setBackground(statusButtons.b7);
+                    b8.setBackground(statusButtons.b8);
+                    b1info.setText(statusButtons.b1info);
+                    b2info.setText(statusButtons.b2info);
+                    b3info.setText(statusButtons.b3info);
+                    b4info.setText(statusButtons.b4info);
+                    b5info.setText(statusButtons.b5info);
+                    b6info.setText(statusButtons.b6info);
+                    b7info.setText(statusButtons.b7info);
+                    b8info.setText(statusButtons.b8info);
+                    b1who.setText(statusButtons.b1who);
+                    b2who.setText(statusButtons.b2who);
+                    b3who.setText(statusButtons.b3who);
+                    b4who.setText(statusButtons.b4who);
+                    b5who.setText(statusButtons.b5who);
+                    b6who.setText(statusButtons.b6who);
+                    b7who.setText(statusButtons.b7who);
+                    b8who.setText(statusButtons.b8who);
+                    b1.setText(statusButtons.b1name);
+                    b2.setText(statusButtons.b2name);
+                    b3.setText(statusButtons.b3name);
+                    b4.setText(statusButtons.b4name);
+                    b5.setText(statusButtons.b5name);
+                    b6.setText(statusButtons.b6name);
+                    b7.setText(statusButtons.b7name);
+                    b8.setText(statusButtons.b8name);
+                    checker = 1;
+                }
+            }
 
         } catch (Exception e) {
+            StackTraceElement [] stack = e.getStackTrace();
+            logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
             connectionStatus.setForeground(Color.RED);
             connectionStatus.setBounds(15,490,200,30);
             connectionStatus.setText("Помилка (код 01)");
+            close();
             //JOptionPane.showMessageDialog(null,"Ошибка при подключении к серверу");
-            e.printStackTrace();
+            //e.printStackTrace();
             //JOptionPane.showMessageDialog(null,"Данные не приняты ");
             //JOptionPane.showMessageDialog(null,e.getMessage());
 
@@ -332,37 +380,67 @@ public class Client extends JFrame{
             frame.dispose();
             new Client(name);
         } catch (Exception e1) {
-            e1.printStackTrace();
+            StackTraceElement [] stack = e1.getStackTrace();
+            logger.log(Level.INFO,e1.toString()+"\r\n"+stack[0]+"\r\n");
+            //e1.printStackTrace();
         }
     }
     public void readData()  {
-        //JOptionPane.showMessageDialog(null,"Вхождение в метод чтения данных");
+
         //Метод принимает данные от сервера
         String value = "";
         while(true){
-            //JOptionPane.showMessageDialog(null,"Вхождение в цикл while ");
+
             try{
                 value = datain.readUTF();
                 System.out.println(value);
 
             }catch (SocketException e){
+                StackTraceElement [] stack = e.getStackTrace();
+                logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
                 connectionStatus.setForeground(Color.RED);
                 connectionStatus.setBounds(15,490,200,30);
                 connectionStatus.setText("Помилка (код 02)");
+                /*JOptionPane.showMessageDialog(null,"asaa");
+                JOptionPane.showMessageDialog(null,e.getMessage());
+                JOptionPane.showMessageDialog(null,e.getStackTrace());
+                JOptionPane.showMessageDialog(null,e.fillInStackTrace());
+                JOptionPane.showMessageDialog(null,e.getStackTrace());*/
+                try {
+                    Thread.currentThread().sleep(2000);
+                } catch (InterruptedException e1) {
+                     stack = e.getStackTrace();
+                    logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
 
-                restart();
+                }
+                frame.dispose();
+                close();
+                if(isAllowed){
+                    restart();
+                }
 
                 break;
 
+
             } catch (Exception e) {
+                StackTraceElement [] stack = e.getStackTrace();
+                logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
                 connectionStatus.setForeground(Color.RED);
                 connectionStatus.setBounds(15,490,200,30);
                 connectionStatus.setText("Помилка (код 03)");
-
+                close();
                 restart();
 
                 break;
             }
+            /*finally {
+                try {
+                    socket.close();
+                } catch (IOException e) {
+                    JOptionPane.showMessageDialog(null,"Potok don't close");
+
+                }
+            }*/
 
             try {
                 String[] values = value.split("_");
@@ -399,20 +477,50 @@ public class Client extends JFrame{
                     case "430":
                         switchchoice(values[1], values[2],values[3], b8, b8info, b8who);
                         break;
+                    case "Connection test":
+                        //DO NOTHING;
+                        break;
+                    case "isAllowed":
+                        System.out.println(values[1]);
+                        if(values[1].equals("YES")){
+                            isAllowed=true;
+                            frame.setVisible(true);
+
+
+                        }else {
+                            frame.setVisible(false);
+                            close();
+                            JOptionPane.showMessageDialog(null,"Вхід не дозволено. Зверніться до адміністратора.");
+                            isAllowed=false;
+                            frame.dispose();
+                        }
+                        break;
 
 
                 }
-            }catch (Exception e){
-                e.printStackTrace();
+
+            }
+            catch (IllegalArgumentException e){
+                StackTraceElement [] stack = e.getStackTrace();
+                logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
+                // DO NOTHING
+
+            }
+            catch (Exception e){
+                StackTraceElement [] stack = e.getStackTrace();
+                logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
+                //e.printStackTrace();
                 connectionStatus.setForeground(Color.RED);
                 connectionStatus.setBounds(15,490,200,30);
                 connectionStatus.setText("Помилка (код 04)");
                 //JOptionPane.showMessageDialog(null,"Помилка (код 04)");
                 //JOptionPane.showMessageDialog(null,e.getMessage());
+                close();
                 break;
 
 
             }
+
         }
 
 
@@ -425,7 +533,9 @@ public class Client extends JFrame{
             socket.close();
 
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null,"Потоки не закрыты");
+            StackTraceElement [] stack = e.getStackTrace();
+            logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
+            //JOptionPane.showMessageDialog(null,"Потоки не закриті");
         }
 
 
@@ -442,8 +552,10 @@ public class Client extends JFrame{
         try {
             new Client(name);
         } catch (IOException e) {
-
-            e.printStackTrace();
+            StackTraceElement [] stack = e.getStackTrace();
+            logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
+            /*e.printStackTrace();
+            JOptionPane.showMessageDialog(null,"Помилка під час перезапуску");*/
         }
 
     }
@@ -534,7 +646,9 @@ public class Client extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 //JOptionPane.showMessageDialog(null,"Кнопка нажата");
                 //soundClick();
+                //JOptionPane.showMessageDialog(null,"Онлайн слушатель");
                 try {
+
                     if (b.getBackground().equals(Color.RED)) {
 
                         binfo.setText(time());
@@ -543,7 +657,7 @@ public class Client extends JFrame{
                         //JOptionPane.showMessageDialog(null,"Данные изменены");
                         dataout.writeUTF(b.getY()+"_green" + "_"+name+"_"+time());
                         dataout.flush();
-                        //JOptionPane.showMessageDialog(null,"Данные отправлены");
+                       // JOptionPane.showMessageDialog(null,"Данные отправлены");
                     }
                     else {
                         binfo.setText(time());
@@ -555,7 +669,11 @@ public class Client extends JFrame{
                         //JOptionPane.showMessageDialog(null,"Данные отправлены");
                     }
                 } catch (IOException e1) {
-                    e1.printStackTrace();
+                    StackTraceElement [] stack = e1.getStackTrace();
+                    logger.log(Level.INFO,e1.toString()+"\r\n"+stack[0]+"\r\n");
+                   /* e1.printStackTrace();*/
+                    close();
+                    /*JOptionPane.showMessageDialog(null,"Помилка при передачі даних до серверу");*/
                 }
             }
         };
@@ -569,15 +687,6 @@ public class Client extends JFrame{
 
 
     }
-
-
-
-
-
-
-
-
-
 
     //методы для воспросизведения звуков
    /* public void soundDoor(){

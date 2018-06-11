@@ -6,7 +6,7 @@
 
     <groupId>com.Pav.Avdonin</groupId>
     <artifactId>Espia</artifactId>
-    <version>1.4</version><name>PControl</name>
+    <version>1.8</version><name>PControl</name>
 
 
     <properties>
@@ -116,5 +116,12 @@
             <artifactId>gson</artifactId>
             <version>2.8.2</version>
         </dependency>
+        <dependency>
+
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.6</version>
+        </dependency>
+
     </dependencies>
 </project>

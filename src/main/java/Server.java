@@ -35,6 +35,7 @@ import static com.oracle.jrockit.jfr.DataType.UTF8;
 
 
 public class Server extends JFrame {
+    SQL sql;
     Properties properties = new Properties();
     File client = new File("clients.txt");
     File logFile = new File("log.txt");
@@ -66,10 +67,11 @@ public class Server extends JFrame {
         }
     }
 
-    public Server(String name) throws IOException, ClassNotFoundException {
-        properties.load(getClass().getResourceAsStream("/pr.properties"));
-        createLogger();
-
+    public Server(String name)  {
+         //sql = new SQL();
+        try {
+            properties.load(getClass().getResourceAsStream("/pr.properties"));
+               createLogger();
         this.name = name;
         readListofPersons();
         createWindow();
@@ -80,7 +82,14 @@ public class Server extends JFrame {
         repaint();
         File file = new File("status.txt");
         if(file.length()>0){
-        readStatusOFButtons();
+            readStatusOFButtons();
+        }
+        } catch (IOException e) {
+            StackTraceElement [] stack = e.getStackTrace();
+            logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
+        } catch (ClassNotFoundException e) {
+            StackTraceElement [] stack = e.getStackTrace();
+            logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
         }
 
         CreateServer ser = new CreateServer();
@@ -139,6 +148,8 @@ public class Server extends JFrame {
 
                     connection.start();
                     listOfClients.add(connection);
+
+
                     FileUtils.writeStringToFile(client,"","UTF8");
                     for (int i = 0; i <listOfClients.size() ; i++) {
                         FileUtils.writeStringToFile(client,listOfClients.get(i).toString()+"\r\n","UTF8",true);
@@ -479,6 +490,8 @@ public class Server extends JFrame {
         frame.setSize(340,560);
         frame.setVisible(true);
         frame.setResizable(false);
+        frame.setAlwaysOnTop(true);
+
     }
     private void createButtons() {
         //Создаю основные кнопки и одну надпись

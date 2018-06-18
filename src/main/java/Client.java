@@ -30,7 +30,14 @@ import java.util.logging.SimpleFormatter;
 public class Client extends JFrame{
     Properties properties = new Properties();
     String name;
-    String currentIP = Inet4Address.getLocalHost().getHostAddress();
+    String currentIP;
+    {
+        try {
+            currentIP = Inet4Address.getLocalHost().getHostAddress();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+    }
     JFrame frame;
     boolean isAllowed;
     InetAddress ipAddress;
@@ -42,25 +49,17 @@ public class Client extends JFrame{
     JButton b1who,b2who,b3who,b4who,b5who,b6who,b7who,b8who;
     JLabel connectionStatus= new JLabel("Статус соединения");
     transient Logger logger= Logger.getLogger(Main.class.getName());
+    Point point = null;
 
-    private void createLogger() {
-        SimpleFormatter txtFormatter = new SimpleFormatter ();
-        FileHandler fh = null;
+    public Client(String s, Point point)  {
+        this.point=point;
+        createLogger();
         try {
-            fh = new FileHandler("logFile.txt",true);
-            fh.setFormatter(txtFormatter);
-            logger.addHandler(fh);
+            properties.load(getClass().getResourceAsStream("/pr.properties"));
         } catch (IOException e) {
             StackTraceElement [] stack = e.getStackTrace();
-            logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
-           /* JOptionPane.showMessageDialog(null,"Помилка при створенні логгера");*/
-
+            logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n it's some problem with loading properties file");
         }
-    }
-
-    public Client(String s) throws IOException {
-        createLogger();
-        properties.load(getClass().getResourceAsStream("/pr.properties"));
         this.name = s;
         window();
         buttons();
@@ -73,14 +72,53 @@ public class Client extends JFrame{
 
 
 
+
+    public Client(String s)  {
+        createLogger();
+        try {
+            properties.load(getClass().getResourceAsStream("/pr.properties"));
+        } catch (IOException e) {
+            StackTraceElement [] stack = e.getStackTrace();
+            logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n it's some problem with loading properties file");
+        }
+        this.name = s;
+        window();
+        buttons();
+        createClient();
+        //JOptionPane.showMessageDialog(null,"прохождение в конструкторе между созданием клиента и чтением данных");
+        readData();
+        close();
+    }
+
+    private void createLogger() {
+        SimpleFormatter txtFormatter = new SimpleFormatter ();
+        FileHandler fh = null;
+        try {
+            fh = new FileHandler("logFile.txt",true);
+            fh.setFormatter(txtFormatter);
+            logger.addHandler(fh);
+        } catch (IOException e) {
+            StackTraceElement [] stack = e.getStackTrace();
+            logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
+            /* JOptionPane.showMessageDialog(null,"Помилка при створенні логгера");*/
+
+        }
+    }
+
+
     public void window() {
         //Создаю основное окно
         frame = new JFrame();
+        if(point!=null){
+            frame.setLocation(point);
+        }
+
         frame.setTitle("Espia "+name);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(178,570);
         frame.setVisible(true);
         frame.setResizable(true);
+        frame.setAlwaysOnTop(true);
 
     }
     public void buttons() {
@@ -374,15 +412,17 @@ public class Client extends JFrame{
 
     }
 
-    private void restart() {
+    private void restart(){
         try {
             Thread.currentThread().sleep(3000);
+            point = frame.getLocation();
             frame.dispose();
-            new Client(name);
+            new Client (name,point);
         } catch (Exception e1) {
             StackTraceElement [] stack = e1.getStackTrace();
             logger.log(Level.INFO,e1.toString()+"\r\n"+stack[0]+"\r\n");
-            //e1.printStackTrace();
+            /*JOptionPane.showMessageDialog(null,e1.getMessage());
+            e1.printStackTrace();*/
         }
     }
     public void readData()  {
@@ -548,17 +588,7 @@ public class Client extends JFrame{
 
     }
 
-    private void refresh() {
-        try {
-            new Client(name);
-        } catch (IOException e) {
-            StackTraceElement [] stack = e.getStackTrace();
-            logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
-            /*e.printStackTrace();
-            JOptionPane.showMessageDialog(null,"Помилка під час перезапуску");*/
-        }
 
-    }
     public void switchchoice (String color,String name,String when, JButton b,JButton binfo,JButton bwho){
         if (color.equals("green")) {
             if (b.getBackground().equals(Color.GREEN)) {

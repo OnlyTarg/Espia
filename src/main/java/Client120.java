@@ -1,4 +1,5 @@
 import com.google.gson.Gson;
+import jdk.nashorn.internal.scripts.JO;
 
 import javax.sound.sampled.*;
 import javax.swing.*;
@@ -6,10 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
-import java.net.Inet4Address;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.net.SocketException;
+import java.net.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -26,7 +24,15 @@ import java.util.logging.SimpleFormatter;
 public class Client120 {
     Properties properties = new Properties();
     String name;
-    String currentIP = Inet4Address.getLocalHost().getHostAddress();
+    String currentIP;
+    {
+        try {
+            currentIP = Inet4Address.getLocalHost().getHostAddress();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+    }
+
     JFrame frame;
     InetAddress ipAddress;
     Socket socket;
@@ -42,25 +48,21 @@ public class Client120 {
     // повторно нажата кнопка до переставания мигания после первого нажаия
     // порядковый номер элемента массива соответсвует номеру кнопки (начинае с первого елемента). Тоесть countMigalka[1] Соответствует первой кнопке
     transient Logger logger= Logger.getLogger(Main.class.getName());
+    Point point = null;
 
-    private void createLogger() {
-        SimpleFormatter txtFormatter = new SimpleFormatter ();
-        FileHandler fh = null;
-        try {
-            fh = new FileHandler("logFile.txt",true);
-            fh.setFormatter(txtFormatter);
-            logger.addHandler(fh);
-        } catch (IOException e) {
-            StackTraceElement [] stack = e.getStackTrace();
-            logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
-           /* JOptionPane.showMessageDialog(null,"Помилка при створенні логгера");*/
 
-        }
-    }
-
-    public Client120(String name) throws IOException {
+    public Client120(String name, Point point) {
+        this.point=point;
+        /*framePossitionX = x;
+        framePossitionX = y;*/
         createLogger();
-        properties.load(getClass().getResourceAsStream("/pr.properties"));
+        try {
+            properties.load(getClass().getResourceAsStream("/pr.properties"));
+        } catch (IOException e) {
+            e.printStackTrace();
+            StackTraceElement [] stack = e.getStackTrace();
+            logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n it's some problem with loading properties file");
+        }
         this.name = name;
         window();
         buttons();
@@ -70,16 +72,57 @@ public class Client120 {
         close();
     }
 
+
+
+    public Client120(String name)  {
+        createLogger();
+        try {
+            properties.load(getClass().getResourceAsStream("/pr.properties"));
+        } catch (IOException e) {
+            e.printStackTrace();
+            StackTraceElement [] stack = e.getStackTrace();
+            logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n it's some problem with loading properties file");
+        }
+        this.name = name;
+        window();
+        buttons();
+        createClient();
+        //JOptionPane.showMessageDialog(null,"прохождение в конструкторе между созданием клиента и чтением данных");
+        readData();
+        close();
+    }
+    private void createLogger() {
+        SimpleFormatter txtFormatter = new SimpleFormatter ();
+        FileHandler fh = null;
+        try {
+            fh = new FileHandler("logFile.txt",true);
+            fh.setFormatter(txtFormatter);
+            logger.addHandler(fh);
+        } catch (IOException e) {
+            e.printStackTrace();
+            StackTraceElement [] stack = e.getStackTrace();
+            logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
+            /* JOptionPane.showMessageDialog(null,"Помилка при створенні логгера");*/
+
+        }
+    }
+
     public void window() {
         //Создаю основное окно
         frame = new JFrame();
+        if(point!=null){
+        frame.setLocation(point);
+        }
         frame.setTitle("Espia120");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(340, 560);
         frame.setVisible(true);
         frame.setResizable(false);
+        frame.setAlwaysOnTop(true);
 
     }
+
+
 
     public void buttons() {
         //Создаю все кнопки
@@ -271,16 +314,19 @@ public class Client120 {
             clipDoor.start();
             ais.close();
         } catch (LineUnavailableException e) {
+            e.printStackTrace();
             StackTraceElement [] stack = e.getStackTrace();
             logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
             /*JOptionPane.showMessageDialog(null,e.getMessage());
             e.printStackTrace();*/
         } catch (UnsupportedAudioFileException e) {
+            e.printStackTrace();
             StackTraceElement [] stack = e.getStackTrace();
             logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
            /* JOptionPane.showMessageDialog(null,e.getMessage());
             e.printStackTrace();*/
         } catch (IOException e) {
+            e.printStackTrace();
             StackTraceElement [] stack = e.getStackTrace();
             logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
             /*JOptionPane.showMessageDialog(null,e.getMessage());
@@ -298,16 +344,19 @@ public class Client120 {
             clipClick.start();
             ais.close();
         } catch (LineUnavailableException e) {
+            e.printStackTrace();
            /* JOptionPane.showMessageDialog(null,e.getMessage());
             e.printStackTrace();*/
             StackTraceElement [] stack = e.getStackTrace();
             logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
         } catch (UnsupportedAudioFileException e) {
+            e.printStackTrace();
            /* JOptionPane.showMessageDialog(null,e.getMessage());
             e.printStackTrace();*/
             StackTraceElement [] stack = e.getStackTrace();
             logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
         } catch (IOException e) {
+            e.printStackTrace();
            /* JOptionPane.showMessageDialog(null,e.getMessage());
             e.printStackTrace();*/
             StackTraceElement [] stack = e.getStackTrace();
@@ -325,16 +374,19 @@ public class Client120 {
             clipZvonok.start();
             ais.close();
         } catch (LineUnavailableException e) {
+            e.printStackTrace();
          /*   JOptionPane.showMessageDialog(null,e.getMessage());
             e.printStackTrace();*/
             StackTraceElement [] stack = e.getStackTrace();
             logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
         } catch (UnsupportedAudioFileException e) {
+            e.printStackTrace();
         /*    JOptionPane.showMessageDialog(null,e.getMessage());
             e.printStackTrace();*/
             StackTraceElement [] stack = e.getStackTrace();
             logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
         } catch (IOException e) {
+            e.printStackTrace();
             /*JOptionPane.showMessageDialog(null,e.getMessage());
             e.printStackTrace();*/
             StackTraceElement [] stack = e.getStackTrace();
@@ -384,6 +436,7 @@ public class Client120 {
                     }
 
                 } catch (InterruptedException e) {
+                    e.printStackTrace();
                     /*JOptionPane.showMessageDialog(null,e.getMessage());
                     e.printStackTrace();*/
                     StackTraceElement [] stack = e.getStackTrace();
@@ -405,6 +458,7 @@ public class Client120 {
                 if (b.equals(b7)) action(countMigalka[3]);
                 if (b.equals(b8)) action(countMigalka[3]);
             } catch (Exception e) {
+                e.printStackTrace();
                 /*JOptionPane.showMessageDialog(null, "Подвійне натискання");
                 e.printStackTrace();*/
                 StackTraceElement [] stack = e.getStackTrace();
@@ -472,7 +526,7 @@ public class Client120 {
             boolean isConnected = false;
             isAllowed = false;
             int serverPort = Integer.valueOf(properties.getProperty("port"));
-            String address = properties.getProperty("ServerIP"); //10.244.1.121    localhost
+            String address = properties.getProperty("ServerIP"); //10.244.1.121    localhost  properties.getProperty("ServerIP");
             while(!isConnected) {
 
                 connectionStatus.setForeground(Color.BLACK);
@@ -480,10 +534,11 @@ public class Client120 {
                 ipAddress = InetAddress.getByName(address);
                 frame.repaint();
                 try{
-                    socket = new Socket(ipAddress, serverPort);
+                    socket = new Socket(ipAddress, serverPort); // ipAddress
                     socket.setSoTimeout(30000);
                     isConnected=true;
                 }catch (Exception e){
+                    e.printStackTrace();
                     //e.printStackTrace();
                     StackTraceElement [] stack = e.getStackTrace();
                     logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
@@ -517,6 +572,7 @@ public class Client120 {
                 try {
                     msg = datain.readUTF();
                 } catch (IOException e) {
+                    e.printStackTrace();
                     StackTraceElement [] stack = e.getStackTrace();
                     logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
                 /*    JOptionPane.showMessageDialog(null, e.getMessage());*/
@@ -561,6 +617,7 @@ public class Client120 {
             }
 
         } catch (Exception e) {
+            e.printStackTrace();
             StackTraceElement [] stack = e.getStackTrace();
             logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
             connectionStatus.setForeground(Color.RED);
@@ -579,9 +636,13 @@ public class Client120 {
     private void restart(){
         try {
             Thread.currentThread().sleep(3000);
+            point = frame.getLocation();
+           /* int x = (int)frame.getLocation().getX();
+            int y = (int)frame.getLocation().getY();*/
             frame.dispose();
-            new Client120 (name);
+            new Client120 (name,point);
         } catch (Exception e1) {
+            e1.printStackTrace();
             StackTraceElement [] stack = e1.getStackTrace();
             logger.log(Level.INFO,e1.toString()+"\r\n"+stack[0]+"\r\n");
             /*JOptionPane.showMessageDialog(null,e1.getMessage());
@@ -602,12 +663,12 @@ public class Client120 {
 
 
             } catch (SocketException e) {
+                e.printStackTrace();
                 StackTraceElement [] stack = e.getStackTrace();
                 logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
                 connectionStatus.setForeground(Color.RED);
                 connectionStatus.setBounds(15, 490, 200, 30);
                 connectionStatus.setText("Помилка (код 02)");
-
                 frame.dispose();
                 close();
                 if(isAllowed){
@@ -617,11 +678,15 @@ public class Client120 {
                 break;
 
             } catch (Exception e) {
+
+                e.printStackTrace();
                 StackTraceElement [] stack = e.getStackTrace();
                 logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
                 connectionStatus.setForeground(Color.RED);
                 connectionStatus.setBounds(15, 490, 200, 30);
                 connectionStatus.setText("Помилка (код 03)");
+
+                frame.dispose();
 
                 restart();
 
@@ -685,12 +750,14 @@ public class Client120 {
                 }
             }
             catch (IllegalArgumentException e){
+                e.printStackTrace();
                 StackTraceElement [] stack = e.getStackTrace();
                 logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
                 // DO NOTHING
 
             }
             catch (Exception e) {
+                e.printStackTrace();
                 StackTraceElement [] stack = e.getStackTrace();
                 logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
                 e.printStackTrace();
@@ -772,6 +839,7 @@ public class Client120 {
                         //JOptionPane.showMessageDialog(null,"Данные отправлены");
                     }
                 } catch (IOException e1) {
+                    e1.printStackTrace();
                     StackTraceElement [] stack = e1.getStackTrace();
                     logger.log(Level.INFO,e1.toString()+"\r\n"+stack[0]+"\r\n");
                     //e1.printStackTrace();
@@ -788,6 +856,7 @@ public class Client120 {
             socket.close();
 
         } catch (IOException e) {
+            e.printStackTrace();
             StackTraceElement [] stack = e.getStackTrace();
             logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
             //JOptionPane.showMessageDialog(null, "Потоки не закриті");

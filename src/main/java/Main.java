@@ -39,46 +39,34 @@ public class Main extends JFrame {
             System.out.println("Ошибка при считывании файла");
         }
 
-        try {
+        if(listIP.contains(currentIP)){
+            if (currentIP.equals(ipKPP)){
+                new Client("КПП-1");
 
-            if(listIP.contains(currentIP)){
-                if (currentIP.equals(ipKPP)){
-                    new Client("КПП-1");
+            }
+            if (currentIP.equals(ipKTP)){
+                new Client("КПП-2(КТП)");
 
-                }
-                if (currentIP.equals(ipKTP)){
-                    new Client("КПП-2(КТП)");
+            }
+            if (currentIP.equals(ipServer)){
+                new Server("ЦУС(121)");
 
-                }
-                if (currentIP.equals(ipServer)){
-                    new Server("ЦУС(121)");
+            }
+            if (currentIP.equals(ip120)){
+                new Client120("ЦУС(120)");
 
-                }
-                if (currentIP.equals(ip120)){
-                    new Client120("ЦУС(120)");
-
-                }
+            }
+        }
+        else {
+            if (currentIP.equals("127.0.0.1")){
+                JOptionPane.showMessageDialog(null,"Компьютер не підключений до мережі. Перевірте підключення та спробуйте щє раз.");
             }
             else {
-                if (currentIP.equals("127.0.0.1")){
-                    JOptionPane.showMessageDialog(null,"Компьютер не підключений до мережі. Перевірте підключення та спробуйте щє раз.");
-                }
-                else {
-                    new EspiaJL();
-                }
-
-
+                new EspiaJL();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null,e.getMessage());
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null,e.getMessage());
+
+
         }
-
-
-
 
 
     }

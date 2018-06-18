@@ -1,0 +1,305 @@
+июн 18, 2018 6:50:57 PM Server readStatusOFButtons
+INFO: java.io.InvalidClassException: Server; local class incompatible: stream classdesc serialVersionUID = 8388205115339570668, local class serialVersionUID = 6092427316278895009
+java.io.ObjectStreamClass.initNonProxy(ObjectStreamClass.java:687)
+Thread[main,5,main] disconnected 
+
+июн 18, 2018 6:59:02 PM Server$NewConnection readData
+INFO: java.io.NotSerializableException: SQL
+java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
+/127.0.0.1 disconnected
+
+июн 18, 2018 6:59:02 PM Server$CheckingSignal run
+INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
+
+июн 18, 2018 7:15:38 PM Server$NewConnection readData
+INFO: java.io.NotSerializableException: SQL
+java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
+/127.0.0.1 disconnected
+
+июн 18, 2018 7:15:38 PM Server$CheckingSignal run
+INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
+
+июн 18, 2018 7:18:52 PM Server readStatusOFButtons
+INFO: java.io.WriteAbortedException: writing aborted; java.io.NotSerializableException: SQL
+java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1571)
+Thread[main,5,main] disconnected 
+
+июн 18, 2018 7:19:15 PM Server$NewConnection readData
+INFO: java.io.NotSerializableException: SQL
+java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
+/127.0.0.1 disconnected
+
+июн 18, 2018 7:19:15 PM Server$CheckingSignal run
+INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
+
+июн 18, 2018 7:23:33 PM Server$NewConnection readData
+INFO: java.io.NotSerializableException: SQL
+java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
+/127.0.0.1 disconnected
+
+июн 18, 2018 7:23:33 PM Server$CheckingSignal run
+INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
+
+июн 18, 2018 7:26:05 PM Server$NewConnection readData
+INFO: java.io.NotSerializableException: SQL
+java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
+/127.0.0.1 disconnected
+
+июн 18, 2018 7:26:05 PM Server$CheckingSignal run
+INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
+
+июн 18, 2018 7:27:05 PM Server readStatusOFButtons
+INFO: java.io.WriteAbortedException: writing aborted; java.io.NotSerializableException: SQL
+java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1571)
+Thread[main,5,main] disconnected 
+
+июн 18, 2018 7:28:00 PM Server$NewConnection readData
+INFO: java.io.NotSerializableException: SQL
+java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
+/127.0.0.1 disconnected
+
+июн 18, 2018 7:28:00 PM Server$CheckingSignal run
+INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
+
+июн 18, 2018 7:28:03 PM Server$NewConnection readData
+INFO: java.io.NotSerializableException: SQL
+java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
+/127.0.0.1 disconnected
+
+июн 18, 2018 7:28:03 PM Server$CheckingSignal run
+INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
+
+июн 18, 2018 7:28:07 PM Server$NewConnection readData
+INFO: java.io.NotSerializableException: SQL
+java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
+/127.0.0.1 disconnected
+
+июн 18, 2018 7:28:11 PM Server$NewConnection readData
+INFO: java.io.NotSerializableException: SQL
+java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
+/127.0.0.1 disconnected
+
+июн 18, 2018 7:28:11 PM Server$CheckingSignal run
+INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
+
+июн 18, 2018 7:28:14 PM Server$NewConnection readData
+INFO: java.io.NotSerializableException: SQL
+java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
+/127.0.0.1 disconnected
+
+июн 18, 2018 7:28:14 PM Server$CheckingSignal run
+INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
+
+июн 18, 2018 7:28:18 PM Server$NewConnection readData
+INFO: java.io.NotSerializableException: SQL
+java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
+/127.0.0.1 disconnected
+
+июн 18, 2018 7:28:18 PM Server$CheckingSignal run
+INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
+
+июн 18, 2018 7:28:21 PM Server$NewConnection readData
+INFO: java.io.NotSerializableException: SQL
+java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
+/127.0.0.1 disconnected
+
+июн 18, 2018 7:28:21 PM Server$CheckingSignal run
+INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
+
+июн 18, 2018 7:28:25 PM Server$NewConnection readData
+INFO: java.io.NotSerializableException: SQL
+java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
+/127.0.0.1 disconnected
+
+июн 18, 2018 7:28:28 PM Server$NewConnection readData
+INFO: java.io.NotSerializableException: SQL
+java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
+/127.0.0.1 disconnected
+
+июн 18, 2018 7:28:32 PM Server$NewConnection readData
+INFO: java.io.NotSerializableException: SQL
+java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
+/127.0.0.1 disconnected
+
+июн 18, 2018 7:28:32 PM Server$CheckingSignal run
+INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
+
+июн 18, 2018 7:28:36 PM Server$NewConnection readData
+INFO: java.io.NotSerializableException: SQL
+java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
+/127.0.0.1 disconnected
+
+июн 18, 2018 7:28:39 PM Server$NewConnection readData
+INFO: java.io.NotSerializableException: SQL
+java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
+/127.0.0.1 disconnected
+
+июн 18, 2018 7:28:39 PM Server$CheckingSignal run
+INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
+
+июн 18, 2018 7:28:43 PM Server$NewConnection readData
+INFO: java.io.NotSerializableException: SQL
+java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
+/127.0.0.1 disconnected
+
+июн 18, 2018 7:28:43 PM Server$CheckingSignal run
+INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
+
+июн 18, 2018 7:28:46 PM Server$NewConnection readData
+INFO: java.io.NotSerializableException: SQL
+java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
+/127.0.0.1 disconnected
+
+июн 18, 2018 7:28:46 PM Server$CheckingSignal run
+INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
+
+июн 18, 2018 7:28:50 PM Server$NewConnection readData
+INFO: java.io.NotSerializableException: SQL
+java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
+/127.0.0.1 disconnected
+
+июн 18, 2018 7:28:50 PM Server$CheckingSignal run
+INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
+
+июн 18, 2018 7:28:54 PM Server$NewConnection readData
+INFO: java.io.NotSerializableException: SQL
+java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
+/127.0.0.1 disconnected
+
+июн 18, 2018 7:28:54 PM Server$CheckingSignal run
+INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
+
+июн 18, 2018 7:28:57 PM Server$NewConnection readData
+INFO: java.io.NotSerializableException: SQL
+java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
+/127.0.0.1 disconnected
+
+июн 18, 2018 7:28:57 PM Server$CheckingSignal run
+INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
+
+июн 18, 2018 7:29:01 PM Server$NewConnection readData
+INFO: java.io.NotSerializableException: SQL
+java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
+/127.0.0.1 disconnected
+
+июн 18, 2018 7:29:01 PM Server$CheckingSignal run
+INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
+
+июн 18, 2018 7:29:04 PM Server$NewConnection readData
+INFO: java.io.NotSerializableException: SQL
+java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
+/127.0.0.1 disconnected
+
+июн 18, 2018 7:29:04 PM Server$CheckingSignal run
+INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
+
+июн 18, 2018 7:29:08 PM Server$NewConnection readData
+INFO: java.io.NotSerializableException: SQL
+java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
+/127.0.0.1 disconnected
+
+июн 18, 2018 7:29:08 PM Server$CheckingSignal run
+INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
+
+июн 18, 2018 7:29:11 PM Server$NewConnection readData
+INFO: java.io.NotSerializableException: SQL
+java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
+/127.0.0.1 disconnected
+
+июн 18, 2018 7:29:11 PM Server$CheckingSignal run
+INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
+
+июн 18, 2018 7:29:15 PM Server$NewConnection readData
+INFO: java.io.NotSerializableException: SQL
+java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
+/127.0.0.1 disconnected
+
+июн 18, 2018 7:29:15 PM Server$CheckingSignal run
+INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
+
+июн 18, 2018 7:29:18 PM Server$NewConnection readData
+INFO: java.io.NotSerializableException: SQL
+java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
+/127.0.0.1 disconnected
+
+июн 18, 2018 7:29:18 PM Server$CheckingSignal run
+INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
+
+июн 18, 2018 7:29:22 PM Server$NewConnection readData
+INFO: java.io.NotSerializableException: SQL
+java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
+/127.0.0.1 disconnected
+
+июн 18, 2018 7:29:22 PM Server$CheckingSignal run
+INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
+
+июн 18, 2018 7:29:25 PM Server$NewConnection readData
+INFO: java.io.NotSerializableException: SQL
+java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
+/127.0.0.1 disconnected
+
+июн 18, 2018 7:29:25 PM Server$CheckingSignal run
+INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
+
+июн 18, 2018 7:29:29 PM Server$NewConnection readData
+INFO: java.io.NotSerializableException: SQL
+java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
+/127.0.0.1 disconnected
+
+июн 18, 2018 7:29:29 PM Server$CheckingSignal run
+INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
+
+июн 18, 2018 7:29:33 PM Server$NewConnection readData
+INFO: java.io.NotSerializableException: SQL
+java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
+/127.0.0.1 disconnected
+
+июн 18, 2018 7:29:33 PM Server$CheckingSignal run
+INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
+
+июн 18, 2018 7:39:28 PM Server readStatusOFButtons
+INFO: java.io.WriteAbortedException: writing aborted; java.io.NotSerializableException: SQL
+java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1571)
+Thread[main,5,main] disconnected 
+
+июн 18, 2018 7:39:35 PM Server$NewConnection readData
+INFO: java.io.NotSerializableException: SQL
+java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
+/127.0.0.1 disconnected
+
+июн 18, 2018 7:39:35 PM Server$CheckingSignal run
+INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
+
+июн 18, 2018 7:41:20 PM Server readStatusOFButtons
+INFO: java.io.WriteAbortedException: writing aborted; java.io.NotSerializableException: SQL
+java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1571)
+Thread[main,5,main] disconnected 
+
+июн 18, 2018 7:41:25 PM Server$NewConnection readData
+INFO: java.io.EOFException
+java.io.DataInputStream.readUnsignedShort(DataInputStream.java:340)
+/127.0.0.1 disconnected
+
+июн 18, 2018 7:41:25 PM Server$CheckingSignal run
+INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
+
+июн 18, 2018 7:41:56 PM Server$NewConnection readData
+INFO: java.io.EOFException
+java.io.DataInputStream.readUnsignedShort(DataInputStream.java:340)
+/127.0.0.1 disconnected
+
+июн 18, 2018 7:41:56 PM Server$CheckingSignal run
+INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
+
+июн 18, 2018 7:44:10 PM Client120 createClient
+INFO: java.net.ConnectException: Connection refused: connect
+java.net.DualStackPlainSocketImpl.connect0(Native Method)
+
+июн 18, 2018 7:44:51 PM Client120 readData
+INFO: java.net.SocketException: Connection reset
+java.net.SocketInputStream.read(SocketInputStream.java:210)
+
+июн 18, 2018 7:44:55 PM Client120 createClient
+INFO: java.net.ConnectException: Connection refused: connect
+java.net.DualStackPlainSocketImpl.connect0(Native Method)
+

@@ -6,10 +6,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
-import java.net.Inet4Address;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.net.SocketException;
+import java.net.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -37,11 +34,55 @@ public class EspiaJL {
     JButton b1who, b2who, b3who, b4who, b5who, b6who, b7who, b8who;
     JLabel connectionStatus = new JLabel("Статус соединения");
     transient Clip clipClick, clipZvonok, clipDoor;
-    String currentIP = Inet4Address.getLocalHost().getHostAddress();
+    String currentIP;
+    {
+        try {
+            currentIP = Inet4Address.getLocalHost().getHostAddress();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+    }
+
     int [] countMigalka = {0,0,0,0,0,0,0,0,0}; //Счетчик для выхода из потока в случае, если была
     // повторно нажата кнопка до переставания мигания после первого нажаия
     // порядковый номер элемента массива соответсвует номеру кнопки (начинае с первого елемента). Тоесть countMigalka[1] Соответствует первой кнопке
     transient Logger logger= Logger.getLogger(Main.class.getName());
+    Point point = null;
+
+
+    public EspiaJL(Point point) {
+        this.point = point;
+        createLogger();
+        try {
+            properties.load(getClass().getResourceAsStream("/pr.properties"));
+        } catch (IOException e) {
+            StackTraceElement[] stack = e.getStackTrace();
+            logger.log(Level.INFO, e.toString() + "\r\n" + stack[0] + "\r\n it's some problem with loading properties file");
+        }
+        window();
+        buttons();
+        createClient();
+        readData();
+        close();
+    }
+
+
+
+
+    public EspiaJL()  {
+        createLogger();
+        try {
+            properties.load(getClass().getResourceAsStream("/pr.properties"));
+        } catch (IOException e) {
+            StackTraceElement [] stack = e.getStackTrace();
+            logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n it's some problem with loading properties file");
+        }
+        window();
+            buttons();
+            createClient();
+            readData();
+            close();
+    }
 
     private void createLogger() {
         SimpleFormatter txtFormatter = new SimpleFormatter ();
@@ -53,31 +94,22 @@ public class EspiaJL {
         } catch (IOException e) {
             StackTraceElement [] stack = e.getStackTrace();
             logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
-           /* JOptionPane.showMessageDialog(null,"Помилка при створенні логгера");*/
+            /* JOptionPane.showMessageDialog(null,"Помилка при створенні логгера");*/
 
         }
     }
-
-
-    public EspiaJL() throws IOException {
-        createLogger();
-        properties.load(getClass().getResourceAsStream("/pr.properties"));
-            window();
-            buttons();
-            createClient();
-            readData();
-            close();
-    }
-
-
     public void window() {
         //Создаю основное окно
         frame = new JFrame();
+        if(point!=null){
+            frame.setLocation(point);
+        }
         frame.setTitle("EspiaJL");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(227,560);
         frame.setVisible(true);
         frame.setResizable(false);
+        frame.setAlwaysOnTop(true);
 
     }
     public void buttons() {
@@ -561,17 +593,27 @@ public class EspiaJL {
 
     }
     private void restart() {
-
-            try {
-                Thread.currentThread().sleep(3000);
-                frame.dispose();
-                new EspiaJL();
-            } catch (Exception e1) {
-                StackTraceElement [] stack = e1.getStackTrace();
-                logger.log(Level.INFO,e1.toString()+"\r\n"+stack[0]+"\r\n");
-                /*JOptionPane.showMessageDialog(null,e1.getStackTrace());
-                e1.printStackTrace();*/
-            }
+        try {
+            Thread.currentThread().sleep(3000);
+            point = frame.getLocation();
+            frame.dispose();
+            new EspiaJL (point);
+        } catch (Exception e1) {
+            StackTraceElement [] stack = e1.getStackTrace();
+            logger.log(Level.INFO,e1.toString()+"\r\n"+stack[0]+"\r\n");
+            /*JOptionPane.showMessageDialog(null,e1.getMessage());
+            e1.printStackTrace();*/
+        }
+//           try {
+//                Thread.currentThread().sleep(3000);
+//                frame.dispose();
+//                new EspiaJL();
+//            } catch (Exception e1) {
+//                StackTraceElement [] stack = e1.getStackTrace();
+//                logger.log(Level.INFO,e1.toString()+"\r\n"+stack[0]+"\r\n");
+//                /*JOptionPane.showMessageDialog(null,e1.getStackTrace());
+//                e1.printStackTrace();*/
+//            }
 
     }
     public void readData() {
@@ -590,13 +632,6 @@ public class EspiaJL {
                 connectionStatus.setForeground(Color.RED);
                 connectionStatus.setBounds(30, 490, 200, 30);
                 connectionStatus.setText("Помилка (код 02)");
-                try {
-                    Thread.currentThread().sleep(2000);
-                } catch (InterruptedException e1) {
-                   stack = e.getStackTrace();
-                    logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
-
-                }
                 frame.dispose();
                 close();
                 if(isAllowed){

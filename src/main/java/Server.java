@@ -18,6 +18,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -35,10 +37,10 @@ import static com.oracle.jrockit.jfr.DataType.UTF8;
 
 
 public class Server extends JFrame {
-    SQL sql;
+
+    transient SQL sql;
     Properties properties = new Properties();
     File client = new File("clients.txt");
-    File logFile = new File("log.txt");
     String name;
     JFrame frame;
     JButton b1,b2,b3,b4,b5,b6,b7,b8;
@@ -52,6 +54,7 @@ public class Server extends JFrame {
     transient Clip clipClick,clipZvonok,clipDoor;
     transient public List  listOfClients = Collections.synchronizedList(new ArrayList<NewConnection>());;
     ArrayList<String> allowedClients;
+    HashMap<String,String > mapallowedClients;
     transient Logger logger= Logger.getLogger(Main.class.getName());
 
     private void createLogger() {
@@ -68,7 +71,10 @@ public class Server extends JFrame {
     }
 
     public Server(String name)  {
-         //sql = new SQL();
+        synchronized (this) {
+            sql = new SQL();
+        }
+         sql.createSQL();
         try {
             properties.load(getClass().getResourceAsStream("/pr.properties"));
                createLogger();
@@ -87,6 +93,7 @@ public class Server extends JFrame {
         } catch (IOException e) {
             StackTraceElement [] stack = e.getStackTrace();
             logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
+
         } catch (ClassNotFoundException e) {
             StackTraceElement [] stack = e.getStackTrace();
             logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
@@ -105,7 +112,7 @@ public class Server extends JFrame {
 
             try{
                 server = new ServerSocket((Integer.valueOf(properties.getProperty("port"))));
-                System.out.println(server.getLocalPort());
+                //System.out.println(server.getLocalPort());
                 frame.repaint();
                 int temp = 0;//временная переменная для if else что ниже
 
@@ -142,26 +149,19 @@ public class Server extends JFrame {
                     }
                     System.out.println("Waiting for someone");
                     socket=server.accept();
+
                     System.out.println("Somebody is connected");
                     NewConnection connection = new NewConnection(socket);
-                    connection.setName(socket.getRemoteSocketAddress().toString().substring(1,socket.getRemoteSocketAddress().toString().indexOf(":")));
-
+                    String ip = socket.getRemoteSocketAddress().toString().substring(1,socket.getRemoteSocketAddress().toString().indexOf(":"));
+                    connection.setName(ip);
                     connection.start();
                     listOfClients.add(connection);
-
+                    Thread.currentThread().sleep(500);
 
                     FileUtils.writeStringToFile(client,"","UTF8");
                     for (int i = 0; i <listOfClients.size() ; i++) {
                         FileUtils.writeStringToFile(client,listOfClients.get(i).toString()+"\r\n","UTF8",true);
                     }
-                    //FileUtils.writeStringToFile(client,listOfClients.toString()+"\r\n","UTF8");
-
-
-
-
-
-
-
                 }
 
             }catch (Exception e){
@@ -173,6 +173,7 @@ public class Server extends JFrame {
     }
 
     public class NewConnection extends Thread{
+        int hash=0;
 
         private Socket socket;
         DataOutputStream dataout;
@@ -200,7 +201,7 @@ public class Server extends JFrame {
                 try {
                     value = datain.readUTF();
                     String[] values = value.split("_");
-                    System.out.println(value);
+                    //System.out.println(value);
 
                 /*Массив с значениями с входящего потока:
                 values[0] - положение кнопки по вертекали
@@ -235,9 +236,16 @@ public class Server extends JFrame {
                             switchchoice(values[1],values[2],values[3],b8,b8info,b8who);
                             break;
                         case "candidate":
-                           // JOptionPane.showMessageDialog(null,"GOOD!");
-                            System.out.println(allowedClients);
-                            if(allowedClients.contains(values[1])){
+                            try {
+
+                                hash = Integer.parseInt(values[2]);
+                                //String ip = socket.getRemoteSocketAddress().toString().substring(1,socket.getRemoteSocketAddress().toString().indexOf(":"));
+                                sql.addEntering(dayOfWeek(),this.getName(),mapallowedClients.get(this.getName()),time1(),hash);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            if(values.length==3 && mapallowedClients.containsKey(values[1])){
+                                System.out.println(mapallowedClients.containsKey(values[1]));
                                 dataout.writeUTF("isAllowed_"+"YES");
                                 dataout.flush();
                             }
@@ -246,11 +254,19 @@ public class Server extends JFrame {
                                 dataout.flush();
                             }
                             break;
+                        case "exiting":
+                            if(hash==0){
+                                SQL.goodExitInformer(77777);
+                            }else {
+                                SQL.goodExitInformer(hash);
+                            }
+                            break;
                     }
                     writeStatusOFButtons();
                 } catch (SocketException e){
                     logger.log(Level.INFO,Thread.currentThread().getName()+" disconnected\r\n");
                     listOfClients.remove(currentThread());
+                    sql.exitFromSession(Thread.currentThread().getName(),time1(),hash,"");
                     FileUtils.writeStringToFile(client,"","UTF8");
                     for (int i = 0; i <listOfClients.size() ; i++) {
                         FileUtils.writeStringToFile(client,listOfClients.get(i).toString()+"\r\n","UTF8",true);
@@ -262,6 +278,7 @@ public class Server extends JFrame {
                     StackTraceElement [] stack = e.getStackTrace();
                     logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected\r\n");
                     listOfClients.remove(currentThread());
+                    sql.exitFromSession(time1(),Thread.currentThread().getName(),hash,"");
                     FileUtils.writeStringToFile(client,"","UTF8");
                     for (int i = 0; i <listOfClients.size() ; i++) {
                         FileUtils.writeStringToFile(client,listOfClients.get(i).toString()+"\r\n","UTF8",true);
@@ -481,16 +498,39 @@ public class Server extends JFrame {
 
 
     private void createWindow() {
+
         //Создаю основно окно
         //UIManager.setLookAndFeel(MotifButtonListener);
         frame = new JFrame();
 
         frame.setTitle("EspiaServer");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+
+            public void windowClosing(WindowEvent e) {
+                try {
+                    //SQL.goodExitInformer(hash);
+                    for (int i = 0; i <listOfClients.size() ; i++) {
+                        System.out.println(listOfClients.get(i).hashCode());
+                        NewConnection con = (NewConnection)listOfClients.get(i);
+                        sql.exitFromSession(con.getName(),time1(),con.hash,"server stopted");
+
+
+                    }
+                    frame.dispose();
+                }catch(Exception e2){
+                    e2.printStackTrace();
+                    frame.dispose();
+                }
+            }
+        });
+
         frame.setSize(340,560);
         frame.setVisible(true);
         frame.setResizable(false);
         frame.setAlwaysOnTop(true);
+
 
     }
     private void createButtons() {
@@ -680,18 +720,52 @@ listOfPersons.clear();
         return time;
 
     }
+    public String time1 (){
+        DateFormat df = new SimpleDateFormat("dd.MM HH:mm:ss");
+        Date currenttime = Calendar.getInstance().getTime();
+        String time = df.format(currenttime);
+        return time;
+
+    }
+    public String dayOfWeek (){
+        Date currenttime = Calendar.getInstance().getTime();
+        DateFormat format3=new SimpleDateFormat("EEEE");
+        String finalDay1=format3.format(currenttime);
+        return finalDay1;
+    }
+
+
     private void readAllowedClients(){
+        allowedClients = new ArrayList<>();
+        mapallowedClients = new HashMap<>();
         try {
             InputStream in = getClass().getResourceAsStream("/allowedClients.txt");
-            Scanner scanner = new Scanner(in, "Cp1251");
-            allowedClients = new ArrayList<>();
-            while (scanner.hasNext()) {
-                String[] client = scanner.nextLine().split(":");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in,"UTF8"));
+            String line="";
+            while((line=reader.readLine())!=null){
+                String[] client = line.replace("\uFEFF", "").split(":");
+                if(client.length>1){
+                    mapallowedClients.put(client[0],client[1]);
+                }
+                else if(client.length==0){
+                    //DONOTHING
+                }
+                else{
+                    mapallowedClients.put(client[0],"");
+
+                }
                 allowedClients.add(client[0]);
             }
-            scanner.close();
+            //Scanner scanner = new Scanner(in, "UTF8");
+
+
+            int temp=0;
+            reader.close();
+            in.close();
+
         }
             catch(Exception e){
+                e.printStackTrace();
                 StackTraceElement [] stack = e.getStackTrace();
                 logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
                 /*e.printStackTrace();
@@ -780,6 +854,7 @@ listOfPersons.clear();
 
     }
     public  void choiceWhoAndWhen(JButton binfo,JButton bwho){
+        frame.setAlwaysOnTop(false);
         Object when = JOptionPane.showInputDialog(null,
                 "", "Введіть дату",
                 JOptionPane.INFORMATION_MESSAGE, null,null,time());
@@ -791,6 +866,7 @@ listOfPersons.clear();
                 possibleValues, possibleValues[0]);
 
         bwho.setText(who.toString());
+        frame.setAlwaysOnTop(true);
     }
 
     public void soundDoor(){

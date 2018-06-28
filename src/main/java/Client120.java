@@ -6,13 +6,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.*;
 import java.net.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Properties;
+import java.util.*;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,6 +22,8 @@ import java.util.logging.SimpleFormatter;
  * Created by CleBo on 28.02.2018.
  */
 public class Client120 {
+    transient int hash=0;
+
     Properties properties = new Properties();
     String name;
     String currentIP;
@@ -111,10 +113,29 @@ public class Client120 {
         //Создаю основное окно
         frame = new JFrame();
         if(point!=null){
-        frame.setLocation(point);
+            frame.setLocation(point);
         }
         frame.setTitle("Espia120");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                try {
+                    //SQL.goodExitInformer(hash);
+                    dataout.writeUTF("exiting");
+                    dataout.flush();
+                    frame.dispose();
+
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                    frame.dispose();
+                    //JOptionPane.showMessageDialog(null,"Помилка під час відправлення інформації про вихід до сервуру");
+                }catch (Exception e2){
+                    e2.printStackTrace();
+                    frame.dispose();
+                }
+            }
+        });
         frame.setSize(340, 560);
         frame.setVisible(true);
         frame.setResizable(false);
@@ -395,6 +416,7 @@ public class Client120 {
 
     }
     public  void choiceWhoAndWhen(JButton binfo,JButton bwho){
+        frame.setAlwaysOnTop(false);
         Object when = JOptionPane.showInputDialog(null,
                 "", "Введіть дату",
                 JOptionPane.INFORMATION_MESSAGE, null,null,time());
@@ -406,6 +428,7 @@ public class Client120 {
                 possibleValues, possibleValues[0]);
 
         bwho.setText(who.toString());
+        frame.setAlwaysOnTop(true);
     }
     public class Migalkaa extends Thread {
         JButton b;
@@ -519,10 +542,20 @@ public class Client120 {
         }
     }
 
+ /*   @Override
+    public int hashCode() {
+        int result =(int)(Math.random()*2147483636)+0;
+        return result;
+    }*/
 
     private void createClient() {
+
         //Создаю клиент
         try {
+
+            hash = Thread.currentThread().hashCode()*(int)(Math.random()*999)+0;
+
+
             boolean isConnected = false;
             isAllowed = false;
             int serverPort = Integer.valueOf(properties.getProperty("port"));
@@ -555,7 +588,7 @@ public class Client120 {
             datain = new DataInputStream(socket.getInputStream());
             dataout = new DataOutputStream(socket.getOutputStream());
 
-            dataout.writeUTF("candidate_"+currentIP);
+            dataout.writeUTF("candidate_"+currentIP+"_"+hash);
             dataout.flush();
             frame.setVisible(false);
 
@@ -575,7 +608,7 @@ public class Client120 {
                     e.printStackTrace();
                     StackTraceElement [] stack = e.getStackTrace();
                     logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
-                /*    JOptionPane.showMessageDialog(null, e.getMessage());*/
+                    /*    JOptionPane.showMessageDialog(null, e.getMessage());*/
 
                 }
                 if (msg.length() > 500) {
@@ -624,10 +657,6 @@ public class Client120 {
             connectionStatus.setBounds(15, 490, 200, 30);
             connectionStatus.setText("Помилка (код 01)");
 
-            //JOptionPane.showMessageDialog(null,"Ошибка при подключении к серверу");
-            /*e.printStackTrace();*/
-            //JOptionPane.showMessageDialog(null,"Данные не приняты ");
-            //JOptionPane.showMessageDialog(null,e.getMessage());
 
         }
 
@@ -657,9 +686,11 @@ public class Client120 {
 
         String value = "";
         while (true) {
+            System.out.println("Reading.....");
             //JOptionPane.showMessageDialog(null,"Вхождение в цикл while ");
             try {
                 value = datain.readUTF();
+                System.out.println(value);
 
 
             } catch (SocketException e) {
@@ -733,7 +764,7 @@ public class Client120 {
                         break;
                     case "isAllowed":
                         //JOptionPane.showMessageDialog(null,"проверка");
-                        System.out.println(values[1]);
+
                         if(values[1].equals("YES")){
                             isAllowed=true;
                             frame.setVisible(true);
@@ -830,9 +861,9 @@ public class Client120 {
                         dataout.flush();
                         //JOptionPane.showMessageDialog(null,"Данные отправлены");
                     } else {
-                       // binfo.setText(time());
+                        // binfo.setText(time());
                         b.setBackground(Color.RED);
-                       // bwho.setText(name);
+                        // bwho.setText(name);
                         //JOptionPane.showMessageDialog(null,"Данные изменены");
                         dataout.writeUTF(b.getY() + "_red" + "_" + name + "_" + time());
                         dataout.flush();

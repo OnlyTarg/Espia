@@ -11,6 +11,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.*;
 import java.net.*;
 import java.text.DateFormat;
@@ -28,6 +30,7 @@ import java.util.logging.SimpleFormatter;
  * Created by CleBo on 23.11.2017.
  */
 public class Client extends JFrame{
+    transient int hash=0;
     Properties properties = new Properties();
     String name;
     String currentIP;
@@ -115,6 +118,23 @@ public class Client extends JFrame{
 
         frame.setTitle("Espia "+name);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                try {
+                    //SQL.goodExitInformer(hash);
+                    dataout.writeUTF("exiting");
+                    dataout.flush();
+                    frame.dispose();
+
+                } catch (IOException e1) {
+                    JOptionPane.showMessageDialog(null, "Помилка під час відправлення інформації про вихід до сервуру");
+                    frame.dispose();
+                } catch (Exception e2) {
+                    frame.dispose();
+                }
+            }
+        });
         frame.setSize(178,570);
         frame.setVisible(true);
         frame.setResizable(true);
@@ -305,6 +325,7 @@ public class Client extends JFrame{
         boolean isConnected = false;
         //Создаю клиент
         try {
+            hash = Thread.currentThread().hashCode()*(int)(Math.random()*999)+0;
             int serverPort = Integer.valueOf(properties.getProperty("port"));
             String address = properties.getProperty("ServerIP"); //10.244.1.121    localhost
             while(!isConnected) {
@@ -334,7 +355,7 @@ public class Client extends JFrame{
 
             datain = new DataInputStream(socket.getInputStream());
             dataout = new DataOutputStream(socket.getOutputStream());
-            dataout.writeUTF("candidate_"+currentIP);
+            dataout.writeUTF("candidate_"+currentIP+"_"+hash);
             dataout.flush();
 
 

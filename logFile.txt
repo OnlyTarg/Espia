@@ -1,305 +1,722 @@
-июн 18, 2018 6:50:57 PM Server readStatusOFButtons
-INFO: java.io.InvalidClassException: Server; local class incompatible: stream classdesc serialVersionUID = 8388205115339570668, local class serialVersionUID = 6092427316278895009
+июн 24, 2018 3:24:27 PM Server$NewConnection readData
+INFO: 127.0.0.1 disconnected
+
+июн 24, 2018 3:24:27 PM Server$CheckingSignal run
+INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
+
+июн 25, 2018 2:43:03 AM Server$NewConnection readData
+INFO: java.io.EOFException
+java.io.DataInputStream.readUnsignedShort(DataInputStream.java:340)
+/10.244.1.121 disconnected
+
+июн 25, 2018 2:43:03 AM Server$CheckingSignal run
+INFO: 10.244.1.121(signal) shutdown, becouse main Thread was closed 
+
+июн 25, 2018 2:44:44 AM Server$NewConnection readData
+INFO: java.io.EOFException
+java.io.DataInputStream.readUnsignedShort(DataInputStream.java:340)
+/10.244.1.121 disconnected
+
+июн 25, 2018 2:44:45 AM Server$CheckingSignal run
+INFO: 10.244.1.121(signal) shutdown, becouse main Thread was closed 
+
+июн 25, 2018 2:53:10 AM Server$NewConnection readData
+INFO: java.io.EOFException
+java.io.DataInputStream.readUnsignedShort(DataInputStream.java:340)
+/10.244.1.121 disconnected
+
+июн 25, 2018 2:53:10 AM Server$CheckingSignal run
+INFO: 10.244.1.121(signal) shutdown, becouse main Thread was closed 
+
+июн 25, 2018 2:59:53 AM Server$NewConnection readData
+INFO: java.io.EOFException
+java.io.DataInputStream.readUnsignedShort(DataInputStream.java:340)
+/10.244.1.121 disconnected
+
+июн 25, 2018 2:59:53 AM Server$CheckingSignal run
+INFO: 10.244.1.121(signal) shutdown, becouse main Thread was closed 
+
+июн 25, 2018 3:00:52 AM Server$NewConnection readData
+INFO: java.io.EOFException
+java.io.DataInputStream.readUnsignedShort(DataInputStream.java:340)
+/10.244.1.121 disconnected
+
+июн 25, 2018 3:00:52 AM Server$CheckingSignal run
+INFO: 10.244.1.121(signal) shutdown, becouse main Thread was closed 
+
+июн 25, 2018 3:02:03 AM Server$NewConnection readData
+INFO: java.io.EOFException
+java.io.DataInputStream.readUnsignedShort(DataInputStream.java:340)
+/10.244.1.121 disconnected
+
+июн 25, 2018 3:02:03 AM Server$CheckingSignal run
+INFO: 10.244.1.121(signal) shutdown, becouse main Thread was closed 
+
+июн 25, 2018 3:03:32 AM Server$NewConnection readData
+INFO: java.io.EOFException
+java.io.DataInputStream.readUnsignedShort(DataInputStream.java:340)
+/10.244.1.121 disconnected
+
+июн 25, 2018 3:03:32 AM Server$CheckingSignal run
+INFO: 10.244.1.121(signal) shutdown, becouse main Thread was closed 
+
+июн 25, 2018 3:05:07 AM Server$NewConnection readData
+INFO: java.io.EOFException
+java.io.DataInputStream.readUnsignedShort(DataInputStream.java:340)
+/10.244.1.121 disconnected
+
+июн 25, 2018 3:05:07 AM Server$CheckingSignal run
+INFO: 10.244.1.121(signal) shutdown, becouse main Thread was closed 
+
+июн 25, 2018 3:05:59 AM Server$NewConnection readData
+INFO: java.io.EOFException
+java.io.DataInputStream.readUnsignedShort(DataInputStream.java:340)
+/10.244.1.121 disconnected
+
+июн 25, 2018 3:05:59 AM Server$CheckingSignal run
+INFO: 10.244.1.121(signal) shutdown, becouse main Thread was closed 
+
+июн 25, 2018 3:06:18 AM Server$NewConnection readData
+INFO: java.io.EOFException
+java.io.DataInputStream.readUnsignedShort(DataInputStream.java:340)
+/10.244.1.121 disconnected
+
+июн 25, 2018 3:06:18 AM Server$CheckingSignal run
+INFO: 10.244.1.121(signal) shutdown, becouse main Thread was closed 
+
+июн 25, 2018 3:07:20 AM Server$NewConnection readData
+INFO: java.io.EOFException
+java.io.DataInputStream.readUnsignedShort(DataInputStream.java:340)
+/10.244.1.121 disconnected
+
+июн 25, 2018 3:07:20 AM Server$CheckingSignal run
+INFO: 10.244.1.121(signal) shutdown, becouse main Thread was closed 
+
+июн 25, 2018 3:08:02 AM Server$NewConnection readData
+INFO: java.io.EOFException
+java.io.DataInputStream.readUnsignedShort(DataInputStream.java:340)
+/10.244.1.121 disconnected
+
+июн 25, 2018 3:08:02 AM Server$CheckingSignal run
+INFO: 10.244.1.121(signal) shutdown, becouse main Thread was closed 
+
+июн 25, 2018 3:08:20 AM Server$NewConnection readData
+INFO: java.io.EOFException
+java.io.DataInputStream.readUnsignedShort(DataInputStream.java:340)
+/10.244.1.121 disconnected
+
+июн 25, 2018 3:08:20 AM Server$CheckingSignal run
+INFO: 10.244.1.121(signal) shutdown, becouse main Thread was closed 
+
+июн 25, 2018 3:08:56 AM Server$NewConnection readData
+INFO: java.io.EOFException
+java.io.DataInputStream.readUnsignedShort(DataInputStream.java:340)
+/10.244.1.121 disconnected
+
+июн 25, 2018 3:08:56 AM Server$CheckingSignal run
+INFO: 10.244.1.121(signal) shutdown, becouse main Thread was closed 
+
+июн 25, 2018 3:09:54 AM Server$NewConnection readData
+INFO: java.io.EOFException
+java.io.DataInputStream.readUnsignedShort(DataInputStream.java:340)
+/10.244.1.121 disconnected
+
+июн 25, 2018 3:09:54 AM Server$CheckingSignal run
+INFO: 10.244.1.121(signal) shutdown, becouse main Thread was closed 
+
+июн 25, 2018 3:10:16 AM Server$NewConnection readData
+INFO: java.io.EOFException
+java.io.DataInputStream.readUnsignedShort(DataInputStream.java:340)
+/10.244.1.121 disconnected
+
+июн 25, 2018 3:10:16 AM Server$CheckingSignal run
+INFO: 10.244.1.121(signal) shutdown, becouse main Thread was closed 
+
+июн 25, 2018 3:10:43 AM Server$NewConnection readData
+INFO: java.io.EOFException
+java.io.DataInputStream.readUnsignedShort(DataInputStream.java:340)
+/10.244.1.121 disconnected
+
+июн 25, 2018 3:10:43 AM Server$CheckingSignal run
+INFO: 10.244.1.121(signal) shutdown, becouse main Thread was closed 
+
+июн 25, 2018 3:11:50 AM Server$NewConnection readData
+INFO: java.io.EOFException
+java.io.DataInputStream.readUnsignedShort(DataInputStream.java:340)
+/10.244.1.121 disconnected
+
+июн 25, 2018 3:11:50 AM Server$CheckingSignal run
+INFO: 10.244.1.121(signal) shutdown, becouse main Thread was closed 
+
+июн 25, 2018 3:12:38 AM Server$NewConnection readData
+INFO: java.io.EOFException
+java.io.DataInputStream.readUnsignedShort(DataInputStream.java:340)
+/10.244.1.121 disconnected
+
+июн 25, 2018 3:12:38 AM Server$CheckingSignal run
+INFO: 10.244.1.121(signal) shutdown, becouse main Thread was closed 
+
+июн 25, 2018 3:15:54 AM Server$NewConnection readData
+INFO: java.io.EOFException
+java.io.DataInputStream.readUnsignedShort(DataInputStream.java:340)
+/10.244.1.121 disconnected
+
+июн 25, 2018 3:15:54 AM Server$CheckingSignal run
+INFO: 10.244.1.121(signal) shutdown, becouse main Thread was closed 
+
+июн 25, 2018 3:17:40 AM Server$NewConnection readData
+INFO: 10.244.1.121 disconnected
+
+июн 25, 2018 3:17:41 AM Server$CheckingSignal run
+INFO: 10.244.1.121(signal) shutdown, becouse main Thread was closed 
+
+июн 25, 2018 3:20:29 AM Server$NewConnection readData
+INFO: java.io.EOFException
+java.io.DataInputStream.readUnsignedShort(DataInputStream.java:340)
+/10.244.1.121 disconnected
+
+июн 25, 2018 3:20:29 AM Server$CheckingSignal run
+INFO: 10.244.1.121(signal) shutdown, becouse main Thread was closed 
+
+июн 25, 2018 3:23:24 AM Server$NewConnection readData
+INFO: java.io.EOFException
+java.io.DataInputStream.readUnsignedShort(DataInputStream.java:340)
+/10.244.1.121 disconnected
+
+июн 25, 2018 3:23:24 AM Server$CheckingSignal run
+INFO: 10.244.1.121(signal) shutdown, becouse main Thread was closed 
+
+июн 25, 2018 3:25:06 AM Server$NewConnection readData
+INFO: java.io.EOFException
+java.io.DataInputStream.readUnsignedShort(DataInputStream.java:340)
+/10.244.1.121 disconnected
+
+июн 25, 2018 3:25:06 AM Server$CheckingSignal run
+INFO: 10.244.1.121(signal) shutdown, becouse main Thread was closed 
+
+июн 25, 2018 3:27:33 AM Server$NewConnection readData
+INFO: java.io.EOFException
+java.io.DataInputStream.readUnsignedShort(DataInputStream.java:340)
+/10.244.1.121 disconnected
+
+июн 25, 2018 3:27:33 AM Server$CheckingSignal run
+INFO: 10.244.1.121(signal) shutdown, becouse main Thread was closed 
+
+июн 25, 2018 3:28:22 AM Server$NewConnection readData
+INFO: java.io.EOFException
+java.io.DataInputStream.readUnsignedShort(DataInputStream.java:340)
+/10.244.1.121 disconnected
+
+июн 25, 2018 3:28:22 AM Server$CheckingSignal run
+INFO: 10.244.1.121(signal) shutdown, becouse main Thread was closed 
+
+июн 25, 2018 3:29:28 AM Server$NewConnection readData
+INFO: java.io.EOFException
+java.io.DataInputStream.readUnsignedShort(DataInputStream.java:340)
+/10.244.1.121 disconnected
+
+июн 25, 2018 3:29:28 AM Server$CheckingSignal run
+INFO: 10.244.1.121(signal) shutdown, becouse main Thread was closed 
+
+июн 25, 2018 3:37:23 AM Server$NewConnection readData
+INFO: java.io.EOFException
+java.io.DataInputStream.readUnsignedShort(DataInputStream.java:340)
+/10.244.1.121 disconnected
+
+июн 25, 2018 3:37:23 AM Server$CheckingSignal run
+INFO: 10.244.1.121(signal) shutdown, becouse main Thread was closed 
+
+июн 25, 2018 3:39:37 AM Server$NewConnection readData
+INFO: java.io.EOFException
+java.io.DataInputStream.readUnsignedShort(DataInputStream.java:340)
+/10.244.1.121 disconnected
+
+июн 25, 2018 3:39:37 AM Server$CheckingSignal run
+INFO: 10.244.1.121(signal) shutdown, becouse main Thread was closed 
+
+июн 25, 2018 3:42:25 AM Server readStatusOFButtons
+INFO: java.io.InvalidClassException: Server; local class incompatible: stream classdesc serialVersionUID = 4913262165793963476, local class serialVersionUID = 2569933841615284609
 java.io.ObjectStreamClass.initNonProxy(ObjectStreamClass.java:687)
 Thread[main,5,main] disconnected 
 
-июн 18, 2018 6:59:02 PM Server$NewConnection readData
-INFO: java.io.NotSerializableException: SQL
-java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
-/127.0.0.1 disconnected
-
-июн 18, 2018 6:59:02 PM Server$CheckingSignal run
-INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
-
-июн 18, 2018 7:15:38 PM Server$NewConnection readData
-INFO: java.io.NotSerializableException: SQL
-java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
-/127.0.0.1 disconnected
-
-июн 18, 2018 7:15:38 PM Server$CheckingSignal run
-INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
-
-июн 18, 2018 7:18:52 PM Server readStatusOFButtons
-INFO: java.io.WriteAbortedException: writing aborted; java.io.NotSerializableException: SQL
-java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1571)
-Thread[main,5,main] disconnected 
-
-июн 18, 2018 7:19:15 PM Server$NewConnection readData
-INFO: java.io.NotSerializableException: SQL
-java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
-/127.0.0.1 disconnected
-
-июн 18, 2018 7:19:15 PM Server$CheckingSignal run
-INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
-
-июн 18, 2018 7:23:33 PM Server$NewConnection readData
-INFO: java.io.NotSerializableException: SQL
-java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
-/127.0.0.1 disconnected
-
-июн 18, 2018 7:23:33 PM Server$CheckingSignal run
-INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
-
-июн 18, 2018 7:26:05 PM Server$NewConnection readData
-INFO: java.io.NotSerializableException: SQL
-java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
-/127.0.0.1 disconnected
-
-июн 18, 2018 7:26:05 PM Server$CheckingSignal run
-INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
-
-июн 18, 2018 7:27:05 PM Server readStatusOFButtons
-INFO: java.io.WriteAbortedException: writing aborted; java.io.NotSerializableException: SQL
-java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1571)
-Thread[main,5,main] disconnected 
-
-июн 18, 2018 7:28:00 PM Server$NewConnection readData
-INFO: java.io.NotSerializableException: SQL
-java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
-/127.0.0.1 disconnected
-
-июн 18, 2018 7:28:00 PM Server$CheckingSignal run
-INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
-
-июн 18, 2018 7:28:03 PM Server$NewConnection readData
-INFO: java.io.NotSerializableException: SQL
-java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
-/127.0.0.1 disconnected
-
-июн 18, 2018 7:28:03 PM Server$CheckingSignal run
-INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
-
-июн 18, 2018 7:28:07 PM Server$NewConnection readData
-INFO: java.io.NotSerializableException: SQL
-java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
-/127.0.0.1 disconnected
-
-июн 18, 2018 7:28:11 PM Server$NewConnection readData
-INFO: java.io.NotSerializableException: SQL
-java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
-/127.0.0.1 disconnected
-
-июн 18, 2018 7:28:11 PM Server$CheckingSignal run
-INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
-
-июн 18, 2018 7:28:14 PM Server$NewConnection readData
-INFO: java.io.NotSerializableException: SQL
-java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
-/127.0.0.1 disconnected
-
-июн 18, 2018 7:28:14 PM Server$CheckingSignal run
-INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
-
-июн 18, 2018 7:28:18 PM Server$NewConnection readData
-INFO: java.io.NotSerializableException: SQL
-java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
-/127.0.0.1 disconnected
-
-июн 18, 2018 7:28:18 PM Server$CheckingSignal run
-INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
-
-июн 18, 2018 7:28:21 PM Server$NewConnection readData
-INFO: java.io.NotSerializableException: SQL
-java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
-/127.0.0.1 disconnected
-
-июн 18, 2018 7:28:21 PM Server$CheckingSignal run
-INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
-
-июн 18, 2018 7:28:25 PM Server$NewConnection readData
-INFO: java.io.NotSerializableException: SQL
-java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
-/127.0.0.1 disconnected
-
-июн 18, 2018 7:28:28 PM Server$NewConnection readData
-INFO: java.io.NotSerializableException: SQL
-java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
-/127.0.0.1 disconnected
-
-июн 18, 2018 7:28:32 PM Server$NewConnection readData
-INFO: java.io.NotSerializableException: SQL
-java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
-/127.0.0.1 disconnected
-
-июн 18, 2018 7:28:32 PM Server$CheckingSignal run
-INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
-
-июн 18, 2018 7:28:36 PM Server$NewConnection readData
-INFO: java.io.NotSerializableException: SQL
-java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
-/127.0.0.1 disconnected
-
-июн 18, 2018 7:28:39 PM Server$NewConnection readData
-INFO: java.io.NotSerializableException: SQL
-java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
-/127.0.0.1 disconnected
-
-июн 18, 2018 7:28:39 PM Server$CheckingSignal run
-INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
-
-июн 18, 2018 7:28:43 PM Server$NewConnection readData
-INFO: java.io.NotSerializableException: SQL
-java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
-/127.0.0.1 disconnected
-
-июн 18, 2018 7:28:43 PM Server$CheckingSignal run
-INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
-
-июн 18, 2018 7:28:46 PM Server$NewConnection readData
-INFO: java.io.NotSerializableException: SQL
-java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
-/127.0.0.1 disconnected
-
-июн 18, 2018 7:28:46 PM Server$CheckingSignal run
-INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
-
-июн 18, 2018 7:28:50 PM Server$NewConnection readData
-INFO: java.io.NotSerializableException: SQL
-java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
-/127.0.0.1 disconnected
-
-июн 18, 2018 7:28:50 PM Server$CheckingSignal run
-INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
-
-июн 18, 2018 7:28:54 PM Server$NewConnection readData
-INFO: java.io.NotSerializableException: SQL
-java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
-/127.0.0.1 disconnected
-
-июн 18, 2018 7:28:54 PM Server$CheckingSignal run
-INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
-
-июн 18, 2018 7:28:57 PM Server$NewConnection readData
-INFO: java.io.NotSerializableException: SQL
-java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
-/127.0.0.1 disconnected
-
-июн 18, 2018 7:28:57 PM Server$CheckingSignal run
-INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
-
-июн 18, 2018 7:29:01 PM Server$NewConnection readData
-INFO: java.io.NotSerializableException: SQL
-java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
-/127.0.0.1 disconnected
-
-июн 18, 2018 7:29:01 PM Server$CheckingSignal run
-INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
-
-июн 18, 2018 7:29:04 PM Server$NewConnection readData
-INFO: java.io.NotSerializableException: SQL
-java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
-/127.0.0.1 disconnected
-
-июн 18, 2018 7:29:04 PM Server$CheckingSignal run
-INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
-
-июн 18, 2018 7:29:08 PM Server$NewConnection readData
-INFO: java.io.NotSerializableException: SQL
-java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
-/127.0.0.1 disconnected
-
-июн 18, 2018 7:29:08 PM Server$CheckingSignal run
-INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
-
-июн 18, 2018 7:29:11 PM Server$NewConnection readData
-INFO: java.io.NotSerializableException: SQL
-java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
-/127.0.0.1 disconnected
-
-июн 18, 2018 7:29:11 PM Server$CheckingSignal run
-INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
-
-июн 18, 2018 7:29:15 PM Server$NewConnection readData
-INFO: java.io.NotSerializableException: SQL
-java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
-/127.0.0.1 disconnected
-
-июн 18, 2018 7:29:15 PM Server$CheckingSignal run
-INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
-
-июн 18, 2018 7:29:18 PM Server$NewConnection readData
-INFO: java.io.NotSerializableException: SQL
-java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
-/127.0.0.1 disconnected
-
-июн 18, 2018 7:29:18 PM Server$CheckingSignal run
-INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
-
-июн 18, 2018 7:29:22 PM Server$NewConnection readData
-INFO: java.io.NotSerializableException: SQL
-java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
-/127.0.0.1 disconnected
-
-июн 18, 2018 7:29:22 PM Server$CheckingSignal run
-INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
-
-июн 18, 2018 7:29:25 PM Server$NewConnection readData
-INFO: java.io.NotSerializableException: SQL
-java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
-/127.0.0.1 disconnected
-
-июн 18, 2018 7:29:25 PM Server$CheckingSignal run
-INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
-
-июн 18, 2018 7:29:29 PM Server$NewConnection readData
-INFO: java.io.NotSerializableException: SQL
-java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
-/127.0.0.1 disconnected
-
-июн 18, 2018 7:29:29 PM Server$CheckingSignal run
-INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
-
-июн 18, 2018 7:29:33 PM Server$NewConnection readData
-INFO: java.io.NotSerializableException: SQL
-java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
-/127.0.0.1 disconnected
-
-июн 18, 2018 7:29:33 PM Server$CheckingSignal run
-INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
-
-июн 18, 2018 7:39:28 PM Server readStatusOFButtons
-INFO: java.io.WriteAbortedException: writing aborted; java.io.NotSerializableException: SQL
-java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1571)
-Thread[main,5,main] disconnected 
-
-июн 18, 2018 7:39:35 PM Server$NewConnection readData
-INFO: java.io.NotSerializableException: SQL
-java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
-/127.0.0.1 disconnected
-
-июн 18, 2018 7:39:35 PM Server$CheckingSignal run
-INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
-
-июн 18, 2018 7:41:20 PM Server readStatusOFButtons
-INFO: java.io.WriteAbortedException: writing aborted; java.io.NotSerializableException: SQL
-java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1571)
-Thread[main,5,main] disconnected 
-
-июн 18, 2018 7:41:25 PM Server$NewConnection readData
+июн 25, 2018 3:42:37 AM Server$NewConnection readData
 INFO: java.io.EOFException
 java.io.DataInputStream.readUnsignedShort(DataInputStream.java:340)
-/127.0.0.1 disconnected
+/10.244.1.121 disconnected
 
-июн 18, 2018 7:41:25 PM Server$CheckingSignal run
-INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
+июн 25, 2018 3:42:37 AM Server$CheckingSignal run
+INFO: 10.244.1.121(signal) shutdown, becouse main Thread was closed 
 
-июн 18, 2018 7:41:56 PM Server$NewConnection readData
+июн 26, 2018 7:00:38 AM Server readStatusOFButtons
+INFO: java.io.InvalidClassException: Server; local class incompatible: stream classdesc serialVersionUID = 2569933841615284609, local class serialVersionUID = 4913262165793963476
+java.io.ObjectStreamClass.initNonProxy(ObjectStreamClass.java:687)
+Thread[main,5,main] disconnected 
+
+июн 26, 2018 7:06:27 AM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 26, 2018 7:06:27 AM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 26, 2018 7:07:26 AM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 26, 2018 7:07:26 AM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 26, 2018 7:30:04 AM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 26, 2018 7:30:04 AM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 26, 2018 7:30:45 AM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 26, 2018 7:30:45 AM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 26, 2018 7:31:12 AM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 26, 2018 7:31:12 AM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 26, 2018 7:33:51 AM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 26, 2018 7:33:51 AM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 26, 2018 7:35:04 AM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 26, 2018 7:35:04 AM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 26, 2018 7:35:37 AM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 26, 2018 7:35:37 AM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 26, 2018 7:35:51 AM Server readAllowedClients
+INFO: java.lang.ArrayIndexOutOfBoundsException: 1
+Server.readAllowedClients(Server.java:748)
+Thread[main,5,main] disconnected 
+
+июн 26, 2018 7:35:54 AM Server$NewConnection readData
 INFO: java.io.EOFException
 java.io.DataInputStream.readUnsignedShort(DataInputStream.java:340)
-/127.0.0.1 disconnected
+/192.168.0.100 disconnected
 
-июн 18, 2018 7:41:56 PM Server$CheckingSignal run
-INFO: 127.0.0.1(signal) shutdown, becouse main Thread was closed 
+июн 26, 2018 7:35:54 AM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
 
-июн 18, 2018 7:44:10 PM Client120 createClient
-INFO: java.net.ConnectException: Connection refused: connect
-java.net.DualStackPlainSocketImpl.connect0(Native Method)
+июн 26, 2018 7:37:28 AM Server readAllowedClients
+INFO: java.lang.ArrayIndexOutOfBoundsException: 1
+Server.readAllowedClients(Server.java:748)
+Thread[main,5,main] disconnected 
 
-июн 18, 2018 7:44:51 PM Client120 readData
-INFO: java.net.SocketException: Connection reset
-java.net.SocketInputStream.read(SocketInputStream.java:210)
+июн 26, 2018 7:38:46 AM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
 
-июн 18, 2018 7:44:55 PM Client120 createClient
-INFO: java.net.ConnectException: Connection refused: connect
-java.net.DualStackPlainSocketImpl.connect0(Native Method)
+июн 26, 2018 7:38:46 AM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 26, 2018 7:43:45 AM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 26, 2018 7:43:45 AM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 26, 2018 7:46:27 AM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 26, 2018 7:46:27 AM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 26, 2018 7:47:45 AM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 26, 2018 7:47:45 AM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 26, 2018 8:11:54 AM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 26, 2018 8:11:54 AM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 26, 2018 8:13:00 AM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 26, 2018 8:13:00 AM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 26, 2018 1:20:34 PM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 26, 2018 1:20:34 PM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 26, 2018 1:23:57 PM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 26, 2018 1:24:05 PM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 26, 2018 1:24:05 PM Server$CheckingSignal run
+INFO: java.net.SocketException: Connection reset by peer: socket write error
+java.net.SocketOutputStream.socketWrite0(Native Method)
+Thread[192.168.0.100(signal),5,main] disconnected 
+
+июн 26, 2018 1:24:05 PM Server$CheckingSignal run
+INFO: java.net.SocketException: Connection reset by peer: socket write error
+java.net.SocketOutputStream.socketWrite0(Native Method)
+Thread[192.168.0.100(signal),5,main] disconnected 
+
+июн 26, 2018 3:19:38 PM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 26, 2018 3:19:38 PM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 26, 2018 3:22:23 PM Server$NewConnection readData
+INFO: java.io.EOFException
+java.io.DataInputStream.readUnsignedShort(DataInputStream.java:340)
+/192.168.0.100 disconnected
+
+июн 26, 2018 3:22:23 PM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 26, 2018 3:24:33 PM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 26, 2018 3:24:33 PM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 26, 2018 3:31:05 PM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 26, 2018 3:31:05 PM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 26, 2018 3:34:29 PM Server$NewConnection readData
+INFO: java.io.EOFException
+java.io.DataInputStream.readUnsignedShort(DataInputStream.java:340)
+/192.168.0.100 disconnected
+
+июн 26, 2018 3:34:29 PM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 26, 2018 3:34:55 PM Server$NewConnection readData
+INFO: java.io.EOFException
+java.io.DataInputStream.readUnsignedShort(DataInputStream.java:340)
+/192.168.0.100 disconnected
+
+июн 26, 2018 3:34:55 PM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 26, 2018 3:39:06 PM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 26, 2018 3:39:06 PM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 26, 2018 3:45:38 PM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 26, 2018 3:45:38 PM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 26, 2018 4:10:24 PM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 26, 2018 4:10:24 PM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 26, 2018 4:13:07 PM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 26, 2018 4:13:07 PM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 26, 2018 4:13:29 PM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 26, 2018 4:13:29 PM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 26, 2018 4:13:39 PM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 26, 2018 4:13:39 PM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 26, 2018 4:19:29 PM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 26, 2018 4:19:29 PM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 26, 2018 4:35:47 PM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 26, 2018 4:35:47 PM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 26, 2018 4:37:40 PM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 26, 2018 4:37:40 PM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 26, 2018 4:37:59 PM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 26, 2018 4:37:59 PM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 26, 2018 4:40:24 PM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 26, 2018 4:40:24 PM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 26, 2018 4:41:09 PM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 26, 2018 4:41:09 PM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 26, 2018 4:46:35 PM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 26, 2018 4:46:35 PM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 26, 2018 4:48:50 PM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 26, 2018 4:48:50 PM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 26, 2018 4:53:49 PM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 26, 2018 4:53:49 PM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 26, 2018 5:26:51 PM Server$NewConnection readData
+INFO: java.net.SocketTimeoutException: Read timed out
+java.net.SocketInputStream.socketRead0(Native Method)
+/192.168.0.100 disconnected
+
+июн 26, 2018 5:26:51 PM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 26, 2018 9:24:34 PM Server$NewConnection readData
+INFO: java.net.SocketTimeoutException: Read timed out
+java.net.SocketInputStream.socketRead0(Native Method)
+/192.168.0.100 disconnected
+
+июн 26, 2018 9:24:34 PM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 26, 2018 10:06:44 PM Server$NewConnection readData
+INFO: java.net.SocketTimeoutException: Read timed out
+java.net.SocketInputStream.socketRead0(Native Method)
+/192.168.0.100 disconnected
+
+июн 26, 2018 10:06:44 PM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 27, 2018 1:16:01 AM Server$NewConnection readData
+INFO: java.net.SocketTimeoutException: Read timed out
+java.net.SocketInputStream.socketRead0(Native Method)
+/192.168.0.100 disconnected
+
+июн 27, 2018 1:16:01 AM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 27, 2018 5:03:36 AM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 27, 2018 5:03:36 AM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 27, 2018 5:04:02 AM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 27, 2018 5:04:02 AM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 27, 2018 5:18:27 AM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 27, 2018 5:18:27 AM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 27, 2018 5:19:18 AM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 27, 2018 5:19:18 AM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 27, 2018 5:19:57 AM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 27, 2018 5:19:57 AM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 27, 2018 5:21:04 AM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 27, 2018 5:21:04 AM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 27, 2018 5:21:22 AM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 27, 2018 5:21:22 AM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 27, 2018 5:24:24 AM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 27, 2018 5:24:24 AM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 27, 2018 5:24:46 AM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 27, 2018 5:24:46 AM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 27, 2018 5:41:47 AM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 27, 2018 5:41:47 AM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 27, 2018 5:47:07 AM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 27, 2018 5:47:07 AM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 27, 2018 6:39:06 AM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 27, 2018 6:39:06 AM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 27, 2018 6:39:08 AM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 27, 2018 6:39:08 AM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 27, 2018 6:40:53 AM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 27, 2018 6:40:53 AM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 27, 2018 6:41:04 AM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 27, 2018 6:41:04 AM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 27, 2018 6:47:28 AM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 27, 2018 6:47:28 AM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 27, 2018 6:47:29 AM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 27, 2018 6:47:29 AM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 27, 2018 6:51:15 AM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 27, 2018 6:51:15 AM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 27, 2018 6:51:23 AM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 27, 2018 6:51:23 AM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 27, 2018 6:58:02 AM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 27, 2018 6:58:02 AM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 27, 2018 6:58:03 AM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 27, 2018 6:58:03 AM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 27, 2018 6:58:42 AM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 27, 2018 6:58:42 AM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 27, 2018 6:58:43 AM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 27, 2018 6:58:43 AM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 27, 2018 7:05:08 AM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 27, 2018 7:05:08 AM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 27, 2018 7:07:28 AM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 27, 2018 7:07:28 AM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 27, 2018 7:09:14 AM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 27, 2018 7:09:14 AM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 27, 2018 7:10:54 AM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 27, 2018 7:10:54 AM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 27, 2018 7:11:33 AM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 27, 2018 7:11:33 AM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 27, 2018 7:18:04 AM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 27, 2018 7:18:04 AM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
+
+июн 27, 2018 7:21:13 AM Server$NewConnection readData
+INFO: 192.168.0.100 disconnected
+
+июн 27, 2018 7:21:13 AM Server$CheckingSignal run
+INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
 

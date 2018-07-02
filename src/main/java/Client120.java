@@ -111,6 +111,12 @@ public class Client120 {
 
     public void window() {
         //Создаю основное окно
+        try
+        {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+        }
+        catch(Exception e){
+        }
         frame = new JFrame();
         if(point!=null){
             frame.setLocation(point);

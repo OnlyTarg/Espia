@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="org.devzendo:quaqua:9.1" type="repository">
+    <properties maven-id="org.devzendo:quaqua:9.1" />
+    <CLASSES>
+      <root url="jar://D:/Projects/lib/quaqua-9.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

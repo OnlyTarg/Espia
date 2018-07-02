@@ -501,6 +501,12 @@ public class Server extends JFrame {
 
         //Создаю основно окно
         //UIManager.setLookAndFeel(MotifButtonListener);
+        try
+        {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+        }
+        catch(Exception e){
+        }
         frame = new JFrame();
 
         frame.setTitle("EspiaServer");

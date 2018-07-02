@@ -720,3 +720,8 @@ INFO: 192.168.0.100 disconnected
 июн 27, 2018 7:21:13 AM Server$CheckingSignal run
 INFO: 192.168.0.100(signal) shutdown, becouse main Thread was closed 
 
+июн 29, 2018 3:15:47 AM Server readStatusOFButtons
+INFO: java.io.InvalidClassException: Server; local class incompatible: stream classdesc serialVersionUID = 4913262165793963476, local class serialVersionUID = 7921211391507498823
+java.io.ObjectStreamClass.initNonProxy(ObjectStreamClass.java:687)
+Thread[main,5,main] disconnected 
+

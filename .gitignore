@@ -25,6 +25,7 @@
 *.log
 *.sql
 *.sqlite
+*.db
 
 # OS generated files #
 ######################
@@ -36,6 +37,10 @@
 ehthumbs.db
 Thumbs.dbc
 
-#Folders
+#Folders and files
 target/
 .idea/
+Trash/
+/status.txt
+/log*.*
+/status.txt

@@ -1,7 +1,6 @@
-import com.sun.xml.internal.bind.v2.model.core.ID;
+package com.pav.avdonin.sql;
 
 import java.io.File;
-import java.io.InputStream;
 import java.sql.*;
 
 public class SQL {
@@ -25,8 +24,6 @@ public class SQL {
 
     public void createSQL() {
         if (!file.exists()) {
-
-
 
             try {
                 Class.forName(JDBC_DRIVER);
@@ -150,29 +147,6 @@ public class SQL {
 
     }
 
-
-/*    public void addUser(String UserURL) {
-        try {
-            Class.forName(JDBC_DRIVER);
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
-            stmt = conn.createStatement();
-            String sql =  "CREATE TABLE   UsersHistory " +
-                    "(id INTEGER not NULL, " +
-                    " DayOfWeek VARCHAR(255), " +
-                    " User VARCHAR(255), " +
-                    " Enter VARCHAR(255), " +
-                    " Exit VARCHAR(255), " +
-                    " HowExited VARCHAR(255))";
-            stmt.executeUpdate(sql);
-            stmt.close();
-            conn.close();
-        } catch (ClassNotFoundException e1) {
-            e1.printStackTrace();
-        } catch (SQLException e2) {
-            e2.printStackTrace();
-        }
-
-    }*/
     public static void main(String[] args) {
 new SQL().createSQL();
     }

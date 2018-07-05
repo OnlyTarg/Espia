@@ -1,10 +1,11 @@
+package com.pav.avdonin.clients;
+
 import com.google.gson.Gson;
+import com.pav.avdonin.Main;
 
 import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.*;
@@ -57,7 +58,7 @@ public class EspiaJL {
         this.point = point;
         createLogger();
         try {
-            properties.load(getClass().getResourceAsStream("/pr.properties"));
+            properties.load(getClass().getResourceAsStream("/settings.properties"));
         } catch (IOException e) {
             StackTraceElement[] stack = e.getStackTrace();
             logger.log(Level.INFO, e.toString() + "\r\n" + stack[0] + "\r\n it's some problem with loading properties file");
@@ -75,7 +76,7 @@ public class EspiaJL {
     public EspiaJL()  {
         createLogger();
         try {
-            properties.load(getClass().getResourceAsStream("/pr.properties"));
+            properties.load(getClass().getResourceAsStream("/settings.properties"));
         } catch (IOException e) {
             StackTraceElement [] stack = e.getStackTrace();
             logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n it's some problem with loading properties file");
@@ -113,7 +114,7 @@ public class EspiaJL {
             @Override
             public void windowClosing(WindowEvent e) {
                 try {
-                    //SQL.goodExitInformer(hash);
+                    //com.pav.avdonin.sql.SQL.goodExitInformer(hash);
 
                     dataout.writeUTF("exiting");
                     dataout.flush();
@@ -317,7 +318,7 @@ public class EspiaJL {
     public void soundDoor() {
         try {
             clipDoor = AudioSystem.getClip();
-            InputStream input = new BufferedInputStream(getClass().getResourceAsStream("door.wav"));
+            InputStream input = new BufferedInputStream(getClass().getResourceAsStream("/door.wav"));
             AudioInputStream ais = AudioSystem.getAudioInputStream(input);
             clipDoor.open(ais);
             clipDoor.start();
@@ -343,7 +344,7 @@ public class EspiaJL {
     public void soundClick() {
         try {
             clipClick = AudioSystem.getClip();
-            InputStream input = new BufferedInputStream(getClass().getResourceAsStream("click1.wav"));
+            InputStream input = new BufferedInputStream(getClass().getResourceAsStream("/click1.wav"));
             AudioInputStream ais = AudioSystem.getAudioInputStream(input);
             clipClick.open(ais);
             clipClick.start();
@@ -369,7 +370,7 @@ public class EspiaJL {
     public void soundZvonok() {
         try {
             clipZvonok = AudioSystem.getClip();
-            InputStream input = new BufferedInputStream(getClass().getResourceAsStream("zv1.wav"));
+            InputStream input = new BufferedInputStream(getClass().getResourceAsStream("/zv1.wav"));
             AudioInputStream ais = AudioSystem.getAudioInputStream(input);
             clipZvonok.open(ais);
             clipZvonok.start();
@@ -508,7 +509,7 @@ public class EspiaJL {
             boolean isConnected = false;
             isAllowed = false;
             int serverPort = Integer.valueOf(properties.getProperty("port"));
-            String address = properties.getProperty("ServerIP"); //10.244.1.121    localhost
+            String address = properties.getProperty("ipServer"); //10.244.1.121    localhost
             while(!isConnected) {
                 connectionStatus.setForeground(Color.BLACK);
                 connectionStatus.setText("З'єднання......");
@@ -629,7 +630,7 @@ public class EspiaJL {
 //           try {
 //                Thread.currentThread().sleep(3000);
 //                frame.dispose();
-//                new EspiaJL();
+//                new com.pav.avdonin.clients.EspiaJL();
 //            } catch (Exception e1) {
 //                StackTraceElement [] stack = e1.getStackTrace();
 //                logger.log(Level.INFO,e1.toString()+"\r\n"+stack[0]+"\r\n");

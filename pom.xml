@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.Pav.Avdonin</groupId>
+    <groupId>com.pav.avdonin</groupId>
     <artifactId>Espia</artifactId>
-    <version>1.9</version><name>PControl</name>
+    <version>1.9</version><name>Espia</name>
 
 
     <properties>
@@ -39,7 +39,7 @@
                             <!--В тэге <classpathPrefix/> как раз и указывается, что библиотеки тянутся из директории lib-->
                             <classpathPrefix>libs/</classpathPrefix>
                             <!--<classpathLayoutType>simple</classpathLayoutType>-->
-                            <mainClass>Main</mainClass>
+                            <mainClass>com.pav.avdonin.Main</mainClass>
                         </manifest>
                          manifestEntries - A list of key/value pairs to add to the manifest.
                         <manifestEntries>

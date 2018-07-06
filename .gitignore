@@ -38,6 +38,7 @@ ehthumbs.db
 Thumbs.dbc
 
 #Folders and files
+.idea/
 target/
 .idea/
 Trash/

@@ -46,3 +46,4 @@ Trash/
 /log*.*
 /status.txt
 /clients.txt
+.idea/workspace.xml

@@ -17,7 +17,7 @@ import com.pav.avdonin.media.Music;
 
 
 import org.apache.commons.io.FileUtils;
-import javax.sound.sampled.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -249,7 +249,7 @@ public class Server extends JFrame {
 
                                 hash = Integer.parseInt(values[2]);
                                 //String ip = socket.getRemoteSocketAddress().toString().substring(1,socket.getRemoteSocketAddress().toString().indexOf(":"));
-                                sql.addEntering(dayOfWeek(),this.getName(),mapallowedClients.get(this.getName()),time1(),hash);
+                                sql.addEntering(dayOfWeek(),this.getName(),mapallowedClients.get(this.getName()), timeWithSeconds(),hash);
                             } catch (Exception e) {
                                 e.printStackTrace();
                                 e.printStackTrace();
@@ -277,7 +277,7 @@ public class Server extends JFrame {
                     e.printStackTrace();
                     logger.log(Level.INFO,Thread.currentThread().getName()+" disconnected\r\n");
                     listOfClients.remove(currentThread());
-                    sql.exitFromSession(Thread.currentThread().getName(),time1(),hash,"");
+                    sql.exitFromSession(Thread.currentThread().getName(), timeWithSeconds(),hash,"");
                     FileUtils.writeStringToFile(client,"","UTF8");
                     for (int i = 0; i <listOfClients.size() ; i++) {
                         FileUtils.writeStringToFile(client,listOfClients.get(i).toString()+" "+mapallowedClients.get(listOfClients.get(i).toString().substring(1))+"\r\n","UTF8",true);
@@ -290,7 +290,7 @@ public class Server extends JFrame {
                     StackTraceElement [] stack = e.getStackTrace();
                     logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected\r\n");
                     listOfClients.remove(currentThread());
-                    sql.exitFromSession(time1(),Thread.currentThread().getName(),hash,"");
+                    sql.exitFromSession(timeWithSeconds(),Thread.currentThread().getName(),hash,"");
                     FileUtils.writeStringToFile(client,"","UTF8");
                     for (int i = 0; i <listOfClients.size() ; i++) {
                         FileUtils.writeStringToFile(client,listOfClients.get(i).toString()+" "+mapallowedClients.get(listOfClients.get(i).toString().substring(1))+"\r\n","UTF8",true);
@@ -453,65 +453,7 @@ public class Server extends JFrame {
             this.b8name = b8name;
         }
     }
-    public class Migalkaa extends Thread{
-        JButton b;
-        Color color;
 
-        public Migalkaa(JButton b,Color color){
-            this.b = b;
-            this.color = color;
-        }
-        public void action(int migalka){
-            migalka++;
-            Thread.currentThread().setName("Migalka" + b.getText());
-
-
-            for (int i = 0; i < 15; i++) {
-
-                try {
-                    b.setForeground(color);
-                    Thread.currentThread().sleep(200);
-                    //repaint();
-                    b.setForeground(Color.BLACK);
-                    Thread.currentThread().sleep(200);
-
-                    if(migalka >1){
-                        migalka--;
-                        return;
-                    }
-
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                    //e.printStackTrace();
-                    StackTraceElement [] stack = e.getStackTrace();
-                    logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
-                }
-            }
-            migalka--;
-        }
-        @Override
-        public void run() {
-            try {
-                if (b.equals(b1)) action(countMigalka[1]);
-                if (b.equals(b2)) action(countMigalka[2]);
-                if (b.equals(b3)) action(countMigalka[3]);
-                if (b.equals(b4)) action(countMigalka[3]);
-                if (b.equals(b5)) action(countMigalka[3]);
-                if (b.equals(b6)) action(countMigalka[3]);
-                if (b.equals(b7)) action(countMigalka[3]);
-                if (b.equals(b8)) action(countMigalka[3]);
-            }catch (Exception e){
-                e.printStackTrace();
-                StackTraceElement [] stack = e.getStackTrace();
-                logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
-                /*JOptionPane.showMessageDialog(null,"Проінформуйте про дану помилку адміністратора");
-                e.printStackTrace();*/
-            }
-
-
-        }
-
-    }
 
 
 
@@ -539,7 +481,7 @@ public class Server extends JFrame {
                         FileUtils.writeStringToFile(client,"","UTF8");
                         System.out.println(listOfClients.get(i).hashCode());
                         NewConnection con = (NewConnection)listOfClients.get(i);
-                        sql.exitFromSession(con.getName(),time1(),con.hash,"server stopted");
+                        sql.exitFromSession(con.getName(), timeWithSeconds(),con.hash,"server stopted");
 
 
                     }
@@ -739,26 +681,7 @@ public class Server extends JFrame {
 
     }
 
-    public String time (){
-        DateFormat df = new SimpleDateFormat("dd.MM HH:mm");
-        Date currenttime = Calendar.getInstance().getTime();
-        String time = df.format(currenttime);
-        return time;
 
-    }
-    public String time1 (){
-        DateFormat df = new SimpleDateFormat("dd.MM HH:mm:ss");
-        Date currenttime = Calendar.getInstance().getTime();
-        String time = df.format(currenttime);
-        return time;
-
-    }
-    public String dayOfWeek (){
-        Date currenttime = Calendar.getInstance().getTime();
-        DateFormat format3=new SimpleDateFormat("EEEE");
-        String finalDay1=format3.format(currenttime);
-        return finalDay1;
-    }
 
 
     private void readAllowedClients(){
@@ -862,17 +785,15 @@ public class Server extends JFrame {
         try{
 
             InputStream in = getClass().getResourceAsStream("/list.txt");
-            // FileInputStream in = new FileInputStream("list.txt");
-
-            Scanner scanner = new Scanner(in,"Cp1251");
-            while (scanner.hasNext()) {
-                String line = scanner.nextLine();
-                listOfPersons.add(line.trim());
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in,"CP1251"));
+            String s = "";
+            while ((s = reader.readLine()) != null) {
+                listOfPersons.add(s);
             }
-            scanner.close();
             in.close();
 
         }catch (Exception e){
+
             e.printStackTrace();
             StackTraceElement [] stack = e.getStackTrace();
             logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
@@ -897,89 +818,66 @@ public class Server extends JFrame {
         frame.setAlwaysOnTop(true);
     }
 
-    /*public void soundDoor(){
-        try {
-            clipDoor = AudioSystem.getClip();
-            InputStream input = new BufferedInputStream(getClass().getResourceAsStream("/door.wav"));
 
-            AudioInputStream ais = AudioSystem.getAudioInputStream(input);
-            clipDoor.open(ais);
-            clipDoor.start();
-            ais.close();
-        } catch (LineUnavailableException e) {
-            e.printStackTrace();
-            StackTraceElement [] stack = e.getStackTrace();
-            logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
-            *//*JOptionPane.showMessageDialog(null,"Помилка під час програвання аудіо (1)");
-            e.printStackTrace();*//*
-        } catch (UnsupportedAudioFileException e) {
-            e.printStackTrace();
-            StackTraceElement [] stack = e.getStackTrace();
-            logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
-           *//* JOptionPane.showMessageDialog(null,"Помилка під час програвання аудіо (2)");
-            e.printStackTrace();*//*
-        } catch (IOException e) {
-            e.printStackTrace();
-            StackTraceElement [] stack = e.getStackTrace();
-            logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
-            *//*JOptionPane.showMessageDialog(null,"Помилка під час програвання аудіо (3)");
-            e.printStackTrace();*//*
+    public class Migalkaa extends Thread{
+        JButton b;
+        Color color;
+
+        public Migalkaa(JButton b,Color color){
+            this.b = b;
+            this.color = color;
+        }
+        public void action(int migalka){
+            migalka++;
+            Thread.currentThread().setName("Migalka" + b.getText());
+
+
+            for (int i = 0; i < 15; i++) {
+
+                try {
+                    b.setForeground(color);
+                    Thread.currentThread().sleep(200);
+                    //repaint();
+                    b.setForeground(Color.BLACK);
+                    Thread.currentThread().sleep(200);
+
+                    if(migalka >1){
+                        migalka--;
+                        return;
+                    }
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    //e.printStackTrace();
+                    StackTraceElement [] stack = e.getStackTrace();
+                    logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
+                }
+            }
+            migalka--;
+        }
+        @Override
+        public void run() {
+            try {
+                if (b.equals(b1)) action(countMigalka[1]);
+                if (b.equals(b2)) action(countMigalka[2]);
+                if (b.equals(b3)) action(countMigalka[3]);
+                if (b.equals(b4)) action(countMigalka[3]);
+                if (b.equals(b5)) action(countMigalka[3]);
+                if (b.equals(b6)) action(countMigalka[3]);
+                if (b.equals(b7)) action(countMigalka[3]);
+                if (b.equals(b8)) action(countMigalka[3]);
+            }catch (Exception e){
+                e.printStackTrace();
+                StackTraceElement [] stack = e.getStackTrace();
+                logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
+                /*JOptionPane.showMessageDialog(null,"Проінформуйте про дану помилку адміністратора");
+                e.printStackTrace();*/
+            }
+
+
         }
 
     }
-    public void soundClick(){
-        try {
-            clipClick = AudioSystem.getClip();
-            InputStream input = new BufferedInputStream(getClass().getResourceAsStream("/click1.wav"));
-            AudioInputStream ais = AudioSystem.getAudioInputStream(input);
-            clipClick.open(ais);
-            clipClick.start();
-            ais.close();
-        } catch (LineUnavailableException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null,"Помилка під час програвання аудіо (1)");
-            e.printStackTrace();
-        } catch (UnsupportedAudioFileException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null,"Помилка під час програвання аудіо (2)");
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null,"Помилка під час програвання аудіо (3)");
-            e.printStackTrace();
-        }
-
-    }
-    public void soundZvonok(){
-        try {
-            clipZvonok = AudioSystem.getClip();
-            InputStream input = new BufferedInputStream(getClass().getResourceAsStream("/zv1.wav"));
-            AudioInputStream ais = AudioSystem.getAudioInputStream(input);
-            clipZvonok.open(ais);
-            clipZvonok.start();
-            ais.close();
-        } catch (LineUnavailableException e) {
-            e.printStackTrace();
-            StackTraceElement [] stack = e.getStackTrace();
-            logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
-            *//*JOptionPane.showMessageDialog(null,"Помилка під час програвання аудіо (1)");
-            e.printStackTrace();*//*
-        } catch (UnsupportedAudioFileException e) {
-            e.printStackTrace();
-            StackTraceElement [] stack = e.getStackTrace();
-            logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
-            *//*JOptionPane.showMessageDialog(null,"Помилка під час програвання аудіо (2)");
-            e.printStackTrace();*//*
-        } catch (IOException e) {
-            e.printStackTrace();
-            StackTraceElement [] stack = e.getStackTrace();
-            logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
-            *//*JOptionPane.showMessageDialog(null,"Помилка під час програвання аудіо (3)");
-            e.printStackTrace();*//*
-        }
-
-    }*/
-
     private class CheckingSignal extends Thread{
         NewConnection con;
         public CheckingSignal(NewConnection connection){
@@ -1148,6 +1046,31 @@ public class Server extends JFrame {
         }
         return actionListener;
     }
+
+
+
+    public String time (){
+        DateFormat df = new SimpleDateFormat("dd.MM HH:mm");
+        Date currenttime = Calendar.getInstance().getTime();
+        String time = df.format(currenttime);
+        return time;
+
+    }
+    public String timeWithSeconds(){
+        DateFormat df = new SimpleDateFormat("dd.MM HH:mm:ss");
+        Date currenttime = Calendar.getInstance().getTime();
+        String time = df.format(currenttime);
+        return time;
+
+    }
+    public String dayOfWeek (){
+        Date currenttime = Calendar.getInstance().getTime();
+        DateFormat format3=new SimpleDateFormat("EEEE");
+        String finalDay1=format3.format(currenttime);
+        return finalDay1;
+    }
+
+
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         Server s = new Server("121(ЦУС)");

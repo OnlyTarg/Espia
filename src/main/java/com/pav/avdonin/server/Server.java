@@ -13,8 +13,10 @@ package com.pav.avdonin.server; /**
 import com.google.gson.Gson;
 import com.pav.avdonin.sql.SQL;
 import com.pav.avdonin.Main;
-import org.apache.commons.io.FileUtils;
+import com.pav.avdonin.media.Music;
 
+
+import org.apache.commons.io.FileUtils;
 import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
@@ -23,6 +25,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.*;
+import java.net.Inet4Address;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
@@ -37,7 +40,7 @@ import java.util.logging.SimpleFormatter;
 
 
 public class Server extends JFrame {
-
+    transient Music music = new Music();
     transient SQL sql;
     Properties properties = new Properties();
     File client = new File("clients.txt");
@@ -51,11 +54,12 @@ public class Server extends JFrame {
     int [] countMigalka = {0,0,0,0,0,0,0,0,0}; //Счетчик для выхода из потока в случае, если была
     // повторно нажата кнопка до переставания мигания после первого нажаия
     // порядковый номер элемента массива соответсвует номеру кнопки (начинае с первого елемента). Тоесть countMigalka[1] Соответствует первой кнопке
-    transient Clip clipClick,clipZvonok,clipDoor;
+    //transient Clip clipClick,clipZvonok,clipDoor;
     transient public List  listOfClients = Collections.synchronizedList(new ArrayList<NewConnection>());;
     ArrayList<String> allowedClients;
     HashMap<String,String > mapallowedClients;
     transient Logger logger= Logger.getLogger(Main.class.getName());
+
 
     private void createLogger() {
         SimpleFormatter txtFormatter = new SimpleFormatter ();
@@ -151,6 +155,7 @@ public class Server extends JFrame {
                         temp=1;
                     }
                     System.out.println("Waiting for someone");
+                    System.out.println(Inet4Address.getLocalHost().getHostAddress());
                     socket=server.accept();
 
                     System.out.println("Somebody is connected");
@@ -310,7 +315,7 @@ public class Server extends JFrame {
                     b.setBackground(Color.GREEN);
                     binfo.setText(time());
                     bwho.setText(name);
-                    soundZvonok();
+                    music.soundZvonok();
                 }
 
             }
@@ -319,7 +324,7 @@ public class Server extends JFrame {
                     b.setBackground(Color.RED);
                     binfo.setText(time());
                     bwho.setText(name);
-                    soundDoor();
+                    music.soundDoor();
 
                 }
                 if(b.getBackground().equals(Color.RED)){
@@ -892,7 +897,7 @@ public class Server extends JFrame {
         frame.setAlwaysOnTop(true);
     }
 
-    public void soundDoor(){
+    /*public void soundDoor(){
         try {
             clipDoor = AudioSystem.getClip();
             InputStream input = new BufferedInputStream(getClass().getResourceAsStream("/door.wav"));
@@ -905,20 +910,20 @@ public class Server extends JFrame {
             e.printStackTrace();
             StackTraceElement [] stack = e.getStackTrace();
             logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
-            /*JOptionPane.showMessageDialog(null,"Помилка під час програвання аудіо (1)");
-            e.printStackTrace();*/
+            *//*JOptionPane.showMessageDialog(null,"Помилка під час програвання аудіо (1)");
+            e.printStackTrace();*//*
         } catch (UnsupportedAudioFileException e) {
             e.printStackTrace();
             StackTraceElement [] stack = e.getStackTrace();
             logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
-           /* JOptionPane.showMessageDialog(null,"Помилка під час програвання аудіо (2)");
-            e.printStackTrace();*/
+           *//* JOptionPane.showMessageDialog(null,"Помилка під час програвання аудіо (2)");
+            e.printStackTrace();*//*
         } catch (IOException e) {
             e.printStackTrace();
             StackTraceElement [] stack = e.getStackTrace();
             logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
-            /*JOptionPane.showMessageDialog(null,"Помилка під час програвання аудіо (3)");
-            e.printStackTrace();*/
+            *//*JOptionPane.showMessageDialog(null,"Помилка під час програвання аудіо (3)");
+            e.printStackTrace();*//*
         }
 
     }
@@ -957,23 +962,23 @@ public class Server extends JFrame {
             e.printStackTrace();
             StackTraceElement [] stack = e.getStackTrace();
             logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
-            /*JOptionPane.showMessageDialog(null,"Помилка під час програвання аудіо (1)");
-            e.printStackTrace();*/
+            *//*JOptionPane.showMessageDialog(null,"Помилка під час програвання аудіо (1)");
+            e.printStackTrace();*//*
         } catch (UnsupportedAudioFileException e) {
             e.printStackTrace();
             StackTraceElement [] stack = e.getStackTrace();
             logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
-            /*JOptionPane.showMessageDialog(null,"Помилка під час програвання аудіо (2)");
-            e.printStackTrace();*/
+            *//*JOptionPane.showMessageDialog(null,"Помилка під час програвання аудіо (2)");
+            e.printStackTrace();*//*
         } catch (IOException e) {
             e.printStackTrace();
             StackTraceElement [] stack = e.getStackTrace();
             logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
-            /*JOptionPane.showMessageDialog(null,"Помилка під час програвання аудіо (3)");
-            e.printStackTrace();*/
+            *//*JOptionPane.showMessageDialog(null,"Помилка під час програвання аудіо (3)");
+            e.printStackTrace();*//*
         }
 
-    }
+    }*/
 
     private class CheckingSignal extends Thread{
         NewConnection con;
@@ -1040,14 +1045,14 @@ public class Server extends JFrame {
 
             @Override
             public  void actionPerformed(ActionEvent e) {
-                soundClick();
+                music.soundClick();
                 choiceWhoAndWhen(binfo,bwho);
 
                 Color buttoncolor = b.getBackground();
                 try {
                     if (buttoncolor.equals(Color.RED)) {
                         b.setBackground(Color.GREEN);
-                        soundZvonok();
+                        music.soundZvonok();
 
                         for (int i = 0; i <listOfClients.size() ; i++) {
                             NewConnection con = (NewConnection)listOfClients.get(i);
@@ -1059,7 +1064,7 @@ public class Server extends JFrame {
 
                     } else {
                         b.setBackground(Color.RED);
-                        soundDoor();
+                        music.soundDoor();
                         //binfo.setText(time());
                         for (int i = 0; i <listOfClients.size() ; i++) {
                             NewConnection con = (NewConnection)listOfClients.get(i);
@@ -1098,7 +1103,7 @@ public class Server extends JFrame {
             actionListener = new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    soundClick();
+                    music.soundClick();
                     Color buttoncolor = b.getBackground();
 
                     choiceWhoAndWhen(binfo,bwho);
@@ -1107,14 +1112,14 @@ public class Server extends JFrame {
                         //clipClick.start();
                         if (buttoncolor.equals(Color.RED)) {
                             b.setBackground(Color.GREEN);
-                            soundZvonok();
+                            music.soundZvonok();
 
 
 
 
                         } else {
                             b.setBackground(Color.RED);
-                            soundDoor();
+                            music.soundDoor();
 
 
 

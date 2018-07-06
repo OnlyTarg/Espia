@@ -2,6 +2,7 @@ package com.pav.avdonin.clients;
 
 import com.google.gson.Gson;
 import com.pav.avdonin.Main;
+import com.pav.avdonin.media.Music;
 
 import javax.sound.sampled.*;
 import javax.swing.*;
@@ -24,6 +25,7 @@ import java.util.logging.SimpleFormatter;
  * Created by CleBo on 28.02.2018.
  */
 public class Client120 {
+    transient Music music = new Music();
     transient int hash=0;
 
     Properties properties = new Properties();
@@ -47,7 +49,6 @@ public class Client120 {
     JButton b1info, b2info, b3info, b4info, b5info, b6info, b7info, b8info;
     JButton b1who, b2who, b3who, b4who, b5who, b6who, b7who, b8who;
     JLabel connectionStatus = new JLabel("Статус соединения");
-    transient Clip clipClick, clipZvonok, clipDoor;
     int[] countMigalka = {0, 0, 0, 0, 0, 0, 0, 0, 0}; //Счетчик для выхода из потока в случае, если была
     // повторно нажата кнопка до переставания мигания после первого нажаия
     // порядковый номер элемента массива соответсвует номеру кнопки (начинае с первого елемента). Тоесть countMigalka[1] Соответствует первой кнопке
@@ -334,7 +335,7 @@ public class Client120 {
     }
 
     //методы для воспросизведения звуков
-    public void soundDoor() {
+    /*public void soundDoor() {
         try {
             clipDoor = AudioSystem.getClip();
             InputStream input = new BufferedInputStream(getClass().getResourceAsStream("/door.wav"));
@@ -346,20 +347,20 @@ public class Client120 {
             e.printStackTrace();
             StackTraceElement [] stack = e.getStackTrace();
             logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
-            /*JOptionPane.showMessageDialog(null,e.getMessage());
-            e.printStackTrace();*/
+            *//*JOptionPane.showMessageDialog(null,e.getMessage());
+            e.printStackTrace();*//*
         } catch (UnsupportedAudioFileException e) {
             e.printStackTrace();
             StackTraceElement [] stack = e.getStackTrace();
             logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
-           /* JOptionPane.showMessageDialog(null,e.getMessage());
-            e.printStackTrace();*/
+           *//* JOptionPane.showMessageDialog(null,e.getMessage());
+            e.printStackTrace();*//*
         } catch (IOException e) {
             e.printStackTrace();
             StackTraceElement [] stack = e.getStackTrace();
             logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
-            /*JOptionPane.showMessageDialog(null,e.getMessage());
-            e.printStackTrace();*/
+            *//*JOptionPane.showMessageDialog(null,e.getMessage());
+            e.printStackTrace();*//*
         }
 
     }
@@ -374,20 +375,20 @@ public class Client120 {
             ais.close();
         } catch (LineUnavailableException e) {
             e.printStackTrace();
-           /* JOptionPane.showMessageDialog(null,e.getMessage());
-            e.printStackTrace();*/
+           *//* JOptionPane.showMessageDialog(null,e.getMessage());
+            e.printStackTrace();*//*
             StackTraceElement [] stack = e.getStackTrace();
             logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
         } catch (UnsupportedAudioFileException e) {
             e.printStackTrace();
-           /* JOptionPane.showMessageDialog(null,e.getMessage());
-            e.printStackTrace();*/
+           *//* JOptionPane.showMessageDialog(null,e.getMessage());
+            e.printStackTrace();*//*
             StackTraceElement [] stack = e.getStackTrace();
             logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
         } catch (IOException e) {
             e.printStackTrace();
-           /* JOptionPane.showMessageDialog(null,e.getMessage());
-            e.printStackTrace();*/
+           *//* JOptionPane.showMessageDialog(null,e.getMessage());
+            e.printStackTrace();*//*
             StackTraceElement [] stack = e.getStackTrace();
             logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
         }
@@ -404,25 +405,27 @@ public class Client120 {
             ais.close();
         } catch (LineUnavailableException e) {
             e.printStackTrace();
-         /*   JOptionPane.showMessageDialog(null,e.getMessage());
-            e.printStackTrace();*/
+         *//*   JOptionPane.showMessageDialog(null,e.getMessage());
+            e.printStackTrace();*//*
             StackTraceElement [] stack = e.getStackTrace();
             logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
         } catch (UnsupportedAudioFileException e) {
             e.printStackTrace();
-        /*    JOptionPane.showMessageDialog(null,e.getMessage());
-            e.printStackTrace();*/
+        *//*    JOptionPane.showMessageDialog(null,e.getMessage());
+            e.printStackTrace();*//*
             StackTraceElement [] stack = e.getStackTrace();
             logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
         } catch (IOException e) {
             e.printStackTrace();
-            /*JOptionPane.showMessageDialog(null,e.getMessage());
-            e.printStackTrace();*/
+            *//*JOptionPane.showMessageDialog(null,e.getMessage());
+            e.printStackTrace();*//*
             StackTraceElement [] stack = e.getStackTrace();
             logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
         }
 
-    }
+    }*/
+
+
     public  void choiceWhoAndWhen(JButton binfo,JButton bwho){
         frame.setAlwaysOnTop(false);
         Object when = JOptionPane.showInputDialog(null,
@@ -826,7 +829,7 @@ public class Client120 {
                 b.setBackground(Color.GREEN);
                 binfo.setText(time());
                 bwho.setText(name);
-                soundZvonok();
+                music.soundZvonok();
 
             }
         }
@@ -835,8 +838,7 @@ public class Client120 {
                 b.setBackground(Color.RED);
                 binfo.setText(time());
                 bwho.setText(name);
-
-                soundDoor();
+                music.soundDoor();
 
             }
             if (b.getBackground().equals(Color.RED)) {
@@ -856,7 +858,7 @@ public class Client120 {
             public void actionPerformed(ActionEvent e) {
                 //JOptionPane.showMessageDialog(null,"Кнопка нажата");
                 choiceWhoAndWhen(binfo,bwho);
-                soundClick();
+                music.soundClick();
 
                 try {
                     if (b.getBackground().equals(Color.RED)) {

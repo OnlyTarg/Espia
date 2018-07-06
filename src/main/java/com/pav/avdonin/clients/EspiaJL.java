@@ -2,6 +2,7 @@ package com.pav.avdonin.clients;
 
 import com.google.gson.Gson;
 import com.pav.avdonin.Main;
+import com.pav.avdonin.media.Music;
 
 import javax.sound.sampled.*;
 import javax.swing.*;
@@ -24,6 +25,7 @@ import java.util.logging.SimpleFormatter;
  * Created by CleBo on 28.02.2018.
  */
 public class EspiaJL {
+    transient Music music = new Music();
     transient int hash=0;
     Properties properties= new Properties();
     //String name;
@@ -37,7 +39,6 @@ public class EspiaJL {
     JButton b1info, b2info, b3info, b4info, b5info, b6info, b7info, b8info;
     JButton b1who, b2who, b3who, b4who, b5who, b6who, b7who, b8who;
     JLabel connectionStatus = new JLabel("Статус соединения");
-    transient Clip clipClick, clipZvonok, clipDoor;
     String currentIP;
     {
         try {
@@ -315,7 +316,7 @@ public class EspiaJL {
     }
 
     //методы для воспросизведения звуков
-    public void soundDoor() {
+   /* public void soundDoor() {
         try {
             clipDoor = AudioSystem.getClip();
             InputStream input = new BufferedInputStream(getClass().getResourceAsStream("/door.wav"));
@@ -324,18 +325,18 @@ public class EspiaJL {
             clipDoor.start();
             ais.close();
         } catch (LineUnavailableException e) {
-            /*JOptionPane.showMessageDialog(null,e.getMessage());
-            e.printStackTrace();*/
+            *//*JOptionPane.showMessageDialog(null,e.getMessage());
+            e.printStackTrace();*//*
             StackTraceElement [] stack = e.getStackTrace();
             logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
         } catch (UnsupportedAudioFileException e) {
-            /*e.printStackTrace();
-            JOptionPane.showMessageDialog(null,e.getMessage());*/
+            *//*e.printStackTrace();
+            JOptionPane.showMessageDialog(null,e.getMessage());*//*
             StackTraceElement [] stack = e.getStackTrace();
             logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
         } catch (IOException e) {
-            /*e.printStackTrace();
-            JOptionPane.showMessageDialog(null,e.getMessage());*/
+            *//*e.printStackTrace();
+            JOptionPane.showMessageDialog(null,e.getMessage());*//*
             StackTraceElement [] stack = e.getStackTrace();
             logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
         }
@@ -350,18 +351,18 @@ public class EspiaJL {
             clipClick.start();
             ais.close();
         } catch (LineUnavailableException e) {
-/*            e.printStackTrace();
-            JOptionPane.showMessageDialog(null,e.getStackTrace());*/
+*//*            e.printStackTrace();
+            JOptionPane.showMessageDialog(null,e.getStackTrace());*//*
             StackTraceElement [] stack = e.getStackTrace();
             logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
         } catch (UnsupportedAudioFileException e) {
-     /*       e.printStackTrace();
-            JOptionPane.showMessageDialog(null,e.getStackTrace());*/
+     *//*       e.printStackTrace();
+            JOptionPane.showMessageDialog(null,e.getStackTrace());*//*
             StackTraceElement [] stack = e.getStackTrace();
             logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
         } catch (IOException e) {
-            /*e.printStackTrace();
-            JOptionPane.showMessageDialog(null,e.getStackTrace());*/
+            *//*e.printStackTrace();
+            JOptionPane.showMessageDialog(null,e.getStackTrace());*//*
             StackTraceElement [] stack = e.getStackTrace();
             logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
         }
@@ -376,23 +377,23 @@ public class EspiaJL {
             clipZvonok.start();
             ais.close();
         } catch (LineUnavailableException e) {
-           /* e.printStackTrace();
-            JOptionPane.showMessageDialog(null,e.getStackTrace());*/
+           *//* e.printStackTrace();
+            JOptionPane.showMessageDialog(null,e.getStackTrace());*//*
             StackTraceElement [] stack = e.getStackTrace();
             logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
         } catch (UnsupportedAudioFileException e) {
-            /*e.printStackTrace();
-            JOptionPane.showMessageDialog(null,e.getStackTrace());*/
+            *//*e.printStackTrace();
+            JOptionPane.showMessageDialog(null,e.getStackTrace());*//*
             StackTraceElement [] stack = e.getStackTrace();
             logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
         } catch (IOException e) {
-            /*e.printStackTrace();
-            JOptionPane.showMessageDialog(null,e.getStackTrace());*/
+            *//*e.printStackTrace();
+            JOptionPane.showMessageDialog(null,e.getStackTrace());*//*
             StackTraceElement [] stack = e.getStackTrace();
             logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
         }
 
-    }
+    }*/
     public class Migalkaa extends Thread{
         JButton b;
         Color color;
@@ -770,7 +771,7 @@ public class EspiaJL {
                 b.setBackground(Color.GREEN);
                 binfo.setText(time());
                 bwho.setText(name);
-                soundZvonok();
+                music.soundZvonok();
 
             }
         }
@@ -780,7 +781,7 @@ public class EspiaJL {
                 binfo.setText(time());
                 bwho.setText(name);
 
-                soundDoor();
+                music.soundDoor();
 
             }
             if (b.getBackground().equals(Color.RED)) {

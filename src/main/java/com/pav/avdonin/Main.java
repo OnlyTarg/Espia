@@ -27,11 +27,12 @@ public class Main extends JFrame {
             ipKPP = properties.getProperty("ipKPP");
             ipKTP = properties.getProperty("ipKTP");
             ip120 = properties.getProperty("ip120");
+
         }catch (IOException e) {
             JOptionPane.showMessageDialog(null,"Помилка при зчитуванні файла конфігурацій");
             e.printStackTrace();
         }
-
+        System.out.println(currentIP);
         if(properties.containsValue(currentIP)){
             if (currentIP.equals(ipKPP)){
                 new Client("КПП-1");

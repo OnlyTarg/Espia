@@ -4,6 +4,7 @@ package com.pav.avdonin.clients; /**
 
 import com.google.gson.Gson;
 import com.pav.avdonin.Main;
+import com.pav.avdonin.media.Music;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,10 +28,6 @@ import java.util.logging.SimpleFormatter;
  * Created by CleBo on 23.11.2017.
  */
 public class Client extends JFrame{
-    transient int hash=0;
-    Properties properties = new Properties();
-    String name;
-    String currentIP;
     {
         try {
             currentIP = Inet4Address.getLocalHost().getHostAddress();
@@ -38,6 +35,11 @@ public class Client extends JFrame{
             e.printStackTrace();
         }
     }
+    transient Music music = new Music();
+    transient int hash=0;
+    Properties properties = new Properties();
+    String name;
+    String currentIP;
     JFrame frame;
     boolean isAllowed;
     InetAddress ipAddress;
@@ -68,10 +70,6 @@ public class Client extends JFrame{
         readData();
         close();
     }
-
-
-
-
 
     public Client(String s)  {
         createLogger();
@@ -610,14 +608,14 @@ public class Client extends JFrame{
         if (color.equals("green")) {
             if (b.getBackground().equals(Color.GREEN)) {
                 //DONOTHING, ONLY SET TIME
-                //soundZvonok();
+
 
             }
             if (b.getBackground().equals(Color.RED)) {
                 b.setBackground(Color.GREEN);
                 binfo.setText(time());
                 bwho.setText(name);
-                //soundZvonok();
+                music.soundZvonok();
 
             }
         }
@@ -626,7 +624,7 @@ public class Client extends JFrame{
                 b.setBackground(Color.RED);
                 binfo.setText(time());
                 bwho.setText(name);
-                // soundDoor();
+                music.soundDoor();
 
             }
             if(b.getBackground().equals(Color.RED)){
@@ -692,7 +690,7 @@ public class Client extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 //JOptionPane.showMessageDialog(null,"Кнопка нажата");
-                //soundClick();
+                music.soundClick();
                 //JOptionPane.showMessageDialog(null,"Онлайн слушатель");
                 try {
 
@@ -701,6 +699,7 @@ public class Client extends JFrame{
                         binfo.setText(time());
                         b.setBackground(Color.GREEN);
                         bwho.setText(name);
+                        music.soundZvonok();
 
                         //JOptionPane.showMessageDialog(null,"Данные изменены");
                         dataout.writeUTF(b.getY()+"_green" + "_"+name+"_"+time());
@@ -711,6 +710,7 @@ public class Client extends JFrame{
                         binfo.setText(time());
                         b.setBackground(Color.RED);
                         bwho.setText(name);
+                        music.soundDoor();
                         //JOptionPane.showMessageDialog(null,"Данные изменены");
                         dataout.writeUTF(b.getY()+"_red"+ "_"+name+"_"+time());
                         dataout.flush();
@@ -730,63 +730,5 @@ public class Client extends JFrame{
 
     public static void main(String[] args) throws IOException {
         Client c = new Client("КПП-2(КТП)");
-
-
-
-
     }
-
-    //методы для воспросизведения звуков
-   /* public void soundDoor(){
-        try {
-            clipDoor = AudioSystem.getClip();
-            InputStream input = new BufferedInputStream(getClass().getResourceAsStream("/door.wav"));
-            AudioInputStream ais = AudioSystem.getAudioInputStream(input);
-            clipDoor.open(ais);
-            clipDoor.start();
-            ais.close();
-        } catch (LineUnavailableException e) {
-            e.printStackTrace();
-        } catch (UnsupportedAudioFileException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-    public void soundClick(){
-        try {
-            clipClick = AudioSystem.getClip();
-            InputStream input = new BufferedInputStream(getClass().getResourceAsStream("/click1.wav"));
-            AudioInputStream ais = AudioSystem.getAudioInputStream(input);
-            clipClick.open(ais);
-            clipClick.start();
-            ais.close();
-        } catch (LineUnavailableException e) {
-            e.printStackTrace();
-        } catch (UnsupportedAudioFileException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-    public void soundZvonok(){
-        try {
-            clipZvonok = AudioSystem.getClip();
-            InputStream input = new BufferedInputStream(getClass().getResourceAsStream("/zv1.wav"));
-            AudioInputStream ais = AudioSystem.getAudioInputStream(input);
-            clipZvonok.open(ais);
-            clipZvonok.start();
-            ais.close();
-        } catch (LineUnavailableException e) {
-            e.printStackTrace();
-        } catch (UnsupportedAudioFileException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }*/
-
 }

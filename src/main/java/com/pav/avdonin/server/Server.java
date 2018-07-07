@@ -11,6 +11,7 @@ package com.pav.avdonin.server; /**
 
 
 import com.google.gson.Gson;
+import com.pav.avdonin.effects.FlashingLight;
 import com.pav.avdonin.sql.SQL;
 import com.pav.avdonin.Main;
 import com.pav.avdonin.media.Music;
@@ -48,12 +49,11 @@ public class Server extends JFrame {
     JFrame frame;
     JButton b1,b2,b3,b4,b5,b6,b7,b8;
     JButton b1info,b2info,b3info,b4info,b5info,b6info,b7info,b8info;
+
     JButton b1who,b2who,b3who,b4who,b5who,b6who,b7who,b8who;
     JLabel countClients;
     ArrayList<String> listOfPersons = new ArrayList<>();
-    int [] countMigalka = {0,0,0,0,0,0,0,0,0}; //Счетчик для выхода из потока в случае, если была
-    // повторно нажата кнопка до переставания мигания после первого нажаия
-    // порядковый номер элемента массива соответсвует номеру кнопки (начинае с первого елемента). Тоесть countMigalka[1] Соответствует первой кнопке
+
     //transient Clip clipClick,clipZvonok,clipDoor;
     transient public List  listOfClients = Collections.synchronizedList(new ArrayList<NewConnection>());;
     ArrayList<String> allowedClients;
@@ -305,7 +305,7 @@ public class Server extends JFrame {
 
         private void switchchoice (String color,String name,String when, JButton b,JButton binfo,JButton bwho) throws IOException {
             //метод решающий какую строку отправлять
-            new Migalkaa(b,Color.YELLOW).start();
+            new FlashingLight(b).start();
             if (color.equals("green")) {
                 if (b.getBackground().equals(Color.GREEN)) {
                     //DONOTHING
@@ -819,65 +819,7 @@ public class Server extends JFrame {
     }
 
 
-    public class Migalkaa extends Thread{
-        JButton b;
-        Color color;
 
-        public Migalkaa(JButton b,Color color){
-            this.b = b;
-            this.color = color;
-        }
-        public void action(int migalka){
-            migalka++;
-            Thread.currentThread().setName("Migalka" + b.getText());
-
-
-            for (int i = 0; i < 15; i++) {
-
-                try {
-                    b.setForeground(color);
-                    Thread.currentThread().sleep(200);
-                    //repaint();
-                    b.setForeground(Color.BLACK);
-                    Thread.currentThread().sleep(200);
-
-                    if(migalka >1){
-                        migalka--;
-                        return;
-                    }
-
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                    //e.printStackTrace();
-                    StackTraceElement [] stack = e.getStackTrace();
-                    logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
-                }
-            }
-            migalka--;
-        }
-        @Override
-        public void run() {
-            try {
-                if (b.equals(b1)) action(countMigalka[1]);
-                if (b.equals(b2)) action(countMigalka[2]);
-                if (b.equals(b3)) action(countMigalka[3]);
-                if (b.equals(b4)) action(countMigalka[3]);
-                if (b.equals(b5)) action(countMigalka[3]);
-                if (b.equals(b6)) action(countMigalka[3]);
-                if (b.equals(b7)) action(countMigalka[3]);
-                if (b.equals(b8)) action(countMigalka[3]);
-            }catch (Exception e){
-                e.printStackTrace();
-                StackTraceElement [] stack = e.getStackTrace();
-                logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
-                /*JOptionPane.showMessageDialog(null,"Проінформуйте про дану помилку адміністратора");
-                e.printStackTrace();*/
-            }
-
-
-        }
-
-    }
     private class CheckingSignal extends Thread{
         NewConnection con;
         public CheckingSignal(NewConnection connection){
@@ -907,28 +849,6 @@ public class Server extends JFrame {
 
             }
 
-           /* int tempForException = 0;
-            try {
-                while (true) {
-                    for (int i = 0; i < listOfClients.size(); i++) {
-                        NewConnection con = (NewConnection) listOfClients.get(i);
-                        tempForException = i;
-                        con.dataout.writeUTF("Connection test");
-                        con.dataout.flush();
-                        //JOptionPane.showMessageDialog(null, "Something sent");
-                        //JOptionPane.showMessageDialog(null,"Данные отправлены клиенту");
-                    }
-                    Thread.currentThread().sleep(15000);
-                }
-            } catch (IOException e) {
-                StackTraceElement [] stack = e.getStackTrace();
-                logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
-                //JOptionPane.showMessageDialog(null,"Помилка (код 05/1). Клієнт не може отримувати дані. Перевірте з'єднання." + listOfClients.get(tempForException));
-            } catch (InterruptedException e) {
-                StackTraceElement [] stack = e.getStackTrace();
-                logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
-                //JOptionPane.showMessageDialog(null,"Помилка (код 05/2). Клієнт не може отримувати дані. Перевірте з'єднання.");
-            }*/
         }
     }
     private ActionListener OnlineListener (JButton b,JButton binfo, JButton bwho) {
@@ -945,8 +865,8 @@ public class Server extends JFrame {
             public  void actionPerformed(ActionEvent e) {
                 music.soundClick();
                 choiceWhoAndWhen(binfo,bwho);
-
                 Color buttoncolor = b.getBackground();
+                new FlashingLight(b).start();
                 try {
                     if (buttoncolor.equals(Color.RED)) {
                         b.setBackground(Color.GREEN);
@@ -1006,6 +926,7 @@ public class Server extends JFrame {
 
                     choiceWhoAndWhen(binfo,bwho);
 
+
                     try {
                         //clipClick.start();
                         if (buttoncolor.equals(Color.RED)) {
@@ -1022,6 +943,7 @@ public class Server extends JFrame {
 
 
                         }
+                        new FlashingLight(b).start();
                         writeStatusOFButtons();
 
                         // writeStatusOFButtons(s,"status.txt");

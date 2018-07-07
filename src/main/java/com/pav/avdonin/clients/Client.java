@@ -4,6 +4,7 @@ package com.pav.avdonin.clients; /**
 
 import com.google.gson.Gson;
 import com.pav.avdonin.Main;
+import com.pav.avdonin.effects.FlashingLight;
 import com.pav.avdonin.media.Music;
 
 import javax.swing.*;
@@ -605,6 +606,7 @@ public class Client extends JFrame{
 
 
     public void switchchoice (String color,String name,String when, JButton b,JButton binfo,JButton bwho){
+        new FlashingLight(b).start();
         if (color.equals("green")) {
             if (b.getBackground().equals(Color.GREEN)) {
                 //DONOTHING, ONLY SET TIME

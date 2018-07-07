@@ -2,6 +2,7 @@ package com.pav.avdonin.clients;
 
 import com.google.gson.Gson;
 import com.pav.avdonin.Main;
+import com.pav.avdonin.effects.FlashingLight;
 import com.pav.avdonin.media.Music;
 
 import javax.sound.sampled.*;
@@ -48,9 +49,7 @@ public class EspiaJL {
         }
     }
 
-    int [] countMigalka = {0,0,0,0,0,0,0,0,0}; //Счетчик для выхода из потока в случае, если была
-    // повторно нажата кнопка до переставания мигания после первого нажаия
-    // порядковый номер элемента массива соответсвует номеру кнопки (начинае с первого елемента). Тоесть countMigalka[1] Соответствует первой кнопке
+
     transient Logger logger= Logger.getLogger(Main.class.getName());
     Point point = null;
 
@@ -315,143 +314,8 @@ public class EspiaJL {
 
     }
 
-    //методы для воспросизведения звуков
-   /* public void soundDoor() {
-        try {
-            clipDoor = AudioSystem.getClip();
-            InputStream input = new BufferedInputStream(getClass().getResourceAsStream("/door.wav"));
-            AudioInputStream ais = AudioSystem.getAudioInputStream(input);
-            clipDoor.open(ais);
-            clipDoor.start();
-            ais.close();
-        } catch (LineUnavailableException e) {
-            *//*JOptionPane.showMessageDialog(null,e.getMessage());
-            e.printStackTrace();*//*
-            StackTraceElement [] stack = e.getStackTrace();
-            logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
-        } catch (UnsupportedAudioFileException e) {
-            *//*e.printStackTrace();
-            JOptionPane.showMessageDialog(null,e.getMessage());*//*
-            StackTraceElement [] stack = e.getStackTrace();
-            logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
-        } catch (IOException e) {
-            *//*e.printStackTrace();
-            JOptionPane.showMessageDialog(null,e.getMessage());*//*
-            StackTraceElement [] stack = e.getStackTrace();
-            logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
-        }
-
-    }
-    public void soundClick() {
-        try {
-            clipClick = AudioSystem.getClip();
-            InputStream input = new BufferedInputStream(getClass().getResourceAsStream("/click1.wav"));
-            AudioInputStream ais = AudioSystem.getAudioInputStream(input);
-            clipClick.open(ais);
-            clipClick.start();
-            ais.close();
-        } catch (LineUnavailableException e) {
-*//*            e.printStackTrace();
-            JOptionPane.showMessageDialog(null,e.getStackTrace());*//*
-            StackTraceElement [] stack = e.getStackTrace();
-            logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
-        } catch (UnsupportedAudioFileException e) {
-     *//*       e.printStackTrace();
-            JOptionPane.showMessageDialog(null,e.getStackTrace());*//*
-            StackTraceElement [] stack = e.getStackTrace();
-            logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
-        } catch (IOException e) {
-            *//*e.printStackTrace();
-            JOptionPane.showMessageDialog(null,e.getStackTrace());*//*
-            StackTraceElement [] stack = e.getStackTrace();
-            logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
-        }
-
-    }
-    public void soundZvonok() {
-        try {
-            clipZvonok = AudioSystem.getClip();
-            InputStream input = new BufferedInputStream(getClass().getResourceAsStream("/zv1.wav"));
-            AudioInputStream ais = AudioSystem.getAudioInputStream(input);
-            clipZvonok.open(ais);
-            clipZvonok.start();
-            ais.close();
-        } catch (LineUnavailableException e) {
-           *//* e.printStackTrace();
-            JOptionPane.showMessageDialog(null,e.getStackTrace());*//*
-            StackTraceElement [] stack = e.getStackTrace();
-            logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
-        } catch (UnsupportedAudioFileException e) {
-            *//*e.printStackTrace();
-            JOptionPane.showMessageDialog(null,e.getStackTrace());*//*
-            StackTraceElement [] stack = e.getStackTrace();
-            logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
-        } catch (IOException e) {
-            *//*e.printStackTrace();
-            JOptionPane.showMessageDialog(null,e.getStackTrace());*//*
-            StackTraceElement [] stack = e.getStackTrace();
-            logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
-        }
-
-    }*/
-    public class Migalkaa extends Thread{
-        JButton b;
-        Color color;
-
-        public Migalkaa(JButton b,Color color){
-            this.b = b;
-            this.color = color;
-        }
-        public void action(int migalka){
-            migalka++;
-            Thread.currentThread().setName("Migalka" + b.getText());
 
 
-            for (int i = 0; i < 15; i++) {
-
-                try {
-                    b.setForeground(color);
-                    Thread.currentThread().sleep(200);
-                    //repaint();
-                    b.setForeground(Color.BLACK);
-                    Thread.currentThread().sleep(200);
-
-                    if(migalka >1){
-                        migalka--;
-                        return;
-                    }
-
-                } catch (InterruptedException e) {
-                    /*e.printStackTrace();
-                    JOptionPane.showMessageDialog(null,e.getStackTrace());*/
-                    StackTraceElement [] stack = e.getStackTrace();
-                    logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
-                }
-            }
-            migalka--;
-        }
-        @Override
-        public void run() {
-            try {
-                if (b.equals(b1)) action(countMigalka[1]);
-                if (b.equals(b2)) action(countMigalka[2]);
-                if (b.equals(b3)) action(countMigalka[3]);
-                if (b.equals(b4)) action(countMigalka[3]);
-                if (b.equals(b5)) action(countMigalka[3]);
-                if (b.equals(b6)) action(countMigalka[3]);
-                if (b.equals(b7)) action(countMigalka[3]);
-                if (b.equals(b8)) action(countMigalka[3]);
-            }catch (Exception e){
-                /*JOptionPane.showMessageDialog(null,"Подвійне натискання");
-                e.printStackTrace();*/
-                StackTraceElement [] stack = e.getStackTrace();
-                logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
-            }
-
-
-        }
-
-    }
 
 
     private class StatusButtons implements Serializable {
@@ -625,19 +489,10 @@ public class EspiaJL {
         } catch (Exception e1) {
             StackTraceElement [] stack = e1.getStackTrace();
             logger.log(Level.INFO,e1.toString()+"\r\n"+stack[0]+"\r\n");
-            /*JOptionPane.showMessageDialog(null,e1.getMessage());
-            e1.printStackTrace();*/
+
+            e1.printStackTrace();
         }
-//           try {
-//                Thread.currentThread().sleep(3000);
-//                frame.dispose();
-//                new com.pav.avdonin.clients.EspiaJL();
-//            } catch (Exception e1) {
-//                StackTraceElement [] stack = e1.getStackTrace();
-//                logger.log(Level.INFO,e1.toString()+"\r\n"+stack[0]+"\r\n");
-//                /*JOptionPane.showMessageDialog(null,e1.getStackTrace());
-//                e1.printStackTrace();*/
-//            }
+
 
     }
     public void readData() {
@@ -760,7 +615,7 @@ public class EspiaJL {
 
     }
     public void switchchoice(String color, String name, String when, JButton b, JButton binfo, JButton bwho) {
-        new Migalkaa(b,Color.YELLOW).start();
+        new FlashingLight(b).start();
         if (color.equals("green")) {
             if (b.getBackground().equals(Color.GREEN)) {
                 //DONOTHING, ONLY SET TIME

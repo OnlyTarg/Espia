@@ -11,7 +11,7 @@ package com.pav.avdonin.server; /**
 
 
 import com.google.gson.Gson;
-import com.pav.avdonin.effects.FlashingLight;
+import com.pav.avdonin.visual.FlashingLight;
 import com.pav.avdonin.sql.SQL;
 import com.pav.avdonin.Main;
 import com.pav.avdonin.media.Music;

@@ -2,10 +2,9 @@ package com.pav.avdonin.clients;
 
 import com.google.gson.Gson;
 import com.pav.avdonin.Main;
-import com.pav.avdonin.effects.FlashingLight;
+import com.pav.avdonin.visual.FlashingLight;
 import com.pav.avdonin.media.Music;
 
-import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;

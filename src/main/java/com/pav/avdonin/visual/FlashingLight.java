@@ -1,4 +1,4 @@
-package com.pav.avdonin.effects;
+package com.pav.avdonin.visual;
 
 import javax.swing.*;
 import java.awt.*;

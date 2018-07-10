@@ -11,17 +11,17 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
-public class Frames extends JFrame {
+public  class  Frames extends JFrame {
 
     public static void main(String[] args) {
         new Frames("EspisServer",false);
     }
 
     JFrame frame = new JFrame();
-    JButton[] mainButtons,timeButtons,placeButtons;
+    public JButton[] mainButtons,timeButtons,placeButtons;
     ArrayList<String> listOfPersons;
     int countOfButtons;
-    JLabel countClients;
+    public JLabel countClients;
 
 
     public Frames(String frameTitle, boolean infoSide) {
@@ -139,6 +139,7 @@ public class Frames extends JFrame {
             mainButtonBounds.y = mainButtonBounds.y+60;
             mainButtons[i].setBackground(Color.RED);
             frame.add(mainButtons[i]);
+            System.out.println(mainButtons[i].getX()+" "+mainButtons[i].getY());
             if(i==9&&infoSide){
                 mainButtonBounds.setBounds(335, 10, 200, 50);
             }
@@ -207,7 +208,7 @@ public class Frames extends JFrame {
                     for (int i = 0; i <listOfClients.size() ; i++) {
                         FileUtils.writeStringToFile(client,"","UTF8");
                         System.out.println(listOfClients.get(i).hashCode());
-                        NewConnection con = (NewConnection)listOfClients.get(i);
+                        ConnectionPoint con = (ConnectionPoint)listOfClients.get(i);
                         sql.exitFromSession(con.getName(), timeWithSeconds(),con.hash,"server stopted");
 
 

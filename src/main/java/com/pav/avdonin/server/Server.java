@@ -41,6 +41,8 @@ import java.util.logging.SimpleFormatter;
 
 
 public class Server extends JFrame {
+    transient private Socket socket;
+    transient private ServerSocket server;
     transient Music music = new Music();
     transient SQL sql;
     Properties properties = new Properties();
@@ -55,7 +57,7 @@ public class Server extends JFrame {
     ArrayList<String> listOfPersons = new ArrayList<>();
 
     //transient Clip clipClick,clipZvonok,clipDoor;
-    transient public List  listOfClients = Collections.synchronizedList(new ArrayList<NewConnection>());;
+    transient public List  listOfClients = Collections.synchronizedList(new ArrayList<ConnectionPoint>());;
     ArrayList<String> allowedClients;
     HashMap<String,String > mapallowedClients;
     transient Logger logger= Logger.getLogger(Main.class.getName());
@@ -106,82 +108,73 @@ public class Server extends JFrame {
             logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
         }
 
-        CreateServer ser = new CreateServer();
+        try{
+            server = new ServerSocket((Integer.valueOf(properties.getProperty("port"))));
+            //System.out.println(server.getLocalPort());
+            frame.repaint();
+            int temp = 0;//временная переменная для if else что ниже
 
-
-    }
-    private class CreateServer{
-        private Socket socket;
-        private ServerSocket server;
-
-
-        public CreateServer (){
-
-            try{
-                server = new ServerSocket((Integer.valueOf(properties.getProperty("port"))));
-                //System.out.println(server.getLocalPort());
-                frame.repaint();
-                int temp = 0;//временная переменная для if else что ниже
-
-                while(true){
-                    //Удаление слушателя OnlyServer если кто-то подключился. Так как нам уже не нужен этот слушатель
-                    //Добавляем слушателя OnlineListener
-                    //!!!!НАДО добавить востановление этого слушателя в случае если список соединений будет опять равняться нулю
-                    if(listOfClients.size()>0 && temp==0) {
-                        ActionListener [] mas1 = b1.getActionListeners();
-                        ActionListener [] mas2 = b2.getActionListeners();
-                        ActionListener [] mas3= b3.getActionListeners();
-                        ActionListener [] mas4 = b4.getActionListeners();
-                        ActionListener [] mas5 = b5.getActionListeners();
-                        ActionListener [] mas6 = b6.getActionListeners();
-                        ActionListener [] mas7 = b7.getActionListeners();
-                        ActionListener [] mas8 = b8.getActionListeners();
-                        b1.removeActionListener(mas1[mas1.length-1]);
-                        b2.removeActionListener(mas2[mas2.length-1]);
-                        b3.removeActionListener(mas3[mas3.length-1]);
-                        b4.removeActionListener(mas4[mas4.length-1]);
-                        b5.removeActionListener(mas5[mas5.length-1]);
-                        b6.removeActionListener(mas6[mas6.length-1]);
-                        b7.removeActionListener(mas7[mas7.length-1]);
-                        b8.removeActionListener(mas8[mas8.length-1]);
-                        b1.addActionListener(OnlineListener(b1,b1info,b1who));
-                        b2.addActionListener(OnlineListener(b2,b2info,b2who));
-                        b3.addActionListener(OnlineListener(b3,b3info,b3who));
-                        b4.addActionListener(OnlineListener(b4,b4info,b4who));
-                        b5.addActionListener(OnlineListener(b5,b5info,b5who));
-                        b6.addActionListener(OnlineListener(b6,b6info,b6who));
-                        b7.addActionListener(OnlineListener(b7,b7info,b7who));
-                        b8.addActionListener(OnlineListener(b8,b8info,b8who));
-                        temp=1;
-                    }
-                    System.out.println("Waiting for someone");
-                    System.out.println(Inet4Address.getLocalHost().getHostAddress());
-                    socket=server.accept();
-
-                    System.out.println("Somebody is connected");
-                    NewConnection connection = new NewConnection(socket);
-                    String ip = socket.getRemoteSocketAddress().toString().substring(1,socket.getRemoteSocketAddress().toString().indexOf(":"));
-                    connection.setName(ip);
-                    connection.start();
-                    listOfClients.add(connection);
-                    Thread.currentThread().sleep(500);
-
-                    FileUtils.writeStringToFile(client,"","UTF8");
-                    for (int i = 0; i <listOfClients.size() ; i++) {
-                        FileUtils.writeStringToFile(client,listOfClients.get(i).toString()+" "+mapallowedClients.get(listOfClients.get(i).toString().substring(1))+"\r\n","UTF8",true);
-                    }
+            while(true){
+                //Удаление слушателя OnlyServer если кто-то подключился. Так как нам уже не нужен этот слушатель
+                //Добавляем слушателя OnlineListener
+                //!!!!НАДО добавить востановление этого слушателя в случае если список соединений будет опять равняться нулю
+                if(listOfClients.size()>0 && temp==0) {
+                    ActionListener [] mas1 = b1.getActionListeners();
+                    ActionListener [] mas2 = b2.getActionListeners();
+                    ActionListener [] mas3= b3.getActionListeners();
+                    ActionListener [] mas4 = b4.getActionListeners();
+                    ActionListener [] mas5 = b5.getActionListeners();
+                    ActionListener [] mas6 = b6.getActionListeners();
+                    ActionListener [] mas7 = b7.getActionListeners();
+                    ActionListener [] mas8 = b8.getActionListeners();
+                    b1.removeActionListener(mas1[mas1.length-1]);
+                    b2.removeActionListener(mas2[mas2.length-1]);
+                    b3.removeActionListener(mas3[mas3.length-1]);
+                    b4.removeActionListener(mas4[mas4.length-1]);
+                    b5.removeActionListener(mas5[mas5.length-1]);
+                    b6.removeActionListener(mas6[mas6.length-1]);
+                    b7.removeActionListener(mas7[mas7.length-1]);
+                    b8.removeActionListener(mas8[mas8.length-1]);
+                    b1.addActionListener(OnlineListener(b1,b1info,b1who));
+                    b2.addActionListener(OnlineListener(b2,b2info,b2who));
+                    b3.addActionListener(OnlineListener(b3,b3info,b3who));
+                    b4.addActionListener(OnlineListener(b4,b4info,b4who));
+                    b5.addActionListener(OnlineListener(b5,b5info,b5who));
+                    b6.addActionListener(OnlineListener(b6,b6info,b6who));
+                    b7.addActionListener(OnlineListener(b7,b7info,b7who));
+                    b8.addActionListener(OnlineListener(b8,b8info,b8who));
+                    temp=1;
                 }
+                System.out.println("Waiting for someone");
+                System.out.println(Inet4Address.getLocalHost().getHostAddress());
+                socket=server.accept();
 
-            }catch (Exception e){
-                e.printStackTrace();
-                StackTraceElement [] stack = e.getStackTrace();
-                logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
-                JOptionPane.showMessageDialog(null,"Помилка при створенні серверу");
+                System.out.println("Somebody is connected");
+                ConnectionPoint connection = new ConnectionPoint(socket);
+                String ip = socket.getRemoteSocketAddress().toString().substring(1,socket.getRemoteSocketAddress().toString().indexOf(":"));
+                connection.setName(ip);
+                connection.start();
+                listOfClients.add(connection);
+                Thread.currentThread().sleep(500);
+
+                FileUtils.writeStringToFile(client,"","UTF8");
+                for (int i = 0; i <listOfClients.size() ; i++) {
+                    FileUtils.writeStringToFile(client,listOfClients.get(i).toString()+" "+mapallowedClients.get(listOfClients.get(i).toString().substring(1))+"\r\n","UTF8",true);
+                }
             }
+
+        }catch (Exception e){
+            e.printStackTrace();
+            StackTraceElement [] stack = e.getStackTrace();
+            logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
+            JOptionPane.showMessageDialog(null,"Помилка при створенні серверу");
         }
+
+
     }
 
-    public class NewConnection extends Thread{
+
+    public class ConnectionPoint extends Thread{
         int hash=0;
 
         private Socket socket;
@@ -194,7 +187,7 @@ public class Server extends JFrame {
             return socket.getInetAddress().toString();
         }
 
-        public NewConnection(Socket socket){
+        public ConnectionPoint(Socket socket){
             this.socket = socket;
             //Thread.currentThread().setName("asa");
             //System.out.println(currentThread());
@@ -335,7 +328,7 @@ public class Server extends JFrame {
 
             for (int i = 0; i <listOfClients.size() ; i++) {
                 try{
-                    NewConnection con = (NewConnection)listOfClients.get(i);
+                    ConnectionPoint con = (ConnectionPoint)listOfClients.get(i);
                     con.dataout.writeUTF(b.getY() +"_"+color+"_"+name+"_"+when);
                     con.dataout.flush();
 
@@ -480,7 +473,7 @@ public class Server extends JFrame {
                     for (int i = 0; i <listOfClients.size() ; i++) {
                         FileUtils.writeStringToFile(client,"","UTF8");
                         System.out.println(listOfClients.get(i).hashCode());
-                        NewConnection con = (NewConnection)listOfClients.get(i);
+                        ConnectionPoint con = (ConnectionPoint)listOfClients.get(i);
                         sql.exitFromSession(con.getName(), timeWithSeconds(),con.hash,"server stopted");
 
 
@@ -785,7 +778,7 @@ public class Server extends JFrame {
         try{
 
             InputStream in = getClass().getResourceAsStream("/list.txt");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in,"CP1251"));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in,"UTF8"));
             String s = "";
             while ((s = reader.readLine()) != null) {
                 listOfPersons.add(s);
@@ -821,8 +814,8 @@ public class Server extends JFrame {
 
 
     private class CheckingSignal extends Thread{
-        NewConnection con;
-        public CheckingSignal(NewConnection connection){
+        ConnectionPoint con;
+        public CheckingSignal(ConnectionPoint connection){
             this.con = connection;
         }
 
@@ -873,7 +866,7 @@ public class Server extends JFrame {
                         music.soundZvonok();
 
                         for (int i = 0; i <listOfClients.size() ; i++) {
-                            NewConnection con = (NewConnection)listOfClients.get(i);
+                            ConnectionPoint con = (ConnectionPoint)listOfClients.get(i);
                             con.dataout.writeUTF(b.getY() + "_green" + "_" + bwho.getText() + "_" + binfo.getText());
                             con.dataout.flush();
                             //JOptionPane.showMessageDialog(null,"Данные отправлены клиенту");
@@ -885,7 +878,7 @@ public class Server extends JFrame {
                         music.soundDoor();
                         //binfo.setText(time());
                         for (int i = 0; i <listOfClients.size() ; i++) {
-                            NewConnection con = (NewConnection)listOfClients.get(i);
+                            ConnectionPoint con = (ConnectionPoint)listOfClients.get(i);
                             con.dataout.writeUTF(b.getY() + "_red" + "_" + bwho.getText() + "_" + binfo.getText());
                             con.dataout.flush();
                             //JOptionPane.showMessageDialog(null,"Данные отправлены клиенту");

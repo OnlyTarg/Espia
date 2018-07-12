@@ -1,4 +1,5 @@
 package com.pav.avdonin.visual;
+import com.pav.avdonin.functions.ActListeners;
 import org.apache.commons.io.FileUtils;
 import javax.swing.*;
 import java.awt.*;
@@ -14,14 +15,14 @@ import java.util.logging.Level;
 public  class  Frames extends JFrame {
 
     public static void main(String[] args) {
-        new Frames("EspisServer",false);
+        new Frames("EspiaServer",false);
     }
 
     JFrame frame = new JFrame();
     public JButton[] mainButtons,timeButtons,placeButtons;
     ArrayList<String> listOfPersons;
     int countOfButtons;
-    public JLabel countClients;
+    static public JLabel countClients;
 
 
     public Frames(String frameTitle, boolean infoSide) {
@@ -139,6 +140,7 @@ public  class  Frames extends JFrame {
             mainButtonBounds.y = mainButtonBounds.y+60;
             mainButtons[i].setBackground(Color.RED);
             frame.add(mainButtons[i]);
+
             System.out.println(mainButtons[i].getX()+" "+mainButtons[i].getY());
             if(i==9&&infoSide){
                 mainButtonBounds.setBounds(335, 10, 200, 50);
@@ -172,6 +174,13 @@ public  class  Frames extends JFrame {
                     placeButtonBounds.setBounds(538, 35, 120, 25);
                 }
             }
+            addOfflineActionListeners();
+        }
+    }
+
+    private void addOfflineActionListeners() {
+        for (int i = 0; i <mainButtons.length ; i++) {
+            mainButtons[i].addActionListener(new ActListeners().OfflineListener(mainButtons[i],timeButtons[i],placeButtons[i]));
         }
     }
     private void fillingJLabelProperties() {

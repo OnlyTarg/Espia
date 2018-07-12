@@ -1,7 +1,8 @@
-/*
-package com.pav.avdonin.functions.actionlisteners;
+package com.pav.avdonin.functions;
 
+import com.pav.avdonin.functions.StatusButtons;
 import com.pav.avdonin.media.Music;
+import com.pav.avdonin.server.ConnectionPoint;
 import com.pav.avdonin.server.Server;
 import com.pav.avdonin.visual.FlashingLight;
 
@@ -12,6 +13,10 @@ import java.awt.event.ActionListener;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.logging.Level;
 
 public class ActListeners {
@@ -19,10 +24,9 @@ public class ActListeners {
 
 
 
-    private ActionListener OnlineListener (JButton b, JButton binfo, JButton bwho) {
+/*    private ActionListener OnlineListener (JButton b, JButton binfo, JButton bwho) {
 
-        */
-/*Создаю слушатель для кнопок
+*//*Создаю слушатель для кнопок
         При нажатии на кнопку, она изменяет цвет на противоположный,
         в зависимости от того какой цвет был установлен до нажатия.
         После этого в OutputStream передается строка в виде "120 green"
@@ -69,9 +73,8 @@ public class ActListeners {
                     ex.printStackTrace();
                     StackTraceElement [] stack = ex.getStackTrace();
                     logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
-                    */
-/*ex.printStackTrace();
-                    JOptionPane.showMessageDialog(null,"Помилка в передачі даних.(клас OnlineListener)");*//*
+ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null,"Помилка в передачі даних.(клас OnlineListener)");
 
 
                 }
@@ -80,14 +83,13 @@ public class ActListeners {
             }
         };
         return actionListener;
-    }
-    private ActionListener OfflineListener (Server s, JButton b, JButton binfo, JButton bwho) {
-        */
+    }*/
+    public ActionListener OfflineListener (JButton b, JButton binfo, JButton bwho) {
 /*Создаю слушатель для кнопок
         При нажатии на кнопку, она изменяет цвет на противоположный,
         в зависимости от того какой цвет был установлен до нажатия.
-        Работает только в офлайне
-       *//*
+        Работает только в офлайне*/
+
 
 
         ActionListener actionListener = null;
@@ -118,11 +120,11 @@ public class ActListeners {
 
                         }
                         new FlashingLight(b).start();
-                        writeStatusOFButtons();
+                        Server.statusButtons.writeStatusOFButtons();
 
                     }catch (Exception ex){
                         ex.printStackTrace();
-                        StackTraceElement [] stack = ex.getStackTrace();
+
                     }
                 }
             };
@@ -134,10 +136,11 @@ public class ActListeners {
         return actionListener;
     }
     public  void choiceWhoAndWhen(JButton binfo,JButton bwho){
-        frame.setAlwaysOnTop(false);
+        Server.mainframes.setAlwaysOnTop(false);
         Object when = JOptionPane.showInputDialog(null,
                 "", "Введіть дату",
                 JOptionPane.INFORMATION_MESSAGE, null,null,time());
+        System.out.println(when);
         binfo.setText(when.toString());
         Object[] possibleValues = { "КПП-1", "КПП-2(КТП)" };
         Object who = JOptionPane.showInputDialog(null,
@@ -146,9 +149,9 @@ public class ActListeners {
                 possibleValues, possibleValues[0]);
 
         bwho.setText(who.toString());
-        frame.setAlwaysOnTop(true);
+        Server.mainframes.setAlwaysOnTop(true);
     }
-    private void writeStatusOFButtons() throws IOException {
+   /* private void writeStatusOFButtons() throws IOException {
         Server.StatusButtons statusButtons = new Server.StatusButtons(b1.getBackground(),b2.getBackground(),b3.getBackground(),
                 b4.getBackground(),b5.getBackground(),b6.getBackground(),b7.getBackground(),b8.getBackground(),
                 b1info.getText(),b2info.getText(),b3info.getText(),b4info.getText(),
@@ -161,5 +164,19 @@ public class ActListeners {
         out.flush();
         out.close();
         file.close();
+    }*/
+   public String time (){
+       DateFormat df = new SimpleDateFormat("dd.MM HH:mm");
+       Date currenttime = Calendar.getInstance().getTime();
+       String time = df.format(currenttime);
+       return time;
+
+   }
+    public String timeWithSeconds(){
+        DateFormat df = new SimpleDateFormat("dd.MM HH:mm:ss");
+        Date currenttime = Calendar.getInstance().getTime();
+        String time = df.format(currenttime);
+        return time;
+
     }
-}*/
+}

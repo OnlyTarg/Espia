@@ -1,5 +1,6 @@
 package com.pav.avdonin.server;
 import com.google.gson.Gson;
+import com.pav.avdonin.functions.StatusButtons;
 import com.pav.avdonin.media.Music;
 import com.pav.avdonin.sql.SQL;
 import com.pav.avdonin.visual.FlashingLight;
@@ -16,13 +17,11 @@ import java.util.*;
 import java.util.List;
 
 public class ConnectionPoint extends Thread {
-    transient public List listOfClients = Collections.synchronizedList(new ArrayList<Server.ConnectionPoint>());
-    File client = new File("clients.txt");
-    ArrayList<String> allowedClients;
-    HashMap<String,String > mapallowedClients;
+
     Music music = new Music();
     int hash=0;
-    Frames mainframe = new Frames("EspiaServer", true);
+    Frames mainframe;
+
 
 
     private Socket socket;
@@ -34,7 +33,9 @@ public class ConnectionPoint extends Thread {
         return socket.getInetAddress().toString();
     }
 
-    public ConnectionPoint(Socket socket){
+    public ConnectionPoint(Socket socket,Frames mainframe){
+        this.mainframe = mainframe;
+
         this.socket = socket;
         //Thread.currentThread().setName("asa");
         //System.out.println(currentThread());
@@ -150,7 +151,7 @@ public class ConnectionPoint extends Thread {
                             e.printStackTrace();
                             e.printStackTrace();
                         }
-                        if(values.length==3 && mapallowedClients.containsKey(values[1])){
+                        if(values.length==3 && Server.mapallowedClients.containsKey(values[1])){
                             dataout.writeUTF("isAllowed_"+"YES");
                             dataout.flush();
                         }
@@ -167,30 +168,30 @@ public class ConnectionPoint extends Thread {
                         }
                         break;
                 }
-                writeStatusOFButtons();
+                Server.statusButtons.writeStatusOFButtons();
             } catch (SocketException e){
                 e.printStackTrace();
                /* logger.log(Level.INFO,Thread.currentThread().getName()+" disconnected\r\n");
                 listOfClients.remove(currentThread());
                 sql.exitFromSession(Thread.currentThread().getName(), timeWithSeconds(),hash,"");*/
-                FileUtils.writeStringToFile(client,"","UTF8");
-                for (int i = 0; i <listOfClients.size() ; i++) {
-                    FileUtils.writeStringToFile(client,listOfClients.get(i).toString()+" "+mapallowedClients.get(listOfClients.get(i).toString().substring(1))+"\r\n","UTF8",true);
+                FileUtils.writeStringToFile(Server.client,"","UTF8");
+                for (int i = 0; i <Server.listOfClients.size() ; i++) {
+                    FileUtils.writeStringToFile(Server.client,Server.listOfClients.get(i).toString()+" "+Server.mapallowedClients.get(Server.listOfClients.get(i).toString().substring(1))+"\r\n","UTF8",true);
                 }
-                mainframe.countClients.setText("Кількість клієнтів - " +listOfClients.size());
+                mainframe.countClients.setText("Кількість клієнтів - " +Server.listOfClients.size());
                 close();
                 break;
             } catch(Exception e){
                 e.printStackTrace();
                 StackTraceElement [] stack = e.getStackTrace();
                 //logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected\r\n");
-                listOfClients.remove(currentThread());
+                Server.listOfClients.remove(currentThread());
                 //sql.exitFromSession(timeWithSeconds(),Thread.currentThread().getName(),hash,"");
-                FileUtils.writeStringToFile(client,"","UTF8");
-                for (int i = 0; i <listOfClients.size() ; i++) {
-                    FileUtils.writeStringToFile(client,listOfClients.get(i).toString()+" "+mapallowedClients.get(listOfClients.get(i).toString().substring(1))+"\r\n","UTF8",true);
+                FileUtils.writeStringToFile(Server.client,"","UTF8");
+                for (int i = 0; i <Server.listOfClients.size() ; i++) {
+                    FileUtils.writeStringToFile(Server.client,Server.listOfClients.get(i).toString()+" "+Server.mapallowedClients.get(Server.listOfClients.get(i).toString().substring(1))+"\r\n","UTF8",true);
                 }
-                mainframe.countClients.setText("Кількість клієнтів - " +listOfClients.size());
+                mainframe.countClients.setText("Кількість клієнтів - " +Server.listOfClients.size());
                 close();
                 break;
             }
@@ -228,18 +229,14 @@ public class ConnectionPoint extends Thread {
         }
         //пересылаем полученные данные всем пользователям из списка лист
 
-        for (int i = 0; i <listOfClients.size() ; i++) {
+        for (int i = 0; i <Server.listOfClients.size() ; i++) {
             try{
-                Server.ConnectionPoint con = (Server.ConnectionPoint)listOfClients.get(i);
-                con.dataout.writeUTF(b.getY() +"_"+color+"_"+name+"_"+when);
-                con.dataout.flush();
+                ConnectionPoint connectionPoint = (ConnectionPoint)Server.listOfClients.get(i);
+                connectionPoint.dataout.writeUTF(b.getY() +"_"+color+"_"+name+"_"+when);
+                connectionPoint.dataout.flush();
 
             }catch(Exception e){
                 e.printStackTrace();
-                StackTraceElement [] stack = e.getStackTrace();
-                //logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
-                //JOptionPane.showMessageDialog(null,"Помилка в передачі даних до всіх клієнтів. Зверніться до Адміністратора.");
-                //e.printStackTrace();
             }
         }
     }
@@ -251,7 +248,7 @@ public class ConnectionPoint extends Thread {
             datain = new DataInputStream(socket.getInputStream());
             dataout = new DataOutputStream(socket.getOutputStream());
 
-            mainframe.countClients.setText("Кількість клієнтів - " +listOfClients.size());
+            mainframe.countClients.setText("Кількість клієнтів - " +Server.listOfClients.size());
             //отправка состояния кнопок клиентам
             Gson gson = new Gson();
             StatusButtons statusButtons = new StatusButtons(mainframe.mainButtons,mainframe.timeButtons,mainframe.placeButtons);
@@ -309,51 +306,7 @@ public class ConnectionPoint extends Thread {
 
 
 
-    private void writeStatusOFButtons() throws IOException {
-        StatusButtons statusButtons = new StatusButtons(mainframe.mainButtons,mainframe.timeButtons,mainframe.placeButtons);
-        FileOutputStream file = new FileOutputStream("status.txt");
-        ObjectOutputStream objectOutputStream = new ObjectOutputStream(file);
-        objectOutputStream.writeObject(statusButtons);
-        objectOutputStream.flush();
-        objectOutputStream.close();
-        file.close();
-    }
-    private void readStatusOFButtons() throws IOException, ClassNotFoundException {
-        try{
 
-            FileInputStream file = new FileInputStream("status.txt");
-            ObjectInputStream objectInputStream = new ObjectInputStream(file);
-
-            StatusButtons statusButtons = (StatusButtons) objectInputStream.readObject();
-            objectInputStream.close();
-            file.close();
-            for (int i = 0; i < mainframe.mainButtons.length; i++) {
-                mainframe.mainButtons[i].setBackground(statusButtons.mainButtons[i].getBackground());
-                mainframe.timeButtons[i].setText(statusButtons.mainButtons[i].getText());
-                mainframe.placeButtons[i].setText(statusButtons.placeButtons[i].getText());
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-           //StackTraceElement [] stack = e.getStackTrace();
-            //logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
-            //JOptionPane.showMessageDialog(null,"Помилка при зчитуванні попередніх змін.");
-
-        }
-
-    }
-
-    private class StatusButtons implements Serializable {
-        // private static final long serialVersionUID = 1L;
-        //Класс фиксирующий состояние (цвет) кнопок. Отправляется в виде JSON на клиенты при подключении
-        public JButton[] mainButtons,timeButtons,placeButtons;
-
-        public StatusButtons(JButton [] mainButtons,JButton [] timeButtons,JButton [] placeButtons) {
-            this.mainButtons = mainButtons;
-            this.timeButtons = timeButtons;
-            this.placeButtons = placeButtons;
-
-        }
-    }
     private class CheckingSignal extends Thread{
         ConnectionPoint connectionPoint;
         public CheckingSignal(ConnectionPoint connection){

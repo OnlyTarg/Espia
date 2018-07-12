@@ -11,6 +11,7 @@ package com.pav.avdonin.server; /**
 
 
 import com.google.gson.Gson;
+import com.pav.avdonin.functions.ActListeners;
 import com.pav.avdonin.functions.StatusButtons;
 import com.pav.avdonin.visual.FlashingLight;
 import com.pav.avdonin.sql.SQL;
@@ -77,37 +78,21 @@ public class Server extends JFrame {
         try{
             server = new ServerSocket((Integer.valueOf(properties.getProperty("port"))));
             //System.out.println(server.getLocalPort());
+            System.out.println();
             int temp = 0;//временная переменная для if else что ниже
-
             while(true){
                 //Удаление слушателя OnlyServer если кто-то подключился. Так как нам уже не нужен этот слушатель
                 //Добавляем слушателя OnlineListener
                 //!!!!НАДО добавить востановление этого слушателя в случае если список соединений будет опять равняться нулю
                 if(listOfClients.size()>0 && temp==0) {
-                    /*ActionListener [] mas1 = b1.getActionListeners();
-                    ActionListener [] mas2 = b2.getActionListeners();
-                    ActionListener [] mas3= b3.getActionListeners();
-                    ActionListener [] mas4 = b4.getActionListeners();
-                    ActionListener [] mas5 = b5.getActionListeners();
-                    ActionListener [] mas6 = b6.getActionListeners();
-                    ActionListener [] mas7 = b7.getActionListeners();
-                    ActionListener [] mas8 = b8.getActionListeners();
-                    b1.removeActionListener(mas1[mas1.length-1]);
-                    b2.removeActionListener(mas2[mas2.length-1]);
-                    b3.removeActionListener(mas3[mas3.length-1]);
-                    b4.removeActionListener(mas4[mas4.length-1]);
-                    b5.removeActionListener(mas5[mas5.length-1]);
-                    b6.removeActionListener(mas6[mas6.length-1]);
-                    b7.removeActionListener(mas7[mas7.length-1]);
-                    b8.removeActionListener(mas8[mas8.length-1]);
-                    b1.addActionListener(OnlineListener(b1,b1info,b1who));
-                    b2.addActionListener(OnlineListener(b2,b2info,b2who));
-                    b3.addActionListener(OnlineListener(b3,b3info,b3who));
-                    b4.addActionListener(OnlineListener(b4,b4info,b4who));
-                    b5.addActionListener(OnlineListener(b5,b5info,b5who));
-                    b6.addActionListener(OnlineListener(b6,b6info,b6who));
-                    b7.addActionListener(OnlineListener(b7,b7info,b7who));
-                    b8.addActionListener(OnlineListener(b8,b8info,b8who));*/
+                    for (JButton b:
+                            mainframes.mainButtons) {
+                        b.removeActionListener((b.getActionListeners())[0]);
+                    }
+                    for (int i = 0; i <mainframes.mainButtons.length ; i++) {
+                        mainframes.mainButtons[i].addActionListener(new ActListeners().OnlineListener(mainframes.mainButtons[i],
+                                mainframes.timeButtons[i],mainframes.placeButtons[i]));
+                    }
                     temp=1;
                 }
                 System.out.println("Waiting for someone");

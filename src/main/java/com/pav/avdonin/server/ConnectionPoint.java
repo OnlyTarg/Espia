@@ -25,8 +25,8 @@ public class ConnectionPoint extends Thread {
 
 
     private Socket socket;
-    DataOutputStream dataout;
-    DataInputStream datain;
+    public DataOutputStream dataout;
+    public DataInputStream datain;
 
     @Override
     public String toString() {

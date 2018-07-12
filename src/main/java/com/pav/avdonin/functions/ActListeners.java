@@ -24,13 +24,13 @@ public class ActListeners {
 
 
 
-/*    private ActionListener OnlineListener (JButton b, JButton binfo, JButton bwho) {
+    public ActionListener OnlineListener (JButton b, JButton time, JButton place) {
 
-*//*Создаю слушатель для кнопок
+/*Создаю слушатель для кнопок
         При нажатии на кнопку, она изменяет цвет на противоположный,
         в зависимости от того какой цвет был установлен до нажатия.
         После этого в OutputStream передается строка в виде "120 green"
-        где первое значение - "положение кнопки по вертикали", а втрое - "цвет"*//*
+        где первое значение - "положение кнопки по вертикали", а втрое - "цвет"*/
 
 
         ActionListener actionListener = new ActionListener() {
@@ -38,7 +38,7 @@ public class ActListeners {
             @Override
             public  void actionPerformed(ActionEvent e) {
                 music.soundClick();
-                choiceWhoAndWhen(binfo,bwho);
+                choiceWhoAndWhen(time,place);
                 Color buttoncolor = b.getBackground();
                 new FlashingLight(b).start();
                 try {
@@ -46,11 +46,10 @@ public class ActListeners {
                         b.setBackground(Color.GREEN);
                         music.soundZvonok();
 
-                        for (int i = 0; i <listOfClients.size() ; i++) {
-                            Server.ConnectionPoint con = (Server.ConnectionPoint)listOfClients.get(i);
-                            con.dataout.writeUTF(b.getY() + "_green" + "_" + bwho.getText() + "_" + binfo.getText());
-                            con.dataout.flush();
-                            //JOptionPane.showMessageDialog(null,"Данные отправлены клиенту");
+                        for (int i = 0; i <Server.listOfClients.size() ; i++) {
+                            ConnectionPoint connectionPoint = (ConnectionPoint)Server.listOfClients.get(i);
+                            connectionPoint.dataout.writeUTF(b.getY() + "_green" + "_" + place.getText() + "_" + time.getText());
+                            connectionPoint.dataout.flush();
                         }
 
 
@@ -58,33 +57,26 @@ public class ActListeners {
                         b.setBackground(Color.RED);
                         music.soundDoor();
                         //binfo.setText(time());
-                        for (int i = 0; i <listOfClients.size() ; i++) {
-                            ConnectionPoint con = (ConnectionPoint)listOfClients.get(i);
-                            con.dataout.writeUTF(b.getY() + "_red" + "_" + bwho.getText() + "_" + binfo.getText());
-                            con.dataout.flush();
+                        for (int i = 0; i <Server.listOfClients.size() ; i++) {
+                            ConnectionPoint connectionPoint = (ConnectionPoint)Server.listOfClients.get(i);
+                            connectionPoint.dataout.writeUTF(b.getY() + "_red" + "_" + place.getText() + "_" + time.getText());
+                            connectionPoint.dataout.flush();
                             //JOptionPane.showMessageDialog(null,"Данные отправлены клиенту");
                         }
-                        writeStatusOFButtons();
+                        Server.statusButtons.writeStatusOFButtons();
 
 
                     }
 
                 }catch (Exception ex){
                     ex.printStackTrace();
-                    StackTraceElement [] stack = ex.getStackTrace();
-                    logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
-ex.printStackTrace();
                     JOptionPane.showMessageDialog(null,"Помилка в передачі даних.(клас OnlineListener)");
-
-
                 }
-
-
             }
         };
         return actionListener;
-    }*/
-    public ActionListener OfflineListener (JButton b, JButton binfo, JButton bwho) {
+    }
+    public ActionListener OfflineListener (JButton b, JButton time, JButton place) {
 /*Создаю слушатель для кнопок
         При нажатии на кнопку, она изменяет цвет на противоположный,
         в зависимости от того какой цвет был установлен до нажатия.
@@ -100,7 +92,7 @@ ex.printStackTrace();
                     music.soundClick();
                     Color buttoncolor = b.getBackground();
 
-                    choiceWhoAndWhen(binfo,bwho);
+                    choiceWhoAndWhen(time,place);
 
 
                     try {

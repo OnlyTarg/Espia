@@ -6,27 +6,14 @@ import com.google.gson.Gson;
 //import com.pav.avdonin.Main;
 import com.google.gson.GsonBuilder;
 import com.pav.avdonin.functions.*;
-import com.pav.avdonin.visual.FlashingLight;
 import com.pav.avdonin.media.Music;
 import com.pav.avdonin.visual.Frames;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.*;
 import java.net.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Properties;
-import java.util.logging.FileHandler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
 
 /**
  * Created by CleBo on 23.11.2017.
@@ -145,7 +132,7 @@ public class Client extends JFrame{
                             mainframe.createWindow(name,true);
                             mainframe.createJButtonsArraysForClients(true,mainframe.listOfPersons, statusButtons);
                             for (int i = 0; i <mainframe.mainButtons.length ; i++) {
-                                mainframe.mainButtons[i].addActionListener(new ActListeners().OnlineListener(mainframe.mainButtons[i],
+                                mainframe.mainButtons[i].addActionListener(new ActListeners().OnlineListenerForServer(mainframe.mainButtons[i],
                                         mainframe.timeButtons[i],mainframe.placeButtons[i]));
                             }
                            // mainframe.setVisible(true);

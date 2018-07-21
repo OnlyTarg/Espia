@@ -74,45 +74,45 @@ public class SwitchButton {
                 switchButton(values[1], values[2], values[3],
                         mainframe.mainButtons[9], mainframe.timeButtons[9], mainframe.placeButtons[9]);
                 break;
-            case "230*10":
+            case "335*10":
+                switchButton(values[1], values[2], values[3],
+                        mainframe.mainButtons[10], mainframe.timeButtons[10], mainframe.placeButtons[10]);
+                break;
+            case "335*70":
                 switchButton(values[1], values[2], values[3],
                         mainframe.mainButtons[11], mainframe.timeButtons[11], mainframe.placeButtons[11]);
                 break;
-            case "230*70":
+            case "335*130":
                 switchButton(values[1], values[2], values[3],
                         mainframe.mainButtons[12], mainframe.timeButtons[12], mainframe.placeButtons[12]);
                 break;
-            case "230*130":
+            case "335*190":
                 switchButton(values[1], values[2], values[3],
                         mainframe.mainButtons[13], mainframe.timeButtons[13], mainframe.placeButtons[13]);
                 break;
-            case "230*190":
+            case "335*250":
                 switchButton(values[1], values[2], values[3],
                         mainframe.mainButtons[14], mainframe.timeButtons[14], mainframe.placeButtons[14]);
                 break;
-            case "230*250":
+            case "335*310":
                 switchButton(values[1], values[2], values[3],
                         mainframe.mainButtons[15], mainframe.timeButtons[15], mainframe.placeButtons[15]);
                 break;
-            case "230*310":
+            case "335*370":
                 switchButton(values[1], values[2], values[3],
                         mainframe.mainButtons[16], mainframe.timeButtons[16], mainframe.placeButtons[16]);
                 break;
-            case "230*370":
+            case "335*430":
                 switchButton(values[1], values[2], values[3],
                         mainframe.mainButtons[17], mainframe.timeButtons[17], mainframe.placeButtons[17]);
                 break;
-            case "230*430":
+            case "335*490":
                 switchButton(values[1], values[2], values[3],
                         mainframe.mainButtons[18], mainframe.timeButtons[18], mainframe.placeButtons[18]);
                 break;
-            case "230*490":
+            case "335*550":
                 switchButton(values[1], values[2], values[3],
-                        mainframe.mainButtons[7], mainframe.timeButtons[7], mainframe.placeButtons[7]);
-                break;
-            case "230*550":
-                switchButton(values[1], values[2], values[3],
-                        mainframe.mainButtons[7], mainframe.timeButtons[7], mainframe.placeButtons[7]);
+                        mainframe.mainButtons[19], mainframe.timeButtons[19], mainframe.placeButtons[19]);
                 break;
 
             case "candidate":

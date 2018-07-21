@@ -10,37 +10,21 @@ package com.pav.avdonin.server; /**
 
 
 
-import com.google.gson.Gson;
 import com.pav.avdonin.functions.ActListeners;
 import com.pav.avdonin.functions.StatusButtons;
-import com.pav.avdonin.visual.FlashingLight;
-import com.pav.avdonin.sql.SQL;
 //import com.pav.avdonin.Main;
-import com.pav.avdonin.media.Music;
 
 
 import com.pav.avdonin.visual.Frames;
 import org.apache.commons.io.FileUtils;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.*;
 import java.net.Inet4Address;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
-import java.util.logging.FileHandler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
 
 
 public class Server extends JFrame {
@@ -94,7 +78,7 @@ public class Server extends JFrame {
                         b.removeActionListener((b.getActionListeners())[0]);
                     }
                     for (int i = 0; i <mainframes.mainButtons.length ; i++) {
-                        mainframes.mainButtons[i].addActionListener(new ActListeners().OnlineListener(mainframes.mainButtons[i],
+                        mainframes.mainButtons[i].addActionListener(new ActListeners().OnlineListenerForServer(mainframes.mainButtons[i],
                                 mainframes.timeButtons[i],mainframes.placeButtons[i]));
                     }
                     temp=1;

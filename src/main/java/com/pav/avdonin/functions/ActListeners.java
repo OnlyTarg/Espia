@@ -21,11 +21,12 @@ import java.util.Date;
 import java.util.logging.Level;
 
 public class ActListeners {
+    String name;
     Music music = new Music();
 
 
 
-    public ActionListener OnlineListener (JButton b, JButton time, JButton place) {
+    public ActionListener OnlineListenerForServer(JButton b, JButton time, JButton place) {
 
 /*Создаю слушатель для кнопок
         При нажатии на кнопку, она изменяет цвет на противоположный,
@@ -51,7 +52,7 @@ public class ActListeners {
                             ConnectionPoint connectionPoint = (ConnectionPoint)Server.listOfClients.get(i);
                             connectionPoint.dataout.writeUTF(b.getX()+"*"+b.getY() + "_green" + "_" + place.getText() + "_" + time.getText());
                             connectionPoint.dataout.flush();
-                            System.out.println("SENDING....."+b.getX()+"*"+b.getY()+"" + "_green" + "_" + place.getText() + "_" + time.getText());
+                            System.out.println(b.getX()+"*"+b.getY() + "_green" + "_" + place.getText() + "_" + time.getText());
                         }
 
 
@@ -61,8 +62,9 @@ public class ActListeners {
                         //binfo.setText(time());
                         for (int i = 0; i <Server.listOfClients.size() ; i++) {
                             ConnectionPoint connectionPoint = (ConnectionPoint)Server.listOfClients.get(i);
-                            connectionPoint.dataout.writeUTF(b.getY() + "_red" + "_" + place.getText() + "_" + time.getText());
+                            connectionPoint.dataout.writeUTF(b.getX()+"*"+b.getY() + "_red" + "_" + place.getText() + "_" + time.getText());
                             connectionPoint.dataout.flush();
+                            System.out.println(b.getX()+"*"+b.getY() + "_red" + "_" + place.getText() + "_" + time.getText());
                             //JOptionPane.showMessageDialog(null,"Данные отправлены клиенту");
                         }
                         Server.statusButtons.writeStatusOFButtons();

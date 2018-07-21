@@ -1,3 +1,4 @@
+/*
 package com.pav.avdonin.clients;
 
 import com.google.gson.Gson;
@@ -21,9 +22,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
+*/
 /**
  * Created by CleBo on 28.02.2018.
- */
+ *//*
+
 public class Client120 {
     transient Music music = new Music();
     transient int hash=0;
@@ -55,8 +58,10 @@ public class Client120 {
 
     public Client120(String name, Point point) {
         this.point=point;
-        /*framePossitionX = x;
-        framePossitionX = y;*/
+        */
+/*framePossitionX = x;
+        framePossitionX = y;*//*
+
         createLogger();
         try {
             properties.load(getClass().getResourceAsStream("/settings.properties"));
@@ -104,7 +109,9 @@ public class Client120 {
             e.printStackTrace();
             StackTraceElement [] stack = e.getStackTrace();
             logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
-            /* JOptionPane.showMessageDialog(null,"Помилка при створенні логгера");*/
+            */
+/* JOptionPane.showMessageDialog(null,"Помилка при створенні логгера");*//*
+
 
         }
     }
@@ -400,11 +407,13 @@ public class Client120 {
         }
     }
 
- /*   @Override
+ */
+/*   @Override
     public int hashCode() {
         int result =(int)(Math.random()*2147483636)+0;
         return result;
-    }*/
+    }*//*
+
 
     private void createClient() {
 
@@ -466,7 +475,9 @@ public class Client120 {
                     e.printStackTrace();
                     StackTraceElement [] stack = e.getStackTrace();
                     logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
-                    /*    JOptionPane.showMessageDialog(null, e.getMessage());*/
+                    */
+/*    JOptionPane.showMessageDialog(null, e.getMessage());*//*
+
 
                 }
                 if (msg.length() > 500) {
@@ -524,16 +535,20 @@ public class Client120 {
         try {
             Thread.currentThread().sleep(3000);
             point = frame.getLocation();
-           /* int x = (int)frame.getLocation().getX();
-            int y = (int)frame.getLocation().getY();*/
+           */
+/* int x = (int)frame.getLocation().getX();
+            int y = (int)frame.getLocation().getY();*//*
+
             frame.dispose();
             new Client120 (name,point);
         } catch (Exception e1) {
             e1.printStackTrace();
             StackTraceElement [] stack = e1.getStackTrace();
             logger.log(Level.INFO,e1.toString()+"\r\n"+stack[0]+"\r\n");
-            /*JOptionPane.showMessageDialog(null,e1.getMessage());
-            e1.printStackTrace();*/
+            */
+/*JOptionPane.showMessageDialog(null,e1.getMessage());
+            e1.printStackTrace();*//*
+
         }
     }
 
@@ -585,12 +600,14 @@ public class Client120 {
             try {
                 String[] values = value.split("_");
 
-                /*Массив с значениями с входящего потока:
+                */
+/*Массив с значениями с входящего потока:
                 values[0] - положение кнопки по вертекали
                 values[1] - цвет (green;red)
                 values[2] - имя (КПП-1; КПП-2(КТП))
                 values[3] - время
-                */
+                *//*
+
                 switch (values[0]) {
                     case "10":
 
@@ -737,29 +754,9 @@ public class Client120 {
         return actionListener;
     }
 
-    public void close() {
-        try {
-            dataout.close();
-            datain.close();
-            socket.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            StackTraceElement [] stack = e.getStackTrace();
-            logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
-            //JOptionPane.showMessageDialog(null, "Потоки не закриті");
-        }
 
 
-    }
 
-    public String time() {
-        DateFormat df = new SimpleDateFormat("dd.MM HH:mm");
-        Date currenttime = Calendar.getInstance().getTime();
-        String time = df.format(currenttime);
-        return time;
-
-    }
 
     public static void main(String[] args) throws IOException {
         Client120 c = new Client120("ЦУС120");
@@ -768,3 +765,4 @@ public class Client120 {
     }
 }
 
+*/

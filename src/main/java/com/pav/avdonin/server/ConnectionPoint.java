@@ -1,10 +1,15 @@
 package com.pav.avdonin.server;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.pav.avdonin.functions.AnotherFunctions;
 import com.pav.avdonin.functions.StatusButtons;
+import com.pav.avdonin.functions.StatusButtonsSerializer;
+import com.pav.avdonin.functions.SwitchButton;
 import com.pav.avdonin.media.Music;
 import com.pav.avdonin.sql.SQL;
 import com.pav.avdonin.visual.FlashingLight;
 import com.pav.avdonin.visual.Frames;
+import com.sun.xml.internal.bind.v2.model.core.ID;
 import org.apache.commons.io.FileUtils;
 import javax.swing.*;
 import java.awt.*;
@@ -14,12 +19,12 @@ import java.net.SocketException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.List;
 
 public class ConnectionPoint extends Thread {
 
     Music music = new Music();
-    int hash=0;
+    AnotherFunctions functions = new AnotherFunctions();
+    int ID =0;
     Frames mainframe;
 
 
@@ -45,138 +50,24 @@ public class ConnectionPoint extends Thread {
     private void readData() throws IOException {
         //Метод для принятия данных от клиента
         String value = "";
+        SwitchButton switchButton = new SwitchButton();
 
         while(true) {
 
+
             try {
-                value = datain.readUTF();
-                String[] values = value.split("_");
-                //System.out.println(value);
-
-                /*Массив с значениями с входящего потока:
-                values[0] - положение кнопки по вертекали
-                values[1] - цвет (green;red)
-                values[2] - имя (КПП-1; КПП-2(КТП))
-                values[3] - время
-                */
-                switch (values[0]) {
-                    //case "value" - положение кнопок
-                    case "10*10":
-                        switchButton(values[1],values[2],values[3],
-                                mainframe.mainButtons[0],mainframe.timeButtons[0],mainframe.placeButtons[0]);
-                        break;
-                    case "10*70":
-                        switchButton(values[1],values[2],values[3],
-                                mainframe.mainButtons[1],mainframe.timeButtons[1],mainframe.placeButtons[1]);
-                        break;
-                    case "10*130":
-                        switchButton(values[1],values[2],values[3],
-                                mainframe.mainButtons[2],mainframe.timeButtons[2],mainframe.placeButtons[2]);
-                        break;
-                    case "10*190":
-                        switchButton(values[1],values[2],values[3],
-                                mainframe.mainButtons[3],mainframe.timeButtons[3],mainframe.placeButtons[3]);
-                        break;
-                    case "10*250":
-                        switchButton(values[1],values[2],values[3],
-                                mainframe.mainButtons[4],mainframe.timeButtons[4],mainframe.placeButtons[4]);
-                        break;
-                    case "10*310":
-                        switchButton(values[1],values[2],values[3],
-                                mainframe.mainButtons[5],mainframe.timeButtons[5],mainframe.placeButtons[5]);
-                        break;
-                    case "10*370":
-                        switchButton(values[1],values[2],values[3],
-                                mainframe.mainButtons[6],mainframe.timeButtons[6],mainframe.placeButtons[6]);
-                        break;
-                    case "10*430":
-                        switchButton(values[1],values[2],values[3],
-                                mainframe.mainButtons[7],mainframe.timeButtons[7],mainframe.placeButtons[7]);
-                        break;
-                    case "10*490":
-                        switchButton(values[1],values[2],values[3],
-                                mainframe.mainButtons[8],mainframe.timeButtons[8],mainframe.placeButtons[8]);
-                        break;
-                    case "10*550":
-                        switchButton(values[1],values[2],values[3],
-                                mainframe.mainButtons[9],mainframe.timeButtons[9],mainframe.placeButtons[9]);
-                        break;
-                    case "230*10":
-                        switchButton(values[1],values[2],values[3],
-                                mainframe.mainButtons[11],mainframe.timeButtons[11],mainframe.placeButtons[11]);
-                        break;
-                    case "230*70":
-                        switchButton(values[1],values[2],values[3],
-                                mainframe.mainButtons[12],mainframe.timeButtons[12],mainframe.placeButtons[12]);
-                        break;
-                    case "230*130":
-                        switchButton(values[1],values[2],values[3],
-                                mainframe.mainButtons[13],mainframe.timeButtons[13],mainframe.placeButtons[13]);
-                        break;
-                    case "230*190":
-                        switchButton(values[1],values[2],values[3],
-                                mainframe.mainButtons[14],mainframe.timeButtons[14],mainframe.placeButtons[14]);
-                        break;
-                    case "230*250":
-                        switchButton(values[1],values[2],values[3],
-                                mainframe.mainButtons[15],mainframe.timeButtons[15],mainframe.placeButtons[15]);
-                        break;
-                    case "230*310":
-                        switchButton(values[1],values[2],values[3],
-                                mainframe.mainButtons[16],mainframe.timeButtons[16],mainframe.placeButtons[16]);
-                        break;
-                    case "230*370":
-                        switchButton(values[1],values[2],values[3],
-                                mainframe.mainButtons[17],mainframe.timeButtons[17],mainframe.placeButtons[17]);
-                        break;
-                    case "230*430":
-                        switchButton(values[1],values[2],values[3],
-                                mainframe.mainButtons[18],mainframe.timeButtons[18],mainframe.placeButtons[18]);
-                        break;
-                    case "230*490":
-                        switchButton(values[1],values[2],values[3],
-                                mainframe.mainButtons[7],mainframe.timeButtons[7],mainframe.placeButtons[7]);
-                        break;
-                    case "230*550":
-                        switchButton(values[1],values[2],values[3],
-                                mainframe.mainButtons[7],mainframe.timeButtons[7],mainframe.placeButtons[7]);
-                        break;
-
-                    case "candidate":
-                        try {
-                            hash = Integer.parseInt(values[2]);
-                            //String ip = socket.getRemoteSocketAddress().toString().substring(1,socket.getRemoteSocketAddress().toString().indexOf(":"));
-                          //  sql.addEntering(dayOfWeek(),this.getName(),mapallowedClients.get(this.getName()), timeWithSeconds(),hash);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            e.printStackTrace();
-                        }
-                        if(values.length==3 && Server.mapallowedClients.containsKey(values[1])){
-                            dataout.writeUTF("isAllowed_"+"YES");
-                            dataout.flush();
-                        }
-                        else {
-                            dataout.writeUTF("isAllowed_"+"NO");
-                            dataout.flush();
-                        }
-                        break;
-                    case "exiting":
-                        if(hash==0){
-                            SQL.goodExitInformer(77777);
-                        }else {
-                            SQL.goodExitInformer(hash);
-                        }
-                        break;
-                }
+                switchButton.determineButton(value,socket,false,datain,dataout,mainframe,ID);
                 Server.statusButtons.writeStatusOFButtons();
+
             } catch (SocketException e){
                 e.printStackTrace();
+                Server.listOfClients.remove(currentThread());
                /* logger.log(Level.INFO,Thread.currentThread().getName()+" disconnected\r\n");
                 listOfClients.remove(currentThread());
-                sql.exitFromSession(Thread.currentThread().getName(), timeWithSeconds(),hash,"");*/
+                sql.exitFromSession(Thread.currentThread().getName(), timeWithSeconds(),ID,"");*/
                 FileUtils.writeStringToFile(Server.client,"","UTF8");
                 for (int i = 0; i <Server.listOfClients.size() ; i++) {
-                    FileUtils.writeStringToFile(Server.client,Server.listOfClients.get(i).toString()+" "+Server.mapallowedClients.get(Server.listOfClients.get(i).toString().substring(1))+"\r\n","UTF8",true);
+                        FileUtils.writeStringToFile(Server.client, Server.listOfClients.get(i).toString() + " " + Server.mapallowedClients.get(Server.listOfClients.get(i).toString().substring(1)) + "\r\n", "UTF8", true);
                 }
                 mainframe.countClients.setText("Кількість клієнтів - " +Server.listOfClients.size());
                 close();
@@ -184,11 +75,10 @@ public class ConnectionPoint extends Thread {
             } catch(Exception e){
                 e.printStackTrace();
                 StackTraceElement [] stack = e.getStackTrace();
-                //logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected\r\n");
                 Server.listOfClients.remove(currentThread());
-                //sql.exitFromSession(timeWithSeconds(),Thread.currentThread().getName(),hash,"");
                 FileUtils.writeStringToFile(Server.client,"","UTF8");
                 for (int i = 0; i <Server.listOfClients.size() ; i++) {
+                    System.out.println("checking2 "+i);
                     FileUtils.writeStringToFile(Server.client,Server.listOfClients.get(i).toString()+" "+Server.mapallowedClients.get(Server.listOfClients.get(i).toString().substring(1))+"\r\n","UTF8",true);
                 }
                 mainframe.countClients.setText("Кількість клієнтів - " +Server.listOfClients.size());
@@ -199,47 +89,7 @@ public class ConnectionPoint extends Thread {
     }
 
 
-    private void switchButton(String color, String name, String when, JButton b, JButton binfo, JButton bwho) throws IOException {
-        //метод решающий какую строку отправлять
-        new FlashingLight(b).start();
-        if (color.equals("green")) {
-            if (b.getBackground().equals(Color.GREEN)) {
-                //DONOTHING
-            }
-            if (b.getBackground().equals(Color.RED)) {
 
-                b.setBackground(Color.GREEN);
-                binfo.setText(time());
-                bwho.setText(name);
-                music.soundZvonok();
-            }
-
-        }
-        if (color.equals("red")) {
-            if(b.getBackground().equals(Color.GREEN)){
-                b.setBackground(Color.RED);
-                binfo.setText(time());
-                bwho.setText(name);
-                music.soundDoor();
-
-            }
-            if(b.getBackground().equals(Color.RED)){
-                //DONOTHING
-            }
-        }
-        //пересылаем полученные данные всем пользователям из списка лист
-
-        for (int i = 0; i <Server.listOfClients.size() ; i++) {
-            try{
-                ConnectionPoint connectionPoint = (ConnectionPoint)Server.listOfClients.get(i);
-                connectionPoint.dataout.writeUTF(b.getY() +"_"+color+"_"+name+"_"+when);
-                connectionPoint.dataout.flush();
-
-            }catch(Exception e){
-                e.printStackTrace();
-            }
-        }
-    }
 
     @Override
     public void run() {
@@ -247,13 +97,25 @@ public class ConnectionPoint extends Thread {
 
             datain = new DataInputStream(socket.getInputStream());
             dataout = new DataOutputStream(socket.getOutputStream());
-
             mainframe.countClients.setText("Кількість клієнтів - " +Server.listOfClients.size());
             //отправка состояния кнопок клиентам
-            Gson gson = new Gson();
-            StatusButtons statusButtons = new StatusButtons(mainframe.mainButtons,mainframe.timeButtons,mainframe.placeButtons);
+            System.out.println("test");
+            //Gson gson = new Gson();
+           // Gson gson = new GsonBuilder().create();
+            //Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+
+            StatusButtons statusButtons = new StatusButtons(mainframe.mainButtons,mainframe.timeButtons,
+                    mainframe.placeButtons,mainframe.listOfPersons);
+            GsonBuilder gsonBuilder = new GsonBuilder().setPrettyPrinting();
+            gsonBuilder.registerTypeAdapter(StatusButtons.class, new StatusButtonsSerializer());
+            Gson gson = gsonBuilder.excludeFieldsWithoutExposeAnnotation().create();
+
             dataout.writeUTF(gson.toJson(statusButtons));
             dataout.flush();
+            //System.out.println(gson.toJson(statusButtons));
+
+
+
             CheckingSignal checkingSignal = new CheckingSignal(this);
             checkingSignal.setDaemon(true);
             checkingSignal.start();
@@ -287,20 +149,6 @@ public class ConnectionPoint extends Thread {
             JOptionPane.showMessageDialog(null,"Помилка при зикритті потоків. ");
         }
 
-
-    }
-    public String time (){
-        DateFormat df = new SimpleDateFormat("dd.MM HH:mm");
-        Date currenttime = Calendar.getInstance().getTime();
-        String time = df.format(currenttime);
-        return time;
-
-    }
-    public String timeWithSeconds(){
-        DateFormat df = new SimpleDateFormat("dd.MM HH:mm:ss");
-        Date currenttime = Calendar.getInstance().getTime();
-        String time = df.format(currenttime);
-        return time;
 
     }
 

@@ -5,6 +5,7 @@ import com.pav.avdonin.media.Music;
 import com.pav.avdonin.server.ConnectionPoint;
 import com.pav.avdonin.server.Server;
 import com.pav.avdonin.visual.FlashingLight;
+import com.pav.avdonin.visual.Frames;
 
 import javax.swing.*;
 import java.awt.*;
@@ -48,8 +49,9 @@ public class ActListeners {
 
                         for (int i = 0; i <Server.listOfClients.size() ; i++) {
                             ConnectionPoint connectionPoint = (ConnectionPoint)Server.listOfClients.get(i);
-                            connectionPoint.dataout.writeUTF(b.getY() + "_green" + "_" + place.getText() + "_" + time.getText());
+                            connectionPoint.dataout.writeUTF(b.getX()+"*"+b.getY() + "_green" + "_" + place.getText() + "_" + time.getText());
                             connectionPoint.dataout.flush();
+                            System.out.println("SENDING....."+b.getX()+"*"+b.getY()+"" + "_green" + "_" + place.getText() + "_" + time.getText());
                         }
 
 

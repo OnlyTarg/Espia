@@ -1,3 +1,4 @@
+/*
 package com.pav.avdonin;
 
 import com.pav.avdonin.clients.Client;
@@ -10,9 +11,11 @@ import java.io.IOException;
 import java.net.*;
 import java.util.Properties;
 
+*/
 /**
  * Created by CleBo on 19.01.2018.
- */
+ *//*
+
 public class Main extends JFrame {
     Properties properties = new Properties();
 
@@ -61,4 +64,4 @@ public class Main extends JFrame {
         Main main = new Main();
         }
 
-}
+}*/

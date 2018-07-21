@@ -1,5 +1,6 @@
 package com.pav.avdonin.visual;
 import com.pav.avdonin.functions.ActListeners;
+import com.pav.avdonin.functions.StatusButtons;
 import org.apache.commons.io.FileUtils;
 import javax.swing.*;
 import java.awt.*;
@@ -14,33 +15,34 @@ import java.util.logging.Level;
 
 public  class  Frames extends JFrame {
 
-    public static void main(String[] args) {
-        new Frames("EspiaServer",false);
-    }
 
-    JFrame frame = new JFrame();
+
+    public JFrame frame;
+    public String name = "";
     public JButton[] mainButtons,timeButtons,placeButtons;
-    ArrayList<String> listOfPersons;
+    public ArrayList<String> listOfPersons;
     int countOfButtons;
     static public JLabel countClients;
 
 
-    public Frames(String frameTitle, boolean infoSide) {
+    public Frames() {
+        frame = new JFrame();
         listOfPersons = new ArrayList<>();
-        readListofPersons();
-        createWindow(frameTitle,infoSide);
-        createJButtonsArrays(infoSide);
+        //readListofPersons();
+        /*createWindow(frameTitle,infoSide);
+        createJButtonsArrays(infoSide);*/
 
     }
-    public Frames(String frameTitle, boolean infoSide, ArrayList<String> listOfPersons) {
+    public Frames(ArrayList<String> listOfPersons) {
+        frame = new JFrame();
         this.listOfPersons = listOfPersons;
-        createWindow(frameTitle,infoSide);
-        createJButtonsArrays(infoSide);
+        /*createWindow(frameTitle,infoSide);
+        createJButtonsArrays(infoSide);*/
 
     }
     
 
-    private void readListofPersons()  {
+    public void readListofPersons()  {
         try{
 
             InputStream in = getClass().getResourceAsStream("/list.txt");
@@ -62,14 +64,15 @@ public  class  Frames extends JFrame {
 
     }
 
-    private void createWindow(String title,boolean infoSide) {
+
+    public void createWindow(String title,boolean infoSide) {
         int [] sizeofWindow = calculateSizeOfWindow(infoSide);
-        frame = new JFrame();
+        //frame = new JFrame();
         frame.setVisible(false);
         frame.setTitle(title);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(sizeofWindow[0],sizeofWindow[1]); //340 / 560 server
-        frame.setResizable(true);
+        frame.setResizable(false);
         frame.setAlwaysOnTop(true);
         frame.setLayout(null);
     }
@@ -109,13 +112,21 @@ public  class  Frames extends JFrame {
         }
     }
 
-    private void createJButtonsArrays(boolean infoSide) {
+    public void createJButtonsArraysForServer(boolean infoSide, ArrayList<String> listOfPersons) {
         mainButtons = new JButton[listOfPersons.size()];
         timeButtons = new JButton[listOfPersons.size()];
         placeButtons = new JButton[listOfPersons.size()];
 
         compareAndAlign(mainButtons,listOfPersons);
-        fillingButtonsProperties(infoSide);
+
+       if (frame.getTitle().equals("Client")){
+           fillingButtonsProperties(infoSide,name);
+           System.out.println("CHECKING = "+ frame.getTitle()=="Client");
+
+       }
+        else {
+           fillingButtonsProperties(infoSide,name);
+       }
         fillingJLabelProperties();
 
         frame.repaint();
@@ -124,7 +135,33 @@ public  class  Frames extends JFrame {
 
 
     }
-    private void fillingButtonsProperties(boolean infoSide) {
+    public void createJButtonsArraysForClients(boolean infoSide, ArrayList<String> listOfPersons, StatusButtons statusButtons) {
+        mainButtons = statusButtons.mainButtons;
+        timeButtons = statusButtons.timeButtons;
+        placeButtons = statusButtons.placeButtons;
+        System.out.println("Point2");
+
+        compareAndAlign(mainButtons,listOfPersons);
+        System.out.println(frame.getTitle());
+        if (frame.getTitle().equals("КПП-2(КТП)")){
+            fillingButtonsProperties(infoSide,"Client");
+            System.out.println("CHECKING = "+ frame.getTitle().equals("Client"));
+
+        }
+
+        //fillingJLabelProperties();
+
+        frame.repaint();
+        //frame.setVisible(true);
+
+
+
+    }
+
+
+
+    private void fillingButtonsProperties(boolean infoSide,String name) {
+        System.out.println("Part 3 "+name);
         Rectangle mainButtonBounds = new Rectangle(10, 10, 200, 50);
         Rectangle timeButtonBounds = new Rectangle(212, 10, 120, 25);
         Rectangle placeButtonBounds = new Rectangle(212, 35, 120, 25);
@@ -134,14 +171,15 @@ public  class  Frames extends JFrame {
 
 
         for (int i = 0; i <mainButtons.length ; i++) {
-            mainButtons[i] = new JButton(listOfPersons.get(i));
+            if(name.equals("EspiaServer")){
+                mainButtons[i] = new JButton(listOfPersons.get(i));
+                mainButtons[i].setBackground(Color.RED);
+            }
             mainButtons[i].setFont(fontMain);
             mainButtons[i].setBounds(mainButtonBounds);
             mainButtonBounds.y = mainButtonBounds.y+60;
-            mainButtons[i].setBackground(Color.RED);
-            frame.add(mainButtons[i]);
 
-            System.out.println(mainButtons[i].getX()+" "+mainButtons[i].getY());
+            frame.add(mainButtons[i]);
             if(i==9&&infoSide){
                 mainButtonBounds.setBounds(335, 10, 200, 50);
             }
@@ -152,7 +190,10 @@ public  class  Frames extends JFrame {
 
         if(infoSide) {
             for (int i = 0; i < timeButtons.length; i++) {
-                timeButtons[i] = new JButton("....");
+                if(name.equals("EspiaServer")){
+                    timeButtons[i] = new JButton("....");
+                }
+
                 timeButtons[i].setFont(fontTimePlace);
                 timeButtons[i].setBounds(timeButtonBounds);
                 timeButtonBounds.y = timeButtonBounds.y + 60;
@@ -164,7 +205,9 @@ public  class  Frames extends JFrame {
 
             }
             for (int i = 0; i < placeButtons.length; i++) {
-                placeButtons[i] = new JButton("....");
+                if(name.equals("EspiaServer")){
+                    placeButtons[i] = new JButton("....");
+                }
                 placeButtons[i].setFont(fontTimePlace);
                 placeButtons[i].setBounds(placeButtonBounds);
                 placeButtonBounds.y = placeButtonBounds.y + 60;
@@ -174,9 +217,19 @@ public  class  Frames extends JFrame {
                     placeButtonBounds.setBounds(538, 35, 120, 25);
                 }
             }
-            addOfflineActionListeners();
+            if (name.equals("EspiaServer")) {
+                addOfflineActionListeners();
+            }
+
         }
     }
+
+
+
+
+
+
+
 
     private void addOfflineActionListeners() {
         for (int i = 0; i <mainButtons.length ; i++) {
@@ -229,5 +282,52 @@ public  class  Frames extends JFrame {
                 }
             }
         });*/
+
+          /*private void fillingButtonsProperties(boolean infoSide,String s) {
+        Rectangle mainButtonBounds = new Rectangle(10, 10, 200, 50);
+        Rectangle timeButtonBounds = new Rectangle(212, 10, 120, 25);
+        Rectangle placeButtonBounds = new Rectangle(212, 35, 120, 25);
+
+        Font fontMain = new Font("Times new Roman",Font.BOLD,20);
+        Font fontTimePlace = new Font("Times new Roman",Font.BOLD,14);
+
+        for (int i = 0; i <mainButtons.length ; i++) {
+            mainButtons[i].setFont(fontMain);
+            mainButtons[i].setBounds(mainButtonBounds);
+            mainButtonBounds.y = mainButtonBounds.y+60;
+            frame.add(mainButtons[i]);
+            if(i==9&&infoSide){
+                mainButtonBounds.setBounds(335, 10, 200, 50);
+            }
+            if(i==9&&!infoSide){
+                mainButtonBounds.setBounds(230, 10, 200, 50);
+            }
+        }
+
+        if(infoSide) {
+            for (int i = 0; i < timeButtons.length; i++) {
+                timeButtons[i].setFont(fontTimePlace);
+                timeButtons[i].setBounds(timeButtonBounds);
+                timeButtonBounds.y = timeButtonBounds.y + 60;
+                timeButtons[i].setBackground(Color.YELLOW);
+                frame.add(timeButtons[i]);
+                if(i==9&&infoSide==true){
+                    timeButtonBounds.setBounds(538, 10, 120, 25);
+                }
+
+            }
+            for (int i = 0; i < placeButtons.length; i++) {
+                placeButtons[i].setFont(fontTimePlace);
+                placeButtons[i].setBounds(placeButtonBounds);
+                placeButtonBounds.y = placeButtonBounds.y + 60;
+                placeButtons[i].setBackground(Color.YELLOW);
+                frame.add(placeButtons[i]);
+                if(i==9&&infoSide==true){
+                    placeButtonBounds.setBounds(538, 35, 120, 25);
+                }
+            }
+            addOfflineActionListeners();
+        }
+    }*/
 
 }

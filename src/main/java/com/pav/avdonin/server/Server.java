@@ -15,7 +15,7 @@ import com.pav.avdonin.functions.ActListeners;
 import com.pav.avdonin.functions.StatusButtons;
 import com.pav.avdonin.visual.FlashingLight;
 import com.pav.avdonin.sql.SQL;
-import com.pav.avdonin.Main;
+//import com.pav.avdonin.Main;
 import com.pav.avdonin.media.Music;
 
 
@@ -48,21 +48,25 @@ public class Server extends JFrame {
     transient private ServerSocket server;
     Properties properties = new Properties();
     public static File client = new File("clients.txt");
-    String name;
+
     transient public static List  listOfClients = Collections.synchronizedList(new ArrayList<ConnectionPoint>());
-    static HashMap<String,String > mapallowedClients;
+    public static HashMap<String,String > mapallowedClients;
     static public StatusButtons statusButtons;
     public static Frames mainframes;
 
 
     public Server(String name)  {
-         mainframes= new Frames("EspiaServer", true);
-        statusButtons = new StatusButtons(mainframes.mainButtons, mainframes.timeButtons, mainframes.placeButtons);
+         mainframes= new Frames();
+         mainframes.name = name;
+         mainframes.readListofPersons();
+         mainframes.createWindow("EspiaServer", true);
+         mainframes.createJButtonsArraysForServer(true,mainframes.listOfPersons);
+
+        statusButtons = new StatusButtons(mainframes.mainButtons, mainframes.timeButtons, mainframes.placeButtons,mainframes.listOfPersons);
 
         try {
             properties.load(getClass().getResourceAsStream("/settings.properties"));
            // createLogger();
-            this.name = name;
             readAllowedClients();
             File file = new File("status.txt");
             if(file.length()>0){
@@ -162,7 +166,7 @@ public class Server extends JFrame {
 
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-        Server s = new Server("121(ЦУС)");
+        Server s = new Server("EspiaServer");
 
 
     }

@@ -1,3 +1,4 @@
+/*
 package com.pav.avdonin.clients;
 
 import com.google.gson.Gson;
@@ -21,9 +22,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
+*/
 /**
  * Created by CleBo on 28.02.2018.
- */
+ *//*
+
 public class EspiaJL {
     transient Music music = new Music();
     transient int hash=0;
@@ -97,7 +100,9 @@ public class EspiaJL {
         } catch (IOException e) {
             StackTraceElement [] stack = e.getStackTrace();
             logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
-            /* JOptionPane.showMessageDialog(null,"Помилка при створенні логгера");*/
+            */
+/* JOptionPane.showMessageDialog(null,"Помилка при створенні логгера");*//*
+
 
         }
     }
@@ -275,14 +280,16 @@ public class EspiaJL {
         b7who.setBackground(Color.YELLOW);
         b8who.setBackground(Color.YELLOW);
 
-        /*b1.addActionListener(OnlineListener(b1, b1info, b1who));
+        */
+/*b1.addActionListener(OnlineListener(b1, b1info, b1who));
         b2.addActionListener(OnlineListener(b2, b2info, b2who));
         b3.addActionListener(OnlineListener(b3, b3info, b3who));
         b4.addActionListener(OnlineListener(b4, b4info, b4who));
         b5.addActionListener(OnlineListener(b5, b5info, b5who));
         b6.addActionListener(OnlineListener(b6, b6info, b6who));
         b7.addActionListener(OnlineListener(b7, b7info, b7who));
-        b8.addActionListener(OnlineListener(b8, b8info, b8who));*/
+        b8.addActionListener(OnlineListener(b8, b8info, b8who));*//*
+
 
         frame.add(b1);
         frame.add(b2);
@@ -384,7 +391,9 @@ public class EspiaJL {
                     socket.setSoTimeout(30000);
                     isConnected=true;
                 }catch (Exception e){
-                    /*e.printStackTrace();*/
+                    */
+/*e.printStackTrace();*//*
+
                     //connectionStatus.setText("");
                     StackTraceElement [] stack = e.getStackTrace();
                     logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
@@ -420,7 +429,9 @@ public class EspiaJL {
                 } catch (IOException e) {
                     StackTraceElement [] stack = e.getStackTrace();
                     logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
-                    /*JOptionPane.showMessageDialog(null, e.getMessage());*/
+                    */
+/*JOptionPane.showMessageDialog(null, e.getMessage());*//*
+
 
                 }
                 if (msg.length() > 500) {
@@ -469,8 +480,10 @@ public class EspiaJL {
             connectionStatus.setForeground(Color.RED);
             connectionStatus.setBounds(30, 490, 200, 30);
             connectionStatus.setText("Помилка (код 01)");
-            /*JOptionPane.showMessageDialog(null,"Ошибка при подключении к серверу");
-            JOptionPane.showMessageDialog(null,e.getStackTrace());*/
+            */
+/*JOptionPane.showMessageDialog(null,"Ошибка при подключении к серверу");
+            JOptionPane.showMessageDialog(null,e.getStackTrace());*//*
+
             e.printStackTrace();
             //JOptionPane.showMessageDialog(null,"Данные не приняты ");
             //JOptionPane.showMessageDialog(null,e.getMessage());
@@ -536,12 +549,14 @@ public class EspiaJL {
                 String[] values = value.split("_");
 
 
-                /*Массив с значениями с входящего потока:
+                */
+/*Массив с значениями с входящего потока:
                 values[0] - положение кнопки по вертекали
                 values[1] - цвет (green;red)
                 values[2] - имя (КПП-1; КПП-2(КТП))
                 values[3] - время
-                */
+                *//*
+
                 switch (values[0]) {
                     case "10":
                         switchchoice(values[1], values[2], values[3], b1, b1info, b1who);
@@ -603,8 +618,10 @@ public class EspiaJL {
                 connectionStatus.setForeground(Color.RED);
                 connectionStatus.setBounds(30, 490, 200, 30);
                 connectionStatus.setText("Помилка (код 04)");
-                /*JOptionPane.showMessageDialog(null,"Помилка (код 04)");
-                JOptionPane.showMessageDialog(null,e.getMessage());*/
+                */
+/*JOptionPane.showMessageDialog(null,"Помилка (код 04)");
+                JOptionPane.showMessageDialog(null,e.getMessage());*//*
+
                 break;
 
 
@@ -646,27 +663,8 @@ public class EspiaJL {
             }
         }
     }
-    public void close() {
-        try {
-            dataout.close();
-            datain.close();
-            socket.close();
-
-        } catch (IOException e) {
-            StackTraceElement [] stack = e.getStackTrace();
-            logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n");
-            /*JOptionPane.showMessageDialog(null, "Потоки не закриті");*/
-        }
 
 
-    }
-    public String time() {
-        DateFormat df = new SimpleDateFormat("dd.MM HH:mm");
-        Date currenttime = Calendar.getInstance().getTime();
-        String time = df.format(currenttime);
-        return time;
-
-    }
 
     public static void main(String[] args) throws IOException {
         EspiaJL c = new EspiaJL();
@@ -674,3 +672,4 @@ public class EspiaJL {
 
     }
 }
+*/

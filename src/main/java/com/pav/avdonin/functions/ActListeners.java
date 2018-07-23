@@ -41,6 +41,7 @@ public class ActListeners {
 
             @Override
             public  void actionPerformed(ActionEvent e) {
+                //System.out.println(b.getX()+" "+ b.getY());
                 music.soundClick();
                 if(name.equals("EspiaServer")){choiceWhoAndWhen(time,place);}
                 Color buttoncolor = b.getBackground();

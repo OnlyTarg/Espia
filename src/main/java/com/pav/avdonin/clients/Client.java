@@ -36,10 +36,11 @@ public class Client extends JFrame{
 
     JLabel connectionStatus= new JLabel("Статус соединения");
 
- 
 
-    public Client(String name)  {
 
+    public Client(String name, boolean makingChange, boolean infoSide)  {
+        this.makingChange = makingChange;
+        this.infoSide = infoSide;
         this.name = name;
         try {
             properties.load(getClass().getResourceAsStream("/settings.properties"));
@@ -113,9 +114,9 @@ public class Client extends JFrame{
                             mainframe.placeButtons = statusButtons.placeButtons;
                             mainframe.listOfPersons = statusButtons.listOfPersons;
                             checker = 1;
-                            mainframe.createWindow(name,true);
+                            mainframe.createWindow(name,infoSide);
 
-                            mainframe.createJButtonsArraysForClients(true,mainframe.listOfPersons, statusButtons);
+                            mainframe.createJButtonsArraysForClients(infoSide,mainframe.listOfPersons, statusButtons);
                             if(mainframe.listOfPersons.size()<10){
                                  jLabelPossition = new Rectangle(20,6+(60*mainframe.listOfPersons.size()),200,30);
                             }else {
@@ -123,10 +124,11 @@ public class Client extends JFrame{
                             }
                             fillingJLabelProperties();
 
-
-                            for (int i = 0; i <mainframe.mainButtons.length ; i++) {
-                                mainframe.mainButtons[i].addActionListener(new ActListeners().OnlineListenerForServer(mainframe.name,mainframe.mainButtons[i],
-                                        mainframe.timeButtons[i],mainframe.placeButtons[i]));
+                            if(makingChange==true) {
+                                for (int i = 0; i < mainframe.mainButtons.length; i++) {
+                                    mainframe.mainButtons[i].addActionListener(new ActListeners().OnlineListenerForServer(mainframe.name, mainframe.mainButtons[i],
+                                            mainframe.timeButtons[i], mainframe.placeButtons[i]));
+                                }
                             }
                            // mainframe.setVisible(true);
                         }
@@ -187,7 +189,7 @@ public class Client extends JFrame{
 
             mainframe.frame.dispose();
 
-            new Client (name);
+            new Client (name,makingChange,infoSide);
             System.out.println("before method try");
             new Frames().tryToConnect();
             System.out.println("after method try");
@@ -257,7 +259,7 @@ public class Client extends JFrame{
 
 
     public static void main(String[] args) throws IOException {
-        Client c = new Client("КПП-2(КТП)");
+        Client c = new Client("КПП-2(КТП)",true,false);
     }
 
 

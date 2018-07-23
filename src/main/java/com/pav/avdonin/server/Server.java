@@ -43,7 +43,7 @@ public class Server extends JFrame {
          mainframes= new Frames();
          mainframes.name = name;
          mainframes.readListofPersons();
-         mainframes.createWindow("EspiaServer", true);
+         mainframes.createWindow(name, true);
          mainframes.createJButtonsArraysForServer(true,mainframes.listOfPersons);
 
         statusButtons = new StatusButtons(mainframes.mainButtons, mainframes.timeButtons, mainframes.placeButtons,mainframes.listOfPersons);

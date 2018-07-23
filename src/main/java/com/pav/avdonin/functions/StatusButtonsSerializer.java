@@ -1,9 +1,7 @@
 package com.pav.avdonin.functions;
 
 import com.google.gson.*;
-import com.sun.deploy.util.StringUtils;
 
-import javax.swing.*;
 import java.lang.reflect.Type;
 
 public class StatusButtonsSerializer implements JsonSerializer<StatusButtons> {

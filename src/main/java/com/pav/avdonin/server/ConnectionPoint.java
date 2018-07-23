@@ -6,19 +6,12 @@ import com.pav.avdonin.functions.StatusButtons;
 import com.pav.avdonin.functions.StatusButtonsSerializer;
 import com.pav.avdonin.functions.SwitchButton;
 import com.pav.avdonin.media.Music;
-import com.pav.avdonin.sql.SQL;
-import com.pav.avdonin.visual.FlashingLight;
 import com.pav.avdonin.visual.Frames;
-import com.sun.xml.internal.bind.v2.model.core.ID;
 import org.apache.commons.io.FileUtils;
 import javax.swing.*;
-import java.awt.*;
 import java.io.*;
 import java.net.Socket;
 import java.net.SocketException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.*;
 
 public class ConnectionPoint extends Thread {
 
@@ -56,7 +49,7 @@ public class ConnectionPoint extends Thread {
 
 
             try {
-                switchButton.determineButton(value,socket,false,datain,dataout,mainframe,ID);
+                switchButton.determineButton(value,socket, datain,dataout,mainframe,ID);
                 Server.statusButtons.writeStatusOFButtons();
 
             } catch (SocketException e){
@@ -69,7 +62,7 @@ public class ConnectionPoint extends Thread {
                 for (int i = 0; i <Server.listOfClients.size() ; i++) {
                         FileUtils.writeStringToFile(Server.client, Server.listOfClients.get(i).toString() + " " + Server.mapallowedClients.get(Server.listOfClients.get(i).toString().substring(1)) + "\r\n", "UTF8", true);
                 }
-                mainframe.countClients.setText("Кількість клієнтів - " +Server.listOfClients.size());
+                mainframe.jLabel.setText("Кількість клієнтів - " +Server.listOfClients.size());
                 close();
                 break;
             } catch(Exception e){
@@ -81,7 +74,7 @@ public class ConnectionPoint extends Thread {
                     System.out.println("checking2 "+i);
                     FileUtils.writeStringToFile(Server.client,Server.listOfClients.get(i).toString()+" "+Server.mapallowedClients.get(Server.listOfClients.get(i).toString().substring(1))+"\r\n","UTF8",true);
                 }
-                mainframe.countClients.setText("Кількість клієнтів - " +Server.listOfClients.size());
+                mainframe.jLabel.setText("Кількість клієнтів - " +Server.listOfClients.size());
                 close();
                 break;
             }
@@ -97,7 +90,7 @@ public class ConnectionPoint extends Thread {
 
             datain = new DataInputStream(socket.getInputStream());
             dataout = new DataOutputStream(socket.getOutputStream());
-            mainframe.countClients.setText("Кількість клієнтів - " +Server.listOfClients.size());
+            mainframe.jLabel.setText("Кількість клієнтів - " +Server.listOfClients.size());
             //отправка состояния кнопок клиентам
             System.out.println("test");
             //Gson gson = new Gson();

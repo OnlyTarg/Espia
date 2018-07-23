@@ -1,28 +1,25 @@
 package com.pav.avdonin.visual;
 import com.pav.avdonin.functions.ActListeners;
 import com.pav.avdonin.functions.StatusButtons;
-import org.apache.commons.io.FileUtils;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.logging.Level;
 
 public  class  Frames extends JFrame {
 
 
 
     public JFrame frame;
+    public static Point boundsPoint = new Point();
     public String name = "";
     public JButton[] mainButtons,timeButtons,placeButtons;
     public ArrayList<String> listOfPersons;
     int countOfButtons;
-    static public JLabel countClients;
+    static public JLabel jLabel;
 
 
     public Frames() {
@@ -69,6 +66,7 @@ public  class  Frames extends JFrame {
         int [] sizeofWindow = calculateSizeOfWindow(infoSide);
         //frame = new JFrame();
         frame.setVisible(false);
+        frame.setLocation(boundsPoint);
         frame.setTitle(title);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(sizeofWindow[0],sizeofWindow[1]); //340 / 560 server
@@ -119,15 +117,18 @@ public  class  Frames extends JFrame {
 
         compareAndAlign(mainButtons,listOfPersons);
 
-       if (frame.getTitle().equals("Client")){
+       if (frame.getTitle().equals("КПП-2(КТП)")||
+               frame.getTitle().equals("КПП1")||
+               frame.getTitle().equals("EspiaJL")){
            fillingButtonsProperties(infoSide,name);
            System.out.println("CHECKING = "+ frame.getTitle()=="Client");
-
+           fillingJLabelConnectionStatus();
        }
         else {
            fillingButtonsProperties(infoSide,name);
+           fillingJLabelCountClients();
        }
-        fillingJLabelProperties();
+
 
         frame.repaint();
         frame.setVisible(true);
@@ -149,7 +150,7 @@ public  class  Frames extends JFrame {
 
         }
 
-        //fillingJLabelProperties();
+        //fillingJLabelCountClients();
 
         frame.repaint();
         //frame.setVisible(true);
@@ -236,7 +237,7 @@ public  class  Frames extends JFrame {
             mainButtons[i].addActionListener(new ActListeners().OfflineListener(mainButtons[i],timeButtons[i],placeButtons[i]));
         }
     }
-    private void fillingJLabelProperties() {
+    private void fillingJLabelCountClients() {
         Rectangle countClientsLabel;
         Font fontJLabel = new Font("Times new Roman",Font.BOLD,15);
         if(listOfPersons.size()<10){
@@ -244,90 +245,46 @@ public  class  Frames extends JFrame {
         }else {
             countClientsLabel = new Rectangle(20,6+(600),200,30);
         }
-        countClients = new JLabel("Кількість клієнтів - 0");
-        countClients.setFont(fontJLabel);
-        countClients.setBounds(countClientsLabel);
-        frame.add(countClients);
+        jLabel = new JLabel("Кількість клієнтів - 0");
+        jLabel.setFont(fontJLabel);
+        jLabel.setBounds(countClientsLabel);
+        frame.add(jLabel);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-          /*  frame.addWindowListener(new WindowAdapter() {
-            @Override
-
-            public void windowClosing(WindowEvent e) {
-                try {
-                    //SQL.goodExitInformer(hash);
-                    for (int i = 0; i <listOfClients.size() ; i++) {
-                        FileUtils.writeStringToFile(client,"","UTF8");
-                        System.out.println(listOfClients.get(i).hashCode());
-                        ConnectionPoint con = (ConnectionPoint)listOfClients.get(i);
-                        sql.exitFromSession(con.getName(), timeWithSeconds(),con.hash,"server stopted");
-
-
-                    }
-                    frame.dispose();
-                }catch(Exception e2){
-                    e2.printStackTrace();
-                    frame.dispose();
-                }
-            }
-        });*/
-
-          /*private void fillingButtonsProperties(boolean infoSide,String s) {
-        Rectangle mainButtonBounds = new Rectangle(10, 10, 200, 50);
-        Rectangle timeButtonBounds = new Rectangle(212, 10, 120, 25);
-        Rectangle placeButtonBounds = new Rectangle(212, 35, 120, 25);
-
-        Font fontMain = new Font("Times new Roman",Font.BOLD,20);
-        Font fontTimePlace = new Font("Times new Roman",Font.BOLD,14);
-
-        for (int i = 0; i <mainButtons.length ; i++) {
-            mainButtons[i].setFont(fontMain);
-            mainButtons[i].setBounds(mainButtonBounds);
-            mainButtonBounds.y = mainButtonBounds.y+60;
-            frame.add(mainButtons[i]);
-            if(i==9&&infoSide){
-                mainButtonBounds.setBounds(335, 10, 200, 50);
-            }
-            if(i==9&&!infoSide){
-                mainButtonBounds.setBounds(230, 10, 200, 50);
-            }
+    private void fillingJLabelConnectionStatus() {
+        Rectangle countClientsLabel;
+        Font fontJLabel = new Font("Times new Roman",Font.BOLD,15);
+        if(listOfPersons.size()<10){
+            countClientsLabel = new Rectangle(20,6+(60*listOfPersons.size()),200,30);
+        }else {
+            countClientsLabel = new Rectangle(20,6+(600),200,30);
         }
+        jLabel = new JLabel("З'єднання...");
+        jLabel.setFont(fontJLabel);
+        jLabel.setBounds(countClientsLabel);
+        frame.add(jLabel);
+    }
 
-        if(infoSide) {
-            for (int i = 0; i < timeButtons.length; i++) {
-                timeButtons[i].setFont(fontTimePlace);
-                timeButtons[i].setBounds(timeButtonBounds);
-                timeButtonBounds.y = timeButtonBounds.y + 60;
-                timeButtons[i].setBackground(Color.YELLOW);
-                frame.add(timeButtons[i]);
-                if(i==9&&infoSide==true){
-                    timeButtonBounds.setBounds(538, 10, 120, 25);
-                }
-
-            }
-            for (int i = 0; i < placeButtons.length; i++) {
-                placeButtons[i].setFont(fontTimePlace);
-                placeButtons[i].setBounds(placeButtonBounds);
-                placeButtonBounds.y = placeButtonBounds.y + 60;
-                placeButtons[i].setBackground(Color.YELLOW);
-                frame.add(placeButtons[i]);
-                if(i==9&&infoSide==true){
-                    placeButtonBounds.setBounds(538, 35, 120, 25);
-                }
-            }
-            addOfflineActionListeners();
+    public void tryToConnect() throws InterruptedException {
+        JFrame tempFrame = new JFrame();
+        tempFrame.setLocationRelativeTo(null);
+        tempFrame.setResizable(false);
+        tempFrame.setLayout(null);
+        tempFrame.setTitle("ESPIA");
+        JLabel label = new JLabel();
+        label.setFont(new Font("Times new Roman",Font.BOLD,25));
+        label.setForeground(Color.RED);
+        label.setBounds(80,20,200,20);
+        tempFrame.setSize(350,100);
+        tempFrame.setVisible(true);
+        tempFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        tempFrame.add(label);
+        for (int i = 30; i >= 0; i--) {
+            label.setText("З'єднання "+i);
+            label.setForeground(Color.RED);
+            Thread.currentThread().sleep(1000);
         }
-    }*/
+        tempFrame.dispose();
+    }
 
 }

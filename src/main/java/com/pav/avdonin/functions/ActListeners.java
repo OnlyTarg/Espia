@@ -1,5 +1,6 @@
 package com.pav.avdonin.functions;
 
+import com.pav.avdonin.clients.Client;
 import com.pav.avdonin.functions.StatusButtons;
 import com.pav.avdonin.media.Music;
 import com.pav.avdonin.server.ConnectionPoint;
@@ -26,7 +27,8 @@ public class ActListeners {
 
 
 
-    public ActionListener OnlineListenerForServer(JButton b, JButton time, JButton place) {
+    public ActionListener OnlineListenerForServer(String name,JButton b, JButton time, JButton place) {
+        this.name = name;
 
 /*Создаю слушатель для кнопок
         При нажатии на кнопку, она изменяет цвет на противоположный,
@@ -40,34 +42,55 @@ public class ActListeners {
             @Override
             public  void actionPerformed(ActionEvent e) {
                 music.soundClick();
-                choiceWhoAndWhen(time,place);
+                if(name.equals("EspiaServer")){choiceWhoAndWhen(time,place);}
                 Color buttoncolor = b.getBackground();
                 new FlashingLight(b).start();
                 try {
                     if (buttoncolor.equals(Color.RED)) {
+                        if(!name.equals("EspiaServer")){
+                            time.setText(time());
+                            place.setText(name);
+                        }
                         b.setBackground(Color.GREEN);
                         music.soundZvonok();
 
-                        for (int i = 0; i <Server.listOfClients.size() ; i++) {
-                            ConnectionPoint connectionPoint = (ConnectionPoint)Server.listOfClients.get(i);
-                            connectionPoint.dataout.writeUTF(b.getX()+"*"+b.getY() + "_green" + "_" + place.getText() + "_" + time.getText());
-                            connectionPoint.dataout.flush();
-                            System.out.println(b.getX()+"*"+b.getY() + "_green" + "_" + place.getText() + "_" + time.getText());
+                        if(name.equals("EspiaServer")){
+                            for (int i = 0; i <Server.listOfClients.size() ; i++) {
+                                ConnectionPoint connectionPoint = (ConnectionPoint)Server.listOfClients.get(i);
+                                connectionPoint.dataout.writeUTF(b.getX()+"*"+b.getY() + "_green" + "_" + place.getText() + "_" + time.getText());
+                                connectionPoint.dataout.flush();
+                                System.out.println(b.getX()+"*"+b.getY() + "_green" + "_" + place.getText() + "_" + time.getText());
+                            }
                         }
+                        else {
+                            Client.dataout.writeUTF(b.getX()+"*"+b.getY() + "_green" + "_" + place.getText() + "_" + time.getText());
+                            Client.dataout.flush();
+                        }
+
 
 
                     } else {
                         b.setBackground(Color.RED);
+                        if(!name.equals("EspiaServer")){
+                            time.setText(time());
+                            place.setText(name);
+                        }
                         music.soundDoor();
                         //binfo.setText(time());
-                        for (int i = 0; i <Server.listOfClients.size() ; i++) {
-                            ConnectionPoint connectionPoint = (ConnectionPoint)Server.listOfClients.get(i);
-                            connectionPoint.dataout.writeUTF(b.getX()+"*"+b.getY() + "_red" + "_" + place.getText() + "_" + time.getText());
-                            connectionPoint.dataout.flush();
-                            System.out.println(b.getX()+"*"+b.getY() + "_red" + "_" + place.getText() + "_" + time.getText());
-                            //JOptionPane.showMessageDialog(null,"Данные отправлены клиенту");
+                        if(name.equals("EspiaServer")) {
+                            for (int i = 0; i < Server.listOfClients.size(); i++) {
+                                ConnectionPoint connectionPoint = (ConnectionPoint) Server.listOfClients.get(i);
+                                connectionPoint.dataout.writeUTF(b.getX() + "*" + b.getY() + "_red" + "_" + place.getText() + "_" + time.getText());
+                                connectionPoint.dataout.flush();
+                                System.out.println(b.getX() + "*" + b.getY() + "_red" + "_" + place.getText() + "_" + time.getText());
+                                //JOptionPane.showMessageDialog(null,"Данные отправлены клиенту");
+                            }
+                        } else {
+                            Client.dataout.writeUTF(b.getX() + "*" + b.getY() + "_red" + "_" + place.getText() + "_" + time.getText());
+                            Client.dataout.flush();
                         }
-                        Server.statusButtons.writeStatusOFButtons();
+
+                       if(name.equals("EspiaServer")) {Server.statusButtons.writeStatusOFButtons();}
 
 
                     }

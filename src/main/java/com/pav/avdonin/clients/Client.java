@@ -6,7 +6,6 @@ import com.google.gson.Gson;
 //import com.pav.avdonin.Main;
 import com.google.gson.GsonBuilder;
 import com.pav.avdonin.functions.*;
-import com.pav.avdonin.media.Music;
 import com.pav.avdonin.visual.Frames;
 
 import javax.swing.*;
@@ -21,37 +20,23 @@ import java.util.Properties;
 public class Client extends JFrame{
     AnotherFunctions functions = new AnotherFunctions();
     StatusButtons statusButtons;
-    Music music = new Music();
     int hash=0;
     Properties properties = new Properties();
     String name;
     String currentIP;
     Frames mainframe;
-    boolean isAllowed;
+    public static boolean isAllowed;
     boolean infoSide;
     boolean makingChange;
     InetAddress ipAddress;
     Socket socket;
-    DataInputStream datain;
-    DataOutputStream dataout;
+    Rectangle jLabelPossition;
+    public static DataInputStream datain;
+    public static DataOutputStream dataout;
 
     JLabel connectionStatus= new JLabel("Статус соединения");
-    Point point = null;
 
-    public Client(String name, Point point)  {
-        this.point=point;
-        try {
-            properties.load(getClass().getResourceAsStream("/settings.properties"));
-        } catch (IOException e) {
-           e.printStackTrace();
-        }
-
-        this.name = name;
-        createClient();
-        mainframe.name = name;
-        readData();
-        functions.close(dataout,datain,socket);
-    }
+ 
 
     public Client(String name)  {
 
@@ -88,8 +73,7 @@ public class Client extends JFrame{
             String address = properties.getProperty("ipServer"); //10.244.1.121    localhost
             while(!isConnected) {
 
-                connectionStatus.setForeground(Color.BLACK);
-                connectionStatus.setText("З'єднання......");
+
                 ipAddress = InetAddress.getByName(address);
                 try{
                 socket = new Socket(ipAddress, serverPort);
@@ -130,9 +114,18 @@ public class Client extends JFrame{
                             mainframe.listOfPersons = statusButtons.listOfPersons;
                             checker = 1;
                             mainframe.createWindow(name,true);
+
                             mainframe.createJButtonsArraysForClients(true,mainframe.listOfPersons, statusButtons);
+                            if(mainframe.listOfPersons.size()<10){
+                                 jLabelPossition = new Rectangle(20,6+(60*mainframe.listOfPersons.size()),200,30);
+                            }else {
+                                 jLabelPossition = new Rectangle(20,6+(600),200,30);
+                            }
+                            fillingJLabelProperties();
+
+
                             for (int i = 0; i <mainframe.mainButtons.length ; i++) {
-                                mainframe.mainButtons[i].addActionListener(new ActListeners().OnlineListenerForServer(mainframe.mainButtons[i],
+                                mainframe.mainButtons[i].addActionListener(new ActListeners().OnlineListenerForServer(mainframe.name,mainframe.mainButtons[i],
                                         mainframe.timeButtons[i],mainframe.placeButtons[i]));
                             }
                            // mainframe.setVisible(true);
@@ -142,15 +135,13 @@ public class Client extends JFrame{
 
 
                 }catch (Exception e){
+
                     e.printStackTrace();
+                    new Frames().tryToConnect();
 
                    /* e.printStackTrace();*/
                     //connectionStatus.setText("");
-                    for (int i = 30; i >= 0; i--) {
-                        connectionStatus.setText("З'єднання "+i);
-                        connectionStatus.setForeground(Color.RED);
-                        Thread.currentThread().sleep(1000);
-                    }
+
                 }
 
            }
@@ -161,7 +152,7 @@ public class Client extends JFrame{
 
             Thread.currentThread().sleep(500);
             connectionStatus.setForeground(Color.GREEN);
-            connectionStatus.setBounds(32,490,200,30);
+            //connectionStatus.setBounds(32,490,200,30);
             connectionStatus.setText("Підключено");
             //Прием состояния кнопок (цвет кнопок) сервера на момент подключения
 
@@ -171,7 +162,7 @@ public class Client extends JFrame{
             e.printStackTrace();
             StackTraceElement [] stack = e.getStackTrace();
             connectionStatus.setForeground(Color.RED);
-            connectionStatus.setBounds(15,490,200,30);
+            //connectionStatus.setBounds(jLabelPossition);
             connectionStatus.setText("Помилка (код 01)");
             functions.close(dataout,datain,socket);
 
@@ -180,12 +171,27 @@ public class Client extends JFrame{
 
     }
 
+    private void fillingJLabelProperties() {
+        connectionStatus.setBounds(jLabelPossition);
+        connectionStatus.setFont(new Font("Times new Roman",Font.BOLD,20));
+        connectionStatus.setForeground(Color.BLACK);
+        connectionStatus.setText("З'єднання......");
+        mainframe.frame.add(connectionStatus);
+    }
+
     private void restart(){
         try {
+            System.out.println("at method restart");
             Thread.currentThread().sleep(3000);
-            point = mainframe.frame.getLocation();
+            mainframe.boundsPoint = mainframe.frame.getLocation();
+
             mainframe.frame.dispose();
-            new Client (name,point);
+
+            new Client (name);
+            System.out.println("before method try");
+            new Frames().tryToConnect();
+            System.out.println("after method try");
+
         } catch (Exception e1) {
             e1.printStackTrace();
         }
@@ -205,11 +211,10 @@ public class Client extends JFrame{
                 */
 
             try{
-                switchButton.determineButton(value,socket,isAllowed,datain,dataout,mainframe,0);
+                switchButton.determineButton(value,socket, datain,dataout,mainframe,0);
             }catch (SocketException e){
                 StackTraceElement [] stack = e.getStackTrace();
                 connectionStatus.setForeground(Color.RED);
-                connectionStatus.setBounds(15,490,200,30);
                 connectionStatus.setText("Помилка (код 02)");
                 try {
                     Thread.currentThread().sleep(2000);
@@ -218,9 +223,12 @@ public class Client extends JFrame{
                 }
                 mainframe.frame.dispose();
                 functions.close(dataout,datain,socket);
-                if(isAllowed){
+                System.out.println(isAllowed);
+
+                if(isAllowed==true){
                     restart();
                 }
+
 
                 break;
 
@@ -233,7 +241,6 @@ public class Client extends JFrame{
             }catch (Exception e) {
                 e.printStackTrace();
                 connectionStatus.setForeground(Color.RED);
-                connectionStatus.setBounds(15,490,200,30);
                 connectionStatus.setText("Помилка (код 03)");
                 functions.close(dataout,datain,socket);
                 restart();
@@ -272,8 +279,9 @@ public class Client extends JFrame{
                     if (b.getBackground().equals(Color.RED)) {
 
                         binfo.setText(time());
-                        b.setBackground(Color.GREEN);
                         bwho.setText(name);
+                        b.setBackground(Color.GREEN);
+
                         music.soundZvonok();
 
                         //JOptionPane.showMessageDialog(null,"Данные изменены");

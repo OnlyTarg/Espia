@@ -1,5 +1,6 @@
 package com.pav.avdonin.functions;
 
+import com.pav.avdonin.clients.Client;
 import com.pav.avdonin.media.Music;
 import com.pav.avdonin.server.ConnectionPoint;
 import com.pav.avdonin.server.Server;
@@ -12,14 +13,13 @@ import java.awt.*;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.Socket;
 
 public class SwitchButton {
     AnotherFunctions functions = new AnotherFunctions();
     Music music = new Music();
 
-    public void determineButton(String value, Socket socket, boolean isAllowed, DataInputStream datain, DataOutputStream dataout, Frames mainframe, int ID) throws IOException {
+    public void determineButton(String value, Socket socket, DataInputStream datain, DataOutputStream dataout, Frames mainframe, int ID) throws IOException {
 
         System.out.println(value);
         value = datain.readUTF();
@@ -138,14 +138,14 @@ public class SwitchButton {
             case "isAllowed":
                 System.out.println(values[1]);
                 if(values[1].equals("YES")){
-                    isAllowed=true;
+                    Client.isAllowed=true;
                     mainframe.frame.setVisible(true);
 
 
                 }else {
                     mainframe.frame.setVisible(false);
                     JOptionPane.showMessageDialog(null,"Вхід не дозволено. Зверніться до адміністратора.");
-                    isAllowed=false;
+                    Client.isAllowed=false;
                     mainframe.dispose();
                     functions.close(dataout,datain,socket);
                 }
@@ -191,7 +191,9 @@ public class SwitchButton {
         for (int i = 0; i <Server.listOfClients.size() ; i++) {
             try{
                 ConnectionPoint connectionPoint = (ConnectionPoint)Server.listOfClients.get(i);
-                connectionPoint.dataout.writeUTF(b.getY() +"_"+color+"_"+name+"_"+when);
+
+
+                connectionPoint.dataout.writeUTF(b.getX() + "*" + b.getY() +"_"+color+"_"+name+"_"+when);
                 connectionPoint.dataout.flush();
 
             }catch(Exception e){

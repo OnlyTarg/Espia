@@ -57,11 +57,7 @@ public class StatusButtons implements Serializable {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            //StackTraceElement [] stack = e.getStackTrace();
-            //logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
-            //JOptionPane.showMessageDialog(null,"Помилка при зчитуванні попередніх змін.");
-
-        }
+            }
 
     }
 

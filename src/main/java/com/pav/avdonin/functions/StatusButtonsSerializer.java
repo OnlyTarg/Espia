@@ -24,15 +24,7 @@ public class StatusButtonsSerializer implements JsonSerializer<StatusButtons> {
                 jsonArray.add(statusButtons.timeButtons[i].getText());
                 jsonArray.add(statusButtons.placeButtons[i].getText());
                 result.add("b"+i,jsonArray);
-
-
-
-
-                /*result.addProperty("b"+i, statusButtons.mainButtons[i].getText());
-                result.addProperty("b"+i+"color", statusButtons.mainButtons[i].getBackground().getRed());
-                result.addProperty("b"+i+"time", statusButtons.timeButtons[i].getText());
-                result.addProperty("b"+i+"place", statusButtons.placeButtons[i].getText());*/
-            }
+                }
 
             return result;
         }

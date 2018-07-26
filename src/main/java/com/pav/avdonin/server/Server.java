@@ -12,15 +12,11 @@ package com.pav.avdonin.server; /**
 
 import com.pav.avdonin.functions.ActListeners;
 import com.pav.avdonin.functions.StatusButtons;
-//import com.pav.avdonin.Main;
-
-
 import com.pav.avdonin.visual.Frames;
 import org.apache.commons.io.FileUtils;
 
 import javax.swing.*;
 import java.io.*;
-import java.net.Inet4Address;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.*;
@@ -65,8 +61,7 @@ public class Server extends JFrame {
 
         try{
             server = new ServerSocket((Integer.valueOf(properties.getProperty("port"))));
-            //System.out.println(server.getLocalPort());
-            System.out.println();
+
             int temp = 0;//временная переменная для if else что ниже
             while(true){
                 //Удаление слушателя OnlyServer если кто-то подключился. Так как нам уже не нужен этот слушатель
@@ -83,11 +78,9 @@ public class Server extends JFrame {
                     }
                     temp=1;
                 }
-                System.out.println("Waiting for someone");
-                System.out.println(Inet4Address.getLocalHost().getHostAddress());
+
                 socket=server.accept();
 
-                System.out.println("Somebody is connected");
                 ConnectionPoint connection = new ConnectionPoint(socket,mainframes);
                 String ip = socket.getRemoteSocketAddress().toString().substring(1,socket.getRemoteSocketAddress().toString().indexOf(":"));
                 connection.setName(ip);

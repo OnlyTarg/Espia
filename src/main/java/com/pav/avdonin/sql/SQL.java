@@ -92,8 +92,6 @@ public class SQL {
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
             //String sql = "INSERT INTO UsersHistory (Exit) VALUES (?) WHERE User = ?";
             String sql = "UPDATE UsersHistory SET Exit=? WHERE User=? AND HASH = ?";
-            System.out.println(date);
-            System.out.println(UserIP);
             prestmt = conn.prepareStatement(sql);
             prestmt.setString(1,date);
             prestmt.setString(2,UserIP);
@@ -123,13 +121,11 @@ public class SQL {
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
 
             String sql ="SELECT id FROM UsersHistory WHERE Hash= ?";
-            System.out.println("asdasda"+hash);
             prestmt = conn.prepareStatement(sql);
             prestmt.setLong(1,hash);
             ResultSet rs = prestmt.executeQuery();
             while (rs.next()){
                 i = rs.getInt("id");
-                System.out.println(i);
             }
              sql = "UPDATE UsersHistory SET HowExited='good' WHERE id=? ";
 

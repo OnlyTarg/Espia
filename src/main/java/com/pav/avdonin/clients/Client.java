@@ -3,11 +3,9 @@ package com.pav.avdonin.clients; /**
  */
 
 import com.google.gson.Gson;
-//import com.pav.avdonin.Main;
 import com.google.gson.GsonBuilder;
 import com.pav.avdonin.functions.*;
 import com.pav.avdonin.visual.Frames;
-
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
@@ -79,10 +77,7 @@ public class Client extends JFrame{
                 try{
                 socket = new Socket(ipAddress, serverPort);
                     socket.setSoTimeout(30000);
-                //socket = new Socket(ipAddress, serverPort);
                     isConnected=true;
-
-                   // Gson gson = new GsonBuilder().create();
                     Gson gson = new GsonBuilder()
                             .registerTypeAdapter(StatusButtons.class, new StatusButtonsDeserializer())
                             .create();
@@ -94,13 +89,11 @@ public class Client extends JFrame{
                     dataout.flush();
                     mainframe = new Frames();
                     mainframe.name = name;
-                    //mainframe.setVisible(true);
+
 
                     while (checker!=1) {
-                        System.out.println("Point 1");
                         try {
                             msg = datain.readUTF();
-                            //System.out.println(msg);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -130,21 +123,16 @@ public class Client extends JFrame{
                                             mainframe.timeButtons[i], mainframe.placeButtons[i]));
                                 }
                             }
-                           // mainframe.setVisible(true);
+
                         }
                     }
-                    System.out.println("tyt1");
+
 
 
                 }catch (Exception e){
-
                     e.printStackTrace();
                     new Frames().tryToConnect();
-
-                   /* e.printStackTrace();*/
-                    //connectionStatus.setText("");
-
-                }
+                    }
 
            }
 
@@ -154,7 +142,6 @@ public class Client extends JFrame{
 
             Thread.currentThread().sleep(500);
             connectionStatus.setForeground(Color.GREEN);
-            //connectionStatus.setBounds(32,490,200,30);
             connectionStatus.setText("Підключено");
             //Прием состояния кнопок (цвет кнопок) сервера на момент подключения
 
@@ -164,7 +151,6 @@ public class Client extends JFrame{
             e.printStackTrace();
             StackTraceElement [] stack = e.getStackTrace();
             connectionStatus.setForeground(Color.RED);
-            //connectionStatus.setBounds(jLabelPossition);
             connectionStatus.setText("Помилка (код 01)");
             functions.close(dataout,datain,socket);
 
@@ -183,16 +169,11 @@ public class Client extends JFrame{
 
     private void restart(){
         try {
-            System.out.println("at method restart");
             Thread.currentThread().sleep(3000);
             mainframe.boundsPoint = mainframe.frame.getLocation();
-
             mainframe.frame.dispose();
-
             new Client (name,makingChange,infoSide);
-            System.out.println("before method try");
             new Frames().tryToConnect();
-            System.out.println("after method try");
 
         } catch (Exception e1) {
             e1.printStackTrace();
@@ -200,7 +181,6 @@ public class Client extends JFrame{
     }
     public void readData()  {
 
-        //Метод принимает данные от сервера
         String value = "";
         SwitchButton switchButton = new SwitchButton();
         while(true){
@@ -225,7 +205,7 @@ public class Client extends JFrame{
                 }
                 mainframe.frame.dispose();
                 functions.close(dataout,datain,socket);
-                System.out.println(isAllowed);
+
 
                 if(isAllowed==true){
                     restart();
@@ -267,50 +247,5 @@ public class Client extends JFrame{
 
 
 
-       /* public ActionListener OnlineListener (JButton b,JButton binfo,JButton bwho) {
-        //Создаю слушатель, такой же как на сервере.
-        //Изменяет состояние кнопок и передает инфо на сервер
-        ActionListener actionListener = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //JOptionPane.showMessageDialog(null,"Кнопка нажата");
-                music.soundClick();
-                //JOptionPane.showMessageDialog(null,"Онлайн слушатель");
-                try {
 
-                    if (b.getBackground().equals(Color.RED)) {
-
-                        binfo.setText(time());
-                        bwho.setText(name);
-                        b.setBackground(Color.GREEN);
-
-                        music.soundZvonok();
-
-                        //JOptionPane.showMessageDialog(null,"Данные изменены");
-                        dataout.writeUTF(b.getY()+"_green" + "_"+name+"_"+time());
-                        dataout.flush();
-                       // JOptionPane.showMessageDialog(null,"Данные отправлены");
-                    }
-                    else {
-                        binfo.setText(time());
-                        b.setBackground(Color.RED);
-                        bwho.setText(name);
-                        music.soundDoor();
-                        //JOptionPane.showMessageDialog(null,"Данные изменены");
-                        dataout.writeUTF(b.getY()+"_red"+ "_"+name+"_"+time());
-                        dataout.flush();
-                        //JOptionPane.showMessageDialog(null,"Данные отправлены");
-                    }
-                } catch (IOException e1) {
-                    StackTraceElement [] stack = e1.getStackTrace();
-                    logger.log(Level.INFO,e1.toString()+"\r\n"+stack[0]+"\r\n");
-                   *//* e1.printStackTrace();*//*
-                    functions.close(dataout,datain,socket);
-                    *//*JOptionPane.showMessageDialog(null,"Помилка при передачі даних до серверу");*//*
-                }
-            }
-        };
-        return actionListener;
-    }
-*/
 }

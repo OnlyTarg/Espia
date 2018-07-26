@@ -21,10 +21,10 @@ public class SwitchButton {
 
     public void determineButton(String value, Socket socket, DataInputStream datain, DataOutputStream dataout, Frames mainframe, int ID) throws IOException {
 
-        System.out.println(value);
+
         value = datain.readUTF();
         String[] values = value.split("_");
-        //System.out.println(value);
+
 
                 /*Массив с значениями с входящего потока:
                 values[0] - положение кнопки по вертекали
@@ -177,8 +177,7 @@ public class SwitchButton {
                 //DO NOTHING;
                 break;
             case "isAllowed":
-                System.out.println(values[1]);
-                if(values[1].equals("YES")){
+                    if(values[1].equals("YES")){
                     Client.isAllowed=true;
                     mainframe.frame.setVisible(true);
 

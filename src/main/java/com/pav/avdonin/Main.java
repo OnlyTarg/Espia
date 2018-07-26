@@ -35,7 +35,7 @@ public class Main extends JFrame {
             JOptionPane.showMessageDialog(null,"Помилка при зчитуванні файла конфігурацій");
             e.printStackTrace();
         }
-        System.out.println(currentIP);
+
         if(properties.containsValue(currentIP)){
             if (currentIP.equals(ipKPP)){
 

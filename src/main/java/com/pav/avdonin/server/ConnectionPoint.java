@@ -35,8 +35,7 @@ public class ConnectionPoint extends Thread {
         this.mainframe = mainframe;
 
         this.socket = socket;
-        //Thread.currentThread().setName("asa");
-        //System.out.println(currentThread());
+
 
     }
 
@@ -71,7 +70,6 @@ public class ConnectionPoint extends Thread {
                 Server.listOfClients.remove(currentThread());
                 FileUtils.writeStringToFile(Server.client,"","UTF8");
                 for (int i = 0; i <Server.listOfClients.size() ; i++) {
-                    System.out.println("checking2 "+i);
                     FileUtils.writeStringToFile(Server.client,Server.listOfClients.get(i).toString()+" "+Server.mapallowedClients.get(Server.listOfClients.get(i).toString().substring(1))+"\r\n","UTF8",true);
                 }
                 mainframe.jLabel.setText("Кількість клієнтів - " +Server.listOfClients.size());
@@ -92,10 +90,6 @@ public class ConnectionPoint extends Thread {
             dataout = new DataOutputStream(socket.getOutputStream());
             mainframe.jLabel.setText("Кількість клієнтів - " +Server.listOfClients.size());
             //отправка состояния кнопок клиентам
-            System.out.println("test");
-            //Gson gson = new Gson();
-           // Gson gson = new GsonBuilder().create();
-            //Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 
             StatusButtons statusButtons = new StatusButtons(mainframe.mainButtons,mainframe.timeButtons,
                     mainframe.placeButtons,mainframe.listOfPersons);
@@ -105,7 +99,7 @@ public class ConnectionPoint extends Thread {
 
             dataout.writeUTF(gson.toJson(statusButtons));
             dataout.flush();
-            //System.out.println(gson.toJson(statusButtons));
+
 
 
 
@@ -165,13 +159,9 @@ public class ConnectionPoint extends Thread {
 
                 } catch (IOException e) {
                     e.printStackTrace();
-                    //StackTraceElement [] stack = e.getStackTrace();
-                    //logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
                     break;
                 } catch (InterruptedException e) {
                     e.printStackTrace();
-                    //logger.log(Level.INFO,Thread.currentThread().getName()+" shutdown, becouse main Thread was closed \r\n");
-                    // System.out.println(Thread.currentThread().getName()+" shutdown, becouse main Thread was closed");
                     break;
                 }
 

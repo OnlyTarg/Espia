@@ -41,7 +41,6 @@ public class ActListeners {
 
             @Override
             public  void actionPerformed(ActionEvent e) {
-                //System.out.println(b.getX()+" "+ b.getY());
                 music.soundClick();
                 if(name.equals("EspiaServer")){choiceWhoAndWhen(time,place);}
                 Color buttoncolor = b.getBackground();
@@ -60,7 +59,6 @@ public class ActListeners {
                                 ConnectionPoint connectionPoint = (ConnectionPoint)Server.listOfClients.get(i);
                                 connectionPoint.dataout.writeUTF(b.getX()+"*"+b.getY() + "_green" + "_" + place.getText() + "_" + time.getText());
                                 connectionPoint.dataout.flush();
-                                System.out.println(b.getX()+"*"+b.getY() + "_green" + "_" + place.getText() + "_" + time.getText());
                             }
                         }
                         else {
@@ -83,7 +81,6 @@ public class ActListeners {
                                 ConnectionPoint connectionPoint = (ConnectionPoint) Server.listOfClients.get(i);
                                 connectionPoint.dataout.writeUTF(b.getX() + "*" + b.getY() + "_red" + "_" + place.getText() + "_" + time.getText());
                                 connectionPoint.dataout.flush();
-                                System.out.println(b.getX() + "*" + b.getY() + "_red" + "_" + place.getText() + "_" + time.getText());
                                 //JOptionPane.showMessageDialog(null,"Данные отправлены клиенту");
                             }
                         } else {
@@ -160,7 +157,6 @@ public class ActListeners {
         Object when = JOptionPane.showInputDialog(null,
                 "", "Введіть дату",
                 JOptionPane.INFORMATION_MESSAGE, null,null,time());
-        System.out.println(when);
         binfo.setText(when.toString());
         Object[] possibleValues = { "КПП-1", "КПП-2(КТП)" };
         Object who = JOptionPane.showInputDialog(null,
@@ -171,20 +167,7 @@ public class ActListeners {
         bwho.setText(who.toString());
         Server.mainframes.setAlwaysOnTop(true);
     }
-   /* private void writeStatusOFButtons() throws IOException {
-        Server.StatusButtons statusButtons = new Server.StatusButtons(b1.getBackground(),b2.getBackground(),b3.getBackground(),
-                b4.getBackground(),b5.getBackground(),b6.getBackground(),b7.getBackground(),b8.getBackground(),
-                b1info.getText(),b2info.getText(),b3info.getText(),b4info.getText(),
-                b5info.getText(),b6info.getText(),b7info.getText(),b8info.getText(),b1who.getText(),b2who.getText(),b3who.getText(),
-                b4who.getText(),b5who.getText(),b6who.getText(),b7who.getText(),b8who.getText(),b1.getText(),b2.getText(),b3.getText(),
-                b4.getText(),b5.getText(),b6.getText(),b7.getText(),b8.getText());
-        FileOutputStream file = new FileOutputStream("status.txt");
-        ObjectOutputStream out = new ObjectOutputStream(file);
-        out.writeObject(statusButtons);
-        out.flush();
-        out.close();
-        file.close();
-    }*/
+
    public String time (){
        DateFormat df = new SimpleDateFormat("dd.MM HH:mm");
        Date currenttime = Calendar.getInstance().getTime();

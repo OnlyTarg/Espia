@@ -12,7 +12,6 @@ public class StatusButtonsDeserializer  implements JsonDeserializer<StatusButton
     @Override
     public StatusButtons deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
         JsonObject jsonObject = jsonElement.getAsJsonObject();
-        //HashMap<String, String> map = new HashMap<>();
         StatusButtons sb = new StatusButtons(jsonObject.get("listofPersons").getAsInt());
         for (int i = 0; i <jsonObject.get("listofPersons").getAsInt(); i++) {
             /*sb.listOfPersons.add()*/
@@ -27,26 +26,6 @@ public class StatusButtonsDeserializer  implements JsonDeserializer<StatusButton
             sb.timeButtons[i]=new JButton();sb.timeButtons[i].setText(prop.get(2).getAsString());
             sb.placeButtons[i]=new JButton(); sb.placeButtons[i].setText(prop.get(3).getAsString());
         }
-
-        /*for (JButton b :
-                sb.mainButtons) {
-            System.out.println(b.getText());
-
-        }
-        for (JButton b :
-                sb.timeButtons) {
-            System.out.println(b.getText());
-
-        }
-        for (JButton b :
-                sb.placeButtons) {
-            System.out.println(b.getText());
-
-        }
-
-        System.out.println(sb.listOfPersons.toString());*/
-
-
 
         return sb;
     }

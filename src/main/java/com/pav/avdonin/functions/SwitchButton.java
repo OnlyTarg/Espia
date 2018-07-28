@@ -18,11 +18,12 @@ import java.net.Socket;
 public class SwitchButton {
     AnotherFunctions functions = new AnotherFunctions();
     Music music = new Music();
+    SQL sql = new SQL();
 
-    public void determineButton(String value, Socket socket, DataInputStream datain, DataOutputStream dataout, Frames mainframe, int ID) throws IOException {
+    public void determineButton(ConnectionPoint cp, String ip, String userName, Socket socket, DataInputStream datain, DataOutputStream dataout, Frames mainframe, long ID) throws IOException {
 
 
-        value = datain.readUTF();
+        String value = datain.readUTF();
         String[] values = value.split("_");
 
 
@@ -157,14 +158,11 @@ public class SwitchButton {
 
 
             case "candidate":
-                try {
-                    ID = Integer.parseInt(values[2]);
-                    //String ip = socket.getRemoteSocketAddress().toString().substring(1,socket.getRemoteSocketAddress().toString().indexOf(":"));
-                    //  sql.addEntering(dayOfWeek(),this.getName(),mapallowedClients.get(this.getName()), timeWithSeconds(),hash);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    e.printStackTrace();
-                }
+                long hashForSql = Integer.valueOf(values[2]);
+                System.out.println(hashForSql);
+                cp.ID = hashForSql;
+                //ConnectionPoint.ID=hashForSql;
+                sql.addEntering(AnotherFunctions.dayOfWeek(),ip,userName,AnotherFunctions.timeWithSeconds(),hashForSql);
                 if (values.length == 3 && Server.mapallowedClients.containsKey(values[1])) {
                     dataout.writeUTF("isAllowed_" + "YES");
                     dataout.flush();
@@ -191,6 +189,7 @@ public class SwitchButton {
                 }
                 break;
             case "exiting":
+                cp.reason = "press exit";
                 if (ID == 0) {
                     SQL.goodExitInformer(77777);
                 } else {

@@ -1,9 +1,14 @@
 package com.pav.avdonin.sql;
 
+import com.sun.xml.internal.bind.v2.model.core.ID;
+
 import java.io.File;
 import java.sql.*;
 
 public class SQL {
+    //sql.exitFromSession(Thread.currentThread().getName(), timeWithSeconds(),ID,"");*/
+
+
     static final String JDBC_DRIVER = "org.h2.Driver";
     static final String DB_URL = "jdbc:h2:./UsersHistory";
 
@@ -56,7 +61,7 @@ public class SQL {
 
     }
 
-    public  void addEntering(String dayOfWeek, String UserIP,String UserName, String date, long hash) {
+    public  void addEntering(String dayOfWeek, String UserIP, String UserName, String date, long hash) {
         int i=0;
         try {
 
@@ -85,9 +90,9 @@ public class SQL {
 
     }
 
-    public void exitFromSession(String UserIP, String date, int hash, String reason) {
+    public  void exitFromSession(String UserIP, String date, long hash, String reason) {
         try {
-
+            System.out.println(hash);
             Class.forName(JDBC_DRIVER);
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
             //String sql = "INSERT INTO UsersHistory (Exit) VALUES (?) WHERE User = ?";
@@ -95,13 +100,13 @@ public class SQL {
             prestmt = conn.prepareStatement(sql);
             prestmt.setString(1,date);
             prestmt.setString(2,UserIP);
-            prestmt.setInt(3,hash);
+            prestmt.setLong(3,hash);
             prestmt.execute();
             sql = "UPDATE UsersHistory SET Reason=? WHERE User=? AND HASH = ?";
             prestmt = conn.prepareStatement(sql);
             prestmt.setString(1,reason);
             prestmt.setString(2,UserIP);
-            prestmt.setInt(3,hash);
+            prestmt.setLong(3,hash);
             prestmt.execute();
             prestmt.close();
             conn.close();

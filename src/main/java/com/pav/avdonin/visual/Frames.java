@@ -1,10 +1,18 @@
 package com.pav.avdonin.visual;
+import com.pav.avdonin.clients.Client;
 import com.pav.avdonin.functions.ActListeners;
+import com.pav.avdonin.functions.AnotherFunctions;
 import com.pav.avdonin.functions.StatusButtons;
+import com.pav.avdonin.server.ConnectionPoint;
+import com.pav.avdonin.server.Server;
+import org.apache.commons.io.FileUtils;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -62,10 +70,47 @@ public  class  Frames extends JFrame {
     }
 
 
-    public void createWindow(String title,boolean infoSide) {
+    public void createWindow(String title, boolean infoSide) {
         int [] sizeofWindow = calculateSizeOfWindow(infoSide);
         //frame = new JFrame();
         frame.setVisible(false);
+        if(title.equals("EspiaServer")){
+            frame.addWindowListener(new WindowAdapter() {
+                @Override
+
+                public void windowClosing(WindowEvent e) {
+                    try {
+                        for (int i = 0; i <Server.listOfClients.size() ; i++) {
+                            ConnectionPoint cp = (ConnectionPoint) Server.listOfClients.get(i);
+                            cp.sql.exitFromSession(cp.getName(), AnotherFunctions.timeWithSeconds(),cp.ID,"server stopped");
+                            FileUtils.writeStringToFile(Server.client,"","UTF8");
+                        }
+                        frame.dispose();
+                    }catch(Exception e2){
+                        e2.printStackTrace();
+                        frame.dispose();
+                    }
+                }
+            });
+        }else{
+            frame.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosing(WindowEvent e) {
+                    try {
+                        //com.pav.avdonin.sql.SQL.goodExitInformer(hash);
+                        Client.dataout.writeUTF("exiting");
+                        Client.dataout.flush();
+                        frame.dispose();
+
+                    } catch (IOException e1) {
+                        JOptionPane.showMessageDialog(null, "Помилка під час відправлення інформації про вихід до БД");
+                        frame.dispose();
+                    } catch (Exception e2) {
+                        frame.dispose();
+                    }
+                }
+            });
+        }
         frame.setLocation(boundsPoint);
         frame.setTitle(title);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -121,7 +166,6 @@ public  class  Frames extends JFrame {
                frame.getTitle().equals("КПП1")||
                frame.getTitle().equals("EspiaJL")){
            fillingButtonsProperties(infoSide,name);
-           System.out.println("CHECKING = "+ frame.getTitle()=="Client");
            fillingJLabelConnectionStatus();
        }
         else {
@@ -140,13 +184,12 @@ public  class  Frames extends JFrame {
         mainButtons = statusButtons.mainButtons;
         timeButtons = statusButtons.timeButtons;
         placeButtons = statusButtons.placeButtons;
-        System.out.println("Point2");
 
         compareAndAlign(mainButtons,listOfPersons);
-        System.out.println(frame.getTitle());
+
         if (frame.getTitle().equals("КПП-2(КТП)")){
             fillingButtonsProperties(infoSide,"Client");
-            System.out.println("CHECKING = "+ frame.getTitle().equals("Client"));
+
 
         }
 
@@ -162,7 +205,7 @@ public  class  Frames extends JFrame {
 
 
     private void fillingButtonsProperties(boolean infoSide,String name) {
-        System.out.println("Part 3 "+name);
+
         Rectangle mainButtonBounds = new Rectangle(10, 10, 200, 50);
         Rectangle timeButtonBounds = new Rectangle(212, 10, 120, 25);
         Rectangle placeButtonBounds = new Rectangle(212, 35, 120, 25);

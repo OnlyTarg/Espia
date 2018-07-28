@@ -12,6 +12,7 @@ package com.pav.avdonin.server; /**
 
 import com.pav.avdonin.functions.ActListeners;
 import com.pav.avdonin.functions.StatusButtons;
+import com.pav.avdonin.sql.SQL;
 import com.pav.avdonin.visual.Frames;
 import org.apache.commons.io.FileUtils;
 
@@ -24,6 +25,7 @@ import java.util.List;
 
 
 public class Server extends JFrame {
+    transient SQL sql;
     transient private Socket socket;
     transient private ServerSocket server;
     Properties properties = new Properties();
@@ -36,11 +38,16 @@ public class Server extends JFrame {
 
 
     public Server(String name)  {
-         mainframes= new Frames();
-         mainframes.name = name;
-         mainframes.readListofPersons();
-         mainframes.createWindow(name, true);
-         mainframes.createJButtonsArraysForServer(true,mainframes.listOfPersons);
+        synchronized (this) {
+            sql = new SQL();
+        }
+        sql.createSQL();
+
+        mainframes= new Frames();
+        mainframes.name = name;
+        mainframes.readListofPersons();
+        mainframes.createWindow(name, true);
+        mainframes.createJButtonsArraysForServer(true,mainframes.listOfPersons);
 
         statusButtons = new StatusButtons(mainframes.mainButtons, mainframes.timeButtons, mainframes.placeButtons,mainframes.listOfPersons);
 

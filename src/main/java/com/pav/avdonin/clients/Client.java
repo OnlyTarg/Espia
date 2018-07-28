@@ -193,7 +193,7 @@ public class Client extends JFrame{
                 */
 
             try{
-                switchButton.determineButton(value,socket, datain,dataout,mainframe,0);
+                switchButton.determineButton(null,null,null,socket, datain,dataout,mainframe,0);
             }catch (SocketException e){
                 StackTraceElement [] stack = e.getStackTrace();
                 connectionStatus.setForeground(Color.RED);

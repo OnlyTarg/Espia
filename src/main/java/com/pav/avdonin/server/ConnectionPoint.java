@@ -5,7 +5,7 @@ import com.pav.avdonin.functions.AnotherFunctions;
 import com.pav.avdonin.functions.StatusButtons;
 import com.pav.avdonin.functions.StatusButtonsSerializer;
 import com.pav.avdonin.functions.SwitchButton;
-import com.pav.avdonin.media.Music;
+import com.pav.avdonin.sql.SQL;
 import com.pav.avdonin.visual.Frames;
 import org.apache.commons.io.FileUtils;
 import javax.swing.*;
@@ -15,9 +15,9 @@ import java.net.SocketException;
 
 public class ConnectionPoint extends Thread {
 
-    Music music = new Music();
-    AnotherFunctions functions = new AnotherFunctions();
-    int ID =0;
+
+    public  long ID =0;
+    public  String reason = "";
     Frames mainframe;
 
 
@@ -25,15 +25,14 @@ public class ConnectionPoint extends Thread {
     private Socket socket;
     public DataOutputStream dataout;
     public DataInputStream datain;
-
+    public SQL sql = new SQL();
     @Override
     public String toString() {
-        return socket.getInetAddress().toString();
+        return socket.getInetAddress().toString().substring(1);
     }
 
     public ConnectionPoint(Socket socket,Frames mainframe){
         this.mainframe = mainframe;
-
         this.socket = socket;
 
 
@@ -48,15 +47,23 @@ public class ConnectionPoint extends Thread {
 
 
             try {
-                switchButton.determineButton(value,socket, datain,dataout,mainframe,ID);
+                String ip = Server.listOfClients.get(Server.listOfClients.size() - 1).toString();
+                switchButton.determineButton(this, ip,Server.mapallowedClients.get(ip),socket, datain,dataout,mainframe,ID);
                 Server.statusButtons.writeStatusOFButtons();
 
             } catch (SocketException e){
                 e.printStackTrace();
                 Server.listOfClients.remove(currentThread());
-               /* logger.log(Level.INFO,Thread.currentThread().getName()+" disconnected\r\n");
-                listOfClients.remove(currentThread());
-                sql.exitFromSession(Thread.currentThread().getName(), timeWithSeconds(),ID,"");*/
+             /*   logger.log(Level.INFO,Thread.currentThread().getName()+" disconnected\r\n");
+                listOfClients.remove(currentThread());*/
+               /* new SQL.exitFromSession(Thread.currentThread().getName(), AnotherFunctions.timeWithSeconds(),ID,"");*/
+                System.out.println("ID after exiting = " + ID);
+
+                if(reason.equals("press exit")){
+                sql.exitFromSession(Thread.currentThread().getName(), AnotherFunctions.timeWithSeconds(),ID,reason);
+                }else sql.exitFromSession(Thread.currentThread().getName(), AnotherFunctions.timeWithSeconds(),ID,e.getMessage());
+
+
                 FileUtils.writeStringToFile(Server.client,"","UTF8");
                 for (int i = 0; i <Server.listOfClients.size() ; i++) {
                         FileUtils.writeStringToFile(Server.client, Server.listOfClients.get(i).toString() + " " + Server.mapallowedClients.get(Server.listOfClients.get(i).toString().substring(1)) + "\r\n", "UTF8", true);

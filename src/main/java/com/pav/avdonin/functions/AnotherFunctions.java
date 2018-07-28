@@ -18,7 +18,7 @@ public class AnotherFunctions {
         return time;
 
     }
-    public String timeWithSeconds(){
+    public static String timeWithSeconds(){
         DateFormat df = new SimpleDateFormat("dd.MM HH:mm:ss");
         Date currenttime = Calendar.getInstance().getTime();
         String time = df.format(currenttime);
@@ -36,6 +36,12 @@ public class AnotherFunctions {
         }
 
 
+    }
+    public static String dayOfWeek (){
+        Date currenttime = Calendar.getInstance().getTime();
+        DateFormat format3=new SimpleDateFormat("EEEE");
+        String finalDay1=format3.format(currenttime);
+        return finalDay1;
     }
 
 }

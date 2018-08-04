@@ -1,17 +1,11 @@
 package com.pav.avdonin.server; /**
  * Created by CleBo on 07.12.2017.
  */
-/*Смысл программы - фиксация местонахождения руководства.
-Кнопками обозначены сокращения должностей руководства( Пример НРУ - НАЧАЛЬНИК Регионального управления).
-Кнопки имеют два состояния - красные (должностное лицо отсутствует) и зеленые (должностное лицо на работе).
-Сервер стоит у меня в кабинете, клиенты находяться на контрольно - пропускных пунктах. Если наряд на кпп нажимает
-на кнопку, то соответствуюшие изменения отобразяться у меня на сервере.
-* */
-
-
 
 import com.pav.avdonin.functions.ActListeners;
+import com.pav.avdonin.functions.AnotherFunctions;
 import com.pav.avdonin.functions.StatusButtons;
+import com.pav.avdonin.logger.Logging;
 import com.pav.avdonin.sql.SQL;
 import com.pav.avdonin.visual.Frames;
 import org.apache.commons.io.FileUtils;
@@ -24,94 +18,128 @@ import java.util.*;
 import java.util.List;
 
 
+
 public class Server extends JFrame {
-    transient SQL sql;
+    transient public static SQL sql = new SQL();
     transient private Socket socket;
     transient private ServerSocket server;
-    Properties properties = new Properties();
-    public static File client = new File("clients.txt");
+    transient public static Frames mainframes;
+    transient static boolean statusOfLogger = false;
+    transient public static  Logging logging;
+    transient public static HashMap<String,String > mapallowedClients;
 
+    transient Properties properties = new Properties();
+    transient public static File client = new File("clients.txt");
     transient public static List  listOfClients = Collections.synchronizedList(new ArrayList<ConnectionPoint>());
-    public static HashMap<String,String > mapallowedClients;
-    static public StatusButtons statusButtons;
-    public static Frames mainframes;
 
+    static public StatusButtons statusButtons;
 
     public Server(String name)  {
-        synchronized (this) {
-            sql = new SQL();
-        }
+        createServerLogger();
         sql.createSQL();
+        createGUI(name);
+        loadPropertiesOptions();
+        readAllowedClients();
+        setSavedStatusOfButtons();
+        startServer();
+    }
 
+    private void createServerLogger() {
+        if(logging==null) {
+            logging = new Logging();
+            logging.createLogger();
+        }
+    }
+
+    private void startServer() {
+        try{
+            while(true){
+                /*Удаление офлайнслушателя  если кто-то подключился. Так как нам уже не нужен этот слушатель
+                Добавляем слушателя OnlineListener*/
+                if(listOfClients.size()>0) addOnlineListeners();
+                waitingForNewClient();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            logging.writeExeptionToLogger(e,statusOfLogger,Thread.currentThread());
+            JOptionPane.showMessageDialog(null,"Помилка при створенні серверу");
+        }
+    }
+
+    private void waitingForNewClient()  {
+        try {
+            socket=server.accept();
+
+        ConnectionPoint connection = new ConnectionPoint(socket,mainframes);
+        String ip = socket.getRemoteSocketAddress().toString().substring(1,socket.getRemoteSocketAddress().toString().indexOf(":"));
+        connection.setName(ip);
+        connection.start();
+        listOfClients.add(connection);
+        Thread.currentThread().sleep(500);
+        FileUtils.writeStringToFile(client,"","UTF8");
+
+
+
+        for (int i = 0; i <listOfClients.size() ; i++) {
+            FileUtils.writeStringToFile(client,listOfClients.get(i).toString()+" "+mapallowedClients.get(listOfClients.get(i).toString())+"\r\n","UTF8",true);
+        }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void addOnlineListeners() {
+        for (JButton b:
+                mainframes.mainButtons) {
+            b.removeActionListener((b.getActionListeners())[0]);
+        }
+        for (int i = 0; i <mainframes.mainButtons.length ; i++) {
+            mainframes.mainButtons[i].addActionListener(new ActListeners().OnlineListenerForServer(mainframes.name,mainframes.mainButtons[i],
+                    mainframes.timeButtons[i],mainframes.placeButtons[i]));
+        }
+    }
+
+    private void loadPropertiesOptions() {
+        try {
+            properties.load(getClass().getResourceAsStream("/settings.properties"));
+            server = new ServerSocket((Integer.valueOf(properties.getProperty("port"))));
+            if(properties.getProperty("logger").equals("true"))statusOfLogger=true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            logging.writeExeptionToLogger(e,statusOfLogger,Thread.currentThread());
+        }
+    }
+
+    private void setSavedStatusOfButtons()  {
+        statusButtons = new StatusButtons(mainframes.mainButtons, mainframes.timeButtons,
+                mainframes.placeButtons,mainframes.listOfPersons);
+        File file = new File("status.txt");
+        if(file.length()>0){
+            try {
+                statusButtons.readStatusOFButtons();
+            } catch (IOException e) {
+                logging.writeExeptionToLogger(e,statusOfLogger,Thread.currentThread());
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                logging.writeExeptionToLogger(e,statusOfLogger,Thread.currentThread());
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void createGUI(String name) {
         mainframes= new Frames();
         mainframes.name = name;
         mainframes.readListofPersons();
         mainframes.createWindow(name, true);
         mainframes.createJButtonsArraysForServer(true,mainframes.listOfPersons);
 
-        statusButtons = new StatusButtons(mainframes.mainButtons, mainframes.timeButtons, mainframes.placeButtons,mainframes.listOfPersons);
 
-        try {
-            properties.load(getClass().getResourceAsStream("/settings.properties"));
-           // createLogger();
-            readAllowedClients();
-            File file = new File("status.txt");
-            if(file.length()>0){
-                statusButtons.readStatusOFButtons();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        try{
-            server = new ServerSocket((Integer.valueOf(properties.getProperty("port"))));
-
-            int temp = 0;//временная переменная для if else что ниже
-            while(true){
-                //Удаление слушателя OnlyServer если кто-то подключился. Так как нам уже не нужен этот слушатель
-                //Добавляем слушателя OnlineListener
-                //!!!!НАДО добавить востановление этого слушателя в случае если список соединений будет опять равняться нулю
-                if(listOfClients.size()>0 && temp==0) {
-                    for (JButton b:
-                            mainframes.mainButtons) {
-                        b.removeActionListener((b.getActionListeners())[0]);
-                    }
-                    for (int i = 0; i <mainframes.mainButtons.length ; i++) {
-                        mainframes.mainButtons[i].addActionListener(new ActListeners().OnlineListenerForServer(mainframes.name,mainframes.mainButtons[i],
-                                mainframes.timeButtons[i],mainframes.placeButtons[i]));
-                    }
-                    temp=1;
-                }
-
-                socket=server.accept();
-
-                ConnectionPoint connection = new ConnectionPoint(socket,mainframes);
-                String ip = socket.getRemoteSocketAddress().toString().substring(1,socket.getRemoteSocketAddress().toString().indexOf(":"));
-                connection.setName(ip);
-                connection.start();
-                listOfClients.add(connection);
-                Thread.currentThread().sleep(500);
-
-                FileUtils.writeStringToFile(client,"","UTF8");
-                for (int i = 0; i <listOfClients.size() ; i++) {
-                    FileUtils.writeStringToFile(client,listOfClients.get(i).toString()+" "+mapallowedClients.get(listOfClients.get(i).toString().substring(1))+"\r\n","UTF8",true);
-                }
-            }
-
-        }catch (Exception e){
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null,"Помилка при створенні серверу");
-        }
 
 
     }
-
-
-
-
 
     private void readAllowedClients(){
         mapallowedClients = new HashMap<>();
@@ -142,14 +170,14 @@ public class Server extends JFrame {
         }
         catch(Exception e){
             e.printStackTrace();
-            StackTraceElement [] stack = e.getStackTrace();
+            logging.writeExeptionToLogger(e,statusOfLogger,Thread.currentThread());
+            //StackTraceElement [] stack = e.getStackTrace();
 
         }
 
     }
 
-
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
+    public static void main(String[] args)  {
         Server s = new Server("EspiaServer");
 
 

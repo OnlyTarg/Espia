@@ -1,9 +1,7 @@
 package com.pav.avdonin;
 
 import com.pav.avdonin.clients.Client;
-
 import com.pav.avdonin.server.Server;
-
 import javax.swing.*;
 import java.io.IOException;
 import java.net.*;
@@ -11,31 +9,19 @@ import java.util.Properties;
 
 //Created by CleBo on 19.01.2018.
 
-
 public class Main extends JFrame {
     boolean infoSide;
     boolean makingChange;
-    Properties properties = new Properties();
-
-    String ipKPP="", ipKTP="", ipServer="",ip120="";
-    String currentIP;
+    Properties properties;
+    String ipKPP="", ipKTP="", ipServer="", currentIP;
 
     public Main() {
-        try {
-            properties.load(getClass().getResourceAsStream("/settings.properties"));
-            currentIP = Inet4Address.getLocalHost().getHostAddress();
+        properties = new Properties();
+        setNamesFromProperties();
+        chooseServerOrClient();
+    }
 
-            infoSide = Boolean.valueOf(properties.getProperty("infoSide"));
-            ipServer = properties.getProperty("ipServer");
-            ipKPP = properties.getProperty("ipKPP");
-            ipKTP = properties.getProperty("ipKTP");
-
-
-        }catch (IOException e) {
-            JOptionPane.showMessageDialog(null,"Помилка при зчитуванні файла конфігурацій");
-            e.printStackTrace();
-        }
-
+    private void chooseServerOrClient() {
         if(properties.containsValue(currentIP)){
             if (currentIP.equals(ipKPP)){
 
@@ -56,14 +42,31 @@ public class Main extends JFrame {
                 JOptionPane.showMessageDialog(null,"Компьютер не підключений до мережі. Перевірте підключення та спробуйте щє раз.");
             }
             else {
+                System.out.println("tut");
                 makingChange = Boolean.valueOf(properties.getProperty("makingChangeForEspiaJL"));
                 new Client("EspiaJL",makingChange,infoSide);
             }
         }
     }
+    private void setNamesFromProperties() {
+        try {
+            properties.load(getClass().getResourceAsStream("/settings.properties"));
+            currentIP = Inet4Address.getLocalHost().getHostAddress();
+            infoSide = Boolean.valueOf(properties.getProperty("infoSide"));
+            ipServer = properties.getProperty("ipServer");
+            ipKPP = properties.getProperty("ipKPP");
+            ipKTP = properties.getProperty("ipKTP");
 
-    public static void main(String[] args) throws IOException, InterruptedException {
-        Main main = new Main();
+
+        }catch (IOException e) {
+            JOptionPane.showMessageDialog(null,"Помилка при зчитуванні файла конфігурацій");
+            e.printStackTrace();
         }
+    }
+
+    public static void main(String[] args) {
+        Main main = new Main();
+    }
+
 
 }

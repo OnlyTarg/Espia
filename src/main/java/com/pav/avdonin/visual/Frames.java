@@ -82,7 +82,7 @@ public  class  Frames extends JFrame {
                     try {
                         for (int i = 0; i <Server.listOfClients.size() ; i++) {
                             ConnectionPoint cp = (ConnectionPoint) Server.listOfClients.get(i);
-                            cp.sql.exitFromSession(cp.getName(), AnotherFunctions.timeWithSeconds(),cp.ID,"server stopped");
+                            Server.sql.exitFromSession(cp.getName(), AnotherFunctions.timeWithSeconds(),cp.ID,"server stopped");
                             FileUtils.writeStringToFile(Server.client,"","UTF8");
                         }
                         frame.dispose();
@@ -167,6 +167,7 @@ public  class  Frames extends JFrame {
                frame.getTitle().equals("EspiaJL")){
            fillingButtonsProperties(infoSide,name);
            fillingJLabelConnectionStatus();
+
        }
         else {
            fillingButtonsProperties(infoSide,name);
@@ -189,8 +190,12 @@ public  class  Frames extends JFrame {
 
         if (frame.getTitle().equals("КПП-2(КТП)")){
             fillingButtonsProperties(infoSide,"Client");
-
-
+        }
+        if (frame.getTitle().equals("КПП-1")){
+            fillingButtonsProperties(infoSide,"Client");
+        }
+        if (frame.getTitle().equals("EspiaJL")){
+            fillingButtonsProperties(infoSide,"Client");
         }
 
         //fillingJLabelCountClients();
@@ -222,8 +227,7 @@ public  class  Frames extends JFrame {
             mainButtons[i].setFont(fontMain);
             mainButtons[i].setBounds(mainButtonBounds);
             mainButtonBounds.y = mainButtonBounds.y+60;
-
-            frame.add(mainButtons[i]);
+            if (i<20)frame.add(mainButtons[i]);
             if(i==9&&infoSide){
                 mainButtonBounds.setBounds(335, 10, 200, 50);
             }
@@ -242,7 +246,7 @@ public  class  Frames extends JFrame {
                 timeButtons[i].setBounds(timeButtonBounds);
                 timeButtonBounds.y = timeButtonBounds.y + 60;
                 timeButtons[i].setBackground(Color.YELLOW);
-                frame.add(timeButtons[i]);
+                if (i<20)frame.add(timeButtons[i]);
                 if(i==9&&infoSide==true){
                     timeButtonBounds.setBounds(538, 10, 120, 25);
                 }
@@ -256,7 +260,7 @@ public  class  Frames extends JFrame {
                 placeButtons[i].setBounds(placeButtonBounds);
                 placeButtonBounds.y = placeButtonBounds.y + 60;
                 placeButtons[i].setBackground(Color.YELLOW);
-                frame.add(placeButtons[i]);
+                if (i<20)frame.add(placeButtons[i]);
                 if(i==9&&infoSide==true){
                     placeButtonBounds.setBounds(538, 35, 120, 25);
                 }

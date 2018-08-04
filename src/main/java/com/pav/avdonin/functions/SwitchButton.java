@@ -35,91 +35,91 @@ public class SwitchButton {
                 */
         switch (values[0]) {
             //case "value" - положение кнопок
-            case "10*10":
+            case "0":
                 switchButton(values[1], values[2], values[3],
                         mainframe.mainButtons[0], mainframe.timeButtons[0], mainframe.placeButtons[0]);
                 break;
-            case "10*70":
+            case "1":
                 switchButton(values[1], values[2], values[3],
                         mainframe.mainButtons[1], mainframe.timeButtons[1], mainframe.placeButtons[1]);
                 break;
-            case "10*130":
+            case "2":
                 switchButton(values[1], values[2], values[3],
                         mainframe.mainButtons[2], mainframe.timeButtons[2], mainframe.placeButtons[2]);
                 break;
-            case "10*190":
+            case "3":
                 switchButton(values[1], values[2], values[3],
                         mainframe.mainButtons[3], mainframe.timeButtons[3], mainframe.placeButtons[3]);
                 break;
-            case "10*250":
+            case "4":
                 switchButton(values[1], values[2], values[3],
                         mainframe.mainButtons[4], mainframe.timeButtons[4], mainframe.placeButtons[4]);
                 break;
-            case "10*310":
+            case "5":
                 switchButton(values[1], values[2], values[3],
                         mainframe.mainButtons[5], mainframe.timeButtons[5], mainframe.placeButtons[5]);
                 break;
-            case "10*370":
+            case "6":
                 switchButton(values[1], values[2], values[3],
                         mainframe.mainButtons[6], mainframe.timeButtons[6], mainframe.placeButtons[6]);
                 break;
-            case "10*430":
+            case "7":
                 switchButton(values[1], values[2], values[3],
                         mainframe.mainButtons[7], mainframe.timeButtons[7], mainframe.placeButtons[7]);
                 break;
-            case "10*490":
+            case "8":
                 switchButton(values[1], values[2], values[3],
                         mainframe.mainButtons[8], mainframe.timeButtons[8], mainframe.placeButtons[8]);
                 break;
-            case "10*550":
+            case "9":
                 switchButton(values[1], values[2], values[3],
                         mainframe.mainButtons[9], mainframe.timeButtons[9], mainframe.placeButtons[9]);
                 break;
-            case "335*10":
+            case "10":
                 switchButton(values[1], values[2], values[3],
                         mainframe.mainButtons[10], mainframe.timeButtons[10], mainframe.placeButtons[10]);
                 break;
-            case "335*70":
+            case "11":
                 switchButton(values[1], values[2], values[3],
                         mainframe.mainButtons[11], mainframe.timeButtons[11], mainframe.placeButtons[11]);
                 break;
-            case "335*130":
+            case "12":
                 switchButton(values[1], values[2], values[3],
                         mainframe.mainButtons[12], mainframe.timeButtons[12], mainframe.placeButtons[12]);
                 break;
-            case "335*190":
+            case "13":
                 switchButton(values[1], values[2], values[3],
                         mainframe.mainButtons[13], mainframe.timeButtons[13], mainframe.placeButtons[13]);
                 break;
-            case "335*250":
+            case "14":
                 switchButton(values[1], values[2], values[3],
                         mainframe.mainButtons[14], mainframe.timeButtons[14], mainframe.placeButtons[14]);
                 break;
-            case "335*310":
+            case "15":
                 switchButton(values[1], values[2], values[3],
                         mainframe.mainButtons[15], mainframe.timeButtons[15], mainframe.placeButtons[15]);
                 break;
-            case "335*370":
+            case "16":
                 switchButton(values[1], values[2], values[3],
                         mainframe.mainButtons[16], mainframe.timeButtons[16], mainframe.placeButtons[16]);
                 break;
-            case "335*430":
+            case "17":
                 switchButton(values[1], values[2], values[3],
                         mainframe.mainButtons[17], mainframe.timeButtons[17], mainframe.placeButtons[17]);
                 break;
-            case "335*490":
+            case "18":
                 switchButton(values[1], values[2], values[3],
                         mainframe.mainButtons[18], mainframe.timeButtons[18], mainframe.placeButtons[18]);
                 break;
-            case "335*550":
+            case "19":
                 switchButton(values[1], values[2], values[3],
                         mainframe.mainButtons[19], mainframe.timeButtons[19], mainframe.placeButtons[19]);
                 break;
-            case "230*10":
+            case "20":
                 switchButton(values[1], values[2], values[3],
                         mainframe.mainButtons[10], mainframe.timeButtons[10], mainframe.placeButtons[10]);
                 break;
-            case "230*70":
+            /*case "230*70":
                 switchButton(values[1], values[2], values[3],
                         mainframe.mainButtons[11], mainframe.timeButtons[11], mainframe.placeButtons[11]);
                 break;
@@ -154,7 +154,7 @@ public class SwitchButton {
             case "230*550":
                 switchButton(values[1], values[2], values[3],
                         mainframe.mainButtons[19], mainframe.timeButtons[19], mainframe.placeButtons[19]);
-                break;
+                break;*/
 
 
             case "candidate":
@@ -164,6 +164,7 @@ public class SwitchButton {
                 //ConnectionPoint.ID=hashForSql;
                 sql.addEntering(AnotherFunctions.dayOfWeek(),ip,userName,AnotherFunctions.timeWithSeconds(),hashForSql);
                 if (values.length == 3 && Server.mapallowedClients.containsKey(values[1])) {
+                    System.out.println(values[1]);
                     dataout.writeUTF("isAllowed_" + "YES");
                     dataout.flush();
                 } else {

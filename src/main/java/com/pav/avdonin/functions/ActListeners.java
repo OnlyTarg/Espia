@@ -27,7 +27,7 @@ public class ActListeners {
 
 
 
-    public ActionListener OnlineListenerForServer(String name,JButton b, JButton time, JButton place) {
+    public ActionListener OnlineListenerForServer(Frames frames, String name,JButton b, JButton time, JButton place) {
         this.name = name;
 
 /*Создаю слушатель для кнопок
@@ -57,12 +57,14 @@ public class ActListeners {
                         if(name.equals("EspiaServer")){
                             for (int i = 0; i <Server.listOfClients.size() ; i++) {
                                 ConnectionPoint connectionPoint = (ConnectionPoint)Server.listOfClients.get(i);
-                                connectionPoint.dataout.writeUTF(b.getX()+"*"+b.getY() + "_green" + "_" + place.getText() + "_" + time.getText());
+                                //connectionPoint.dataout.writeUTF(b.getX()+"*"+b.getY() + "_green" + "_" + place.getText() + "_" + time.getText());
+                                connectionPoint.dataout.writeUTF( frames.listOfPersons.indexOf(b.getText())+ "_green" + "_" + place.getText() + "_" + time.getText());
+                                System.out.println(frames.listOfPersons.indexOf(b.getText())+ "_green" + "_" + place.getText() + "_" + time.getText());
                                 connectionPoint.dataout.flush();
                             }
                         }
                         else {
-                            Client.dataout.writeUTF(b.getX()+"*"+b.getY() + "_green" + "_" + place.getText() + "_" + time.getText());
+                            Client.dataout.writeUTF(frames.listOfPersons.indexOf(b.getText()) + "_green" + "_" + place.getText() + "_" + time.getText());
                             Client.dataout.flush();
                         }
 
@@ -79,12 +81,12 @@ public class ActListeners {
                         if(name.equals("EspiaServer")) {
                             for (int i = 0; i < Server.listOfClients.size(); i++) {
                                 ConnectionPoint connectionPoint = (ConnectionPoint) Server.listOfClients.get(i);
-                                connectionPoint.dataout.writeUTF(b.getX() + "*" + b.getY() + "_red" + "_" + place.getText() + "_" + time.getText());
+                                connectionPoint.dataout.writeUTF(frames.listOfPersons.indexOf(b.getText()) + "_red" + "_" + place.getText() + "_" + time.getText());
                                 connectionPoint.dataout.flush();
                                 //JOptionPane.showMessageDialog(null,"Данные отправлены клиенту");
                             }
                         } else {
-                            Client.dataout.writeUTF(b.getX() + "*" + b.getY() + "_red" + "_" + place.getText() + "_" + time.getText());
+                            Client.dataout.writeUTF(frames.listOfPersons.indexOf(b.getText()) + "_red" + "_" + place.getText() + "_" + time.getText());
                             Client.dataout.flush();
                         }
 

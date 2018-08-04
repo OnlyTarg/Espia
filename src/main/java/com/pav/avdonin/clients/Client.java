@@ -118,7 +118,7 @@ public class Client extends JFrame{
 
                         if(makingChange==true) {
                             for (int i = 0; i < mainframe.mainButtons.length; i++) {
-                                mainframe.mainButtons[i].addActionListener(new ActListeners().OnlineListenerForServer(mainframe.name, mainframe.mainButtons[i],
+                                mainframe.mainButtons[i].addActionListener(new ActListeners().OnlineListenerForServer(mainframe, mainframe.name, mainframe.mainButtons[i],
                                         mainframe.timeButtons[i], mainframe.placeButtons[i]));
                             }
                         }

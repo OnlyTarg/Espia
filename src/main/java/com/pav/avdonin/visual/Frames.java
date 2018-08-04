@@ -41,11 +41,12 @@ public  class  Frames extends JFrame {
     public Frames(ArrayList<String> listOfPersons) {
         frame = new JFrame();
         this.listOfPersons = listOfPersons;
+
         /*createWindow(frameTitle,infoSide);
         createJButtonsArrays(infoSide);*/
 
     }
-    
+
 
     public void readListofPersons()  {
         try{
@@ -217,6 +218,7 @@ public  class  Frames extends JFrame {
 
         Font fontMain = new Font("Times new Roman",Font.BOLD,20);
         Font fontTimePlace = new Font("Times new Roman",Font.BOLD,14);
+
 
 
         for (int i = 0; i <mainButtons.length ; i++) {

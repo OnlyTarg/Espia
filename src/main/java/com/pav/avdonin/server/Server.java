@@ -38,6 +38,7 @@ public class Server extends JFrame {
         createServerLogger();
         sql.createSQL();
         createGUI(name);
+
         loadPropertiesOptions();
         readAllowedClients();
         setSavedStatusOfButtons();
@@ -96,7 +97,7 @@ public class Server extends JFrame {
             b.removeActionListener((b.getActionListeners())[0]);
         }
         for (int i = 0; i <mainframes.mainButtons.length ; i++) {
-            mainframes.mainButtons[i].addActionListener(new ActListeners().OnlineListenerForServer(mainframes.name,mainframes.mainButtons[i],
+            mainframes.mainButtons[i].addActionListener(new ActListeners().OnlineListenerForServer(mainframes, mainframes.name,mainframes.mainButtons[i],
                     mainframes.timeButtons[i],mainframes.placeButtons[i]));
         }
     }

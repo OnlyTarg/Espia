@@ -52,8 +52,8 @@ public class StatusButtons implements Serializable {
             file.close();
             for (int i = 0; i < mainButtons.length; i++) {
                 mainButtons[i].setBackground(statusButtons.mainButtons[i].getBackground());
-                timeButtons[i].setText(statusButtons.timeButtons[i].getText());
-                placeButtons[i].setText(statusButtons.placeButtons[i].getText());
+               timeButtons[i].setText(statusButtons.timeButtons[i].getText());
+               placeButtons[i].setText(statusButtons.placeButtons[i].getText());
             }
         } catch (Exception e) {
             e.printStackTrace();

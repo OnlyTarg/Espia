@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public  class  Frames extends JFrame {
 
 
-
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     public JFrame frame;
     public static Point boundsPoint = new Point();
     public String name = "";
@@ -121,20 +121,22 @@ public  class  Frames extends JFrame {
         frame.setLayout(null);
     }
     private int[] calculateSizeOfWindow(boolean infosize) {
-
-        int height = 80 + (listOfPersons.size() *60);
+        int additional = (int) (Math.round((double) 80/1080*screenSize.height));
+        int buttonSize = (int) (Math.round((double) 60/1080*screenSize.height));
+        int height = additional + (listOfPersons.size() *buttonSize);
         int width;
 
         if (infosize) {
-            width= 340;
+            width = (int) (Math.round((double) 350/1920*screenSize.width));
+            System.out.println("Ширина окна " + width);
         } else {
-            width = 234;
+            width = (int) (Math.round((double) 260/1920*screenSize.width));
         }
 
         int [] size = {width,height};
         if(listOfPersons.size()>10){
             size[0] = size[0]*2;
-            size[1] = 680;
+            size[1] = additional + 10 *buttonSize;
         }
 
 
@@ -209,14 +211,75 @@ public  class  Frames extends JFrame {
     }
 
 
+    public int calculateHeightofButtons (int standartsize){
+        double pxl = (double) standartsize / 1080;
+        return  (int) Math.round(pxl*screenSize.height);
+
+    }
+
+    public int calculateWidthofButtons (int standartsize,boolean infoSide){
+        if(infoSide==true){
+        double pxl = (double) standartsize / 1920;
+        return  (int) Math.round(pxl*screenSize.width);
+        }else {
+            double pxl = (double) standartsize*1.1 / 1920;
+            return  (int) Math.round(pxl*screenSize.width);
+        }
+
+
+    }
+    public int [] calculatePosition (int [] standartposition){
+
+       int x = (int) (Math.round((double) standartposition[0] / 1920*screenSize.width));
+
+
+       int y = (int) (Math.round((double) standartposition[1] / 1080*screenSize.height));
+
+
+
+        return  new int [] {x,y};
+    }
+
+    public int calculateFontforMainButtons (int standartsize){
+        return (int) (Math.round((double) standartsize / 1920*screenSize.width));
+
+
+    }
+
+
+
+
+
+
 
     private void fillingButtonsProperties(boolean infoSide,String name) {
 
-        Rectangle mainButtonBounds = new Rectangle(10, 10, 200, 50);
-        Rectangle timeButtonBounds = new Rectangle(212, 10, 120, 25);
-        Rectangle placeButtonBounds = new Rectangle(212, 35, 120, 25);
 
-        Font fontMain = new Font("Times new Roman",Font.BOLD,20);
+       // int mainButtonHeight = (int) Math.round(0.0462*screenSize.height);
+        int mainButtonHeight = calculateHeightofButtons(50);
+        int mainButtonWidth = calculateWidthofButtons(200, infoSide);
+
+
+        int timeplaceButtonHeight = calculateHeightofButtons(25);
+        int timeplaceButtonWidth = calculateWidthofButtons(120,infoSide);
+
+        int[] mainButtonPosition = calculatePosition(new int[]{10, 10});
+        int[] timeButtonPosition = calculatePosition(new int[]{212, 10});
+        int[] placeButtonPosition = calculatePosition(new int[]{212, 35});
+
+
+
+
+
+
+        Rectangle mainButtonBounds = new Rectangle(mainButtonPosition[0], mainButtonPosition[1],
+                mainButtonWidth, mainButtonHeight);
+        Rectangle timeButtonBounds = new Rectangle(timeButtonPosition[0], timeButtonPosition[1], timeplaceButtonWidth, timeplaceButtonHeight);
+        Rectangle placeButtonBounds = new Rectangle(placeButtonPosition[0], placeButtonPosition[1], timeplaceButtonWidth, timeplaceButtonHeight);
+
+
+
+        Font fontMain = new Font("Times new Roman",Font.BOLD,calculateFontforMainButtons(20));
         Font fontTimePlace = new Font("Times new Roman",Font.BOLD,14);
 
 
@@ -228,13 +291,19 @@ public  class  Frames extends JFrame {
             }
             mainButtons[i].setFont(fontMain);
             mainButtons[i].setBounds(mainButtonBounds);
-            mainButtonBounds.y = mainButtonBounds.y+60;
+            if(i==0) System.out.println("Основная кнопка "+mainButtonBounds.x);
+            if(i==0) System.out.println("Основная кнопка длина "+mainButtonBounds.width);
+            mainButtonBounds.y = mainButtonBounds.y+stepForHeight(60);
+
+
+
+
             if (i<20)frame.add(mainButtons[i]);
             if(i==9&&infoSide){
-                mainButtonBounds.setBounds(335, 10, 200, 50);
+                mainButtonBounds.setBounds(mainButtonPosition[0]+stepForWidth(330), mainButtonPosition[1], mainButtonWidth, mainButtonHeight);
             }
             if(i==9&&!infoSide){
-                mainButtonBounds.setBounds(230, 10, 200, 50);
+                mainButtonBounds.setBounds(mainButtonPosition[0]+stepForWidth(60), mainButtonPosition[1], mainButtonWidth, mainButtonHeight);
             }
         }
 
@@ -246,11 +315,15 @@ public  class  Frames extends JFrame {
 
                 timeButtons[i].setFont(fontTimePlace);
                 timeButtons[i].setBounds(timeButtonBounds);
-                timeButtonBounds.y = timeButtonBounds.y + 60;
+                if(i==0) System.out.println("Часовая кнопка положение "+timeButtonBounds.x);
+                if(i==0) System.out.println("Часовая кнопка  длина "+timeButtonBounds.getBounds().getWidth());
+
+                timeButtonBounds.y = timeButtonBounds.y + stepForHeight(60);
+
                 timeButtons[i].setBackground(Color.YELLOW);
                 if (i<20)frame.add(timeButtons[i]);
                 if(i==9&&infoSide==true){
-                    timeButtonBounds.setBounds(538, 10, 120, 25);
+                    timeButtonBounds.setBounds(timeButtonPosition[0] + stepForWidth(330), timeButtonPosition[1], timeplaceButtonWidth, timeplaceButtonHeight);
                 }
 
             }
@@ -260,11 +333,14 @@ public  class  Frames extends JFrame {
                 }
                 placeButtons[i].setFont(fontTimePlace);
                 placeButtons[i].setBounds(placeButtonBounds);
-                placeButtonBounds.y = placeButtonBounds.y + 60;
+                //int tempX = (int) Math.round(0.03125*screenSize.width);
+                placeButtonBounds.y = placeButtonBounds.y + stepForHeight(60);
                 placeButtons[i].setBackground(Color.YELLOW);
                 if (i<20)frame.add(placeButtons[i]);
                 if(i==9&&infoSide==true){
-                    placeButtonBounds.setBounds(538, 35, 120, 25);
+                    //tempX = (int) Math.round(0.3055*screenSize.height);
+                    int tempY = (int) Math.round(0.0231*screenSize.height);
+                    placeButtonBounds.setBounds(timeButtonPosition[0] + stepForWidth(330), placeButtonPosition[1], timeplaceButtonWidth, timeplaceButtonHeight);
                 }
             }
             if (name.equals("EspiaServer")) {
@@ -274,11 +350,12 @@ public  class  Frames extends JFrame {
         }
     }
 
-
-
-
-
-
+    private int stepForHeight(int standartSize ) {
+        return (int) Math.round((double)standartSize/1080*screenSize.height);
+    }
+    private int stepForWidth(int standartSize ) {
+        return (int) Math.round((double)standartSize/1920*screenSize.width);
+    }
 
 
     private void addOfflineActionListeners() {

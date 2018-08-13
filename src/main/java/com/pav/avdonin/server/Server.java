@@ -55,8 +55,6 @@ public class Server extends JFrame {
     private void startServer() {
         try{
             while(true){
-                /*Удаление офлайнслушателя  если кто-то подключился. Так как нам уже не нужен этот слушатель
-                Добавляем слушателя OnlineListener*/
                 if(listOfClients.size()>0) addOnlineListeners();
                 waitingForNewClient();
             }
@@ -163,7 +161,6 @@ public class Server extends JFrame {
             }
 
 
-            int temp=0;
             reader.close();
             in.close();
 

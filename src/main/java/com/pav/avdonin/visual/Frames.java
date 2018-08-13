@@ -44,17 +44,12 @@ public  class  Frames extends JFrame {
 
         frame = new JFrame();
         listOfPersons = new ArrayList<>();
-        //readListofPersons();
-        /*createWindow(frameTitle,infoSide);
-        createJButtonsArrays(infoSide);*/
 
     }
     public Frames(ArrayList<String> listOfPersons) {
         frame = new JFrame();
         this.listOfPersons = listOfPersons;
 
-        /*createWindow(frameTitle,infoSide);
-        createJButtonsArrays(infoSide);*/
 
     }
 
@@ -73,10 +68,6 @@ public  class  Frames extends JFrame {
 
         }catch (Exception e){
             e.printStackTrace();
-            /*StackTraceElement [] stack = e.getStackTrace();
-            logger.log(Level.INFO,e.toString()+"\r\n"+stack[0]+"\r\n"+Thread.currentThread()+" disconnected \r\n");
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null,"Помилка під зчитування файлу з списком керівників");*/
         }
 
     }
@@ -84,7 +75,6 @@ public  class  Frames extends JFrame {
 
     public void createWindow(String title, boolean infoSide) {
         int [] sizeofWindow = calculateSizeOfWindow(infoSide);
-        //frame = new JFrame();
         frame.setVisible(false);
         if(title.equals("EspiaServer")){
             frame.addWindowListener(new WindowAdapter() {
@@ -206,10 +196,7 @@ public  class  Frames extends JFrame {
             fillingJLabelCountClients(name);
         }
 
-        //fillingJLabelCountClients();
-
         frame.repaint();
-        //frame.setVisible(true);
 
 
 
@@ -250,17 +237,7 @@ public  class  Frames extends JFrame {
 
 
     }
-
-
-
-
-
-
-
     private void fillingButtonsProperties(boolean infoSide,String name) {
-
-
-       // int mainButtonHeight = (int) Math.round(0.0462*screenSize.height);
         int mainButtonHeight = calculateHeightofButtons(50);
         int mainButtonWidth = calculateWidthofButtons(200, infoSide);
 

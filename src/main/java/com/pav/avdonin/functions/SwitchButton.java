@@ -27,14 +27,7 @@ public class SwitchButton {
         String[] values = value.split("_");
 
 
-                /*Массив с значениями с входящего потока:
-                values[0] - положение кнопки по вертекали
-                values[1] - цвет (green;red)
-                values[2] - имя (КПП-1; КПП-2(КТП))
-                values[3] - время
-                */
         switch (values[0]) {
-            //case "value" - положение кнопок
             case "0":
                 switchButton(values[1], values[2], values[3],
                         mainframe.mainButtons[0], mainframe.timeButtons[0], mainframe.placeButtons[0]);
@@ -119,42 +112,6 @@ public class SwitchButton {
                 switchButton(values[1], values[2], values[3],
                         mainframe.mainButtons[10], mainframe.timeButtons[10], mainframe.placeButtons[10]);
                 break;
-            /*case "230*70":
-                switchButton(values[1], values[2], values[3],
-                        mainframe.mainButtons[11], mainframe.timeButtons[11], mainframe.placeButtons[11]);
-                break;
-            case "230*130":
-                switchButton(values[1], values[2], values[3],
-                        mainframe.mainButtons[12], mainframe.timeButtons[12], mainframe.placeButtons[12]);
-                break;
-            case "230*190":
-                switchButton(values[1], values[2], values[3],
-                        mainframe.mainButtons[13], mainframe.timeButtons[13], mainframe.placeButtons[13]);
-                break;
-            case "230*250":
-                switchButton(values[1], values[2], values[3],
-                        mainframe.mainButtons[14], mainframe.timeButtons[14], mainframe.placeButtons[14]);
-                break;
-            case "230*310":
-                switchButton(values[1], values[2], values[3],
-                        mainframe.mainButtons[15], mainframe.timeButtons[15], mainframe.placeButtons[15]);
-                break;
-            case "230*370":
-                switchButton(values[1], values[2], values[3],
-                        mainframe.mainButtons[16], mainframe.timeButtons[16], mainframe.placeButtons[16]);
-                break;
-            case "230*430":
-                switchButton(values[1], values[2], values[3],
-                        mainframe.mainButtons[17], mainframe.timeButtons[17], mainframe.placeButtons[17]);
-                break;
-            case "230*490":
-                switchButton(values[1], values[2], values[3],
-                        mainframe.mainButtons[18], mainframe.timeButtons[18], mainframe.placeButtons[18]);
-                break;
-            case "230*550":
-                switchButton(values[1], values[2], values[3],
-                        mainframe.mainButtons[19], mainframe.timeButtons[19], mainframe.placeButtons[19]);
-                break;*/
 
 
             case "candidate":
@@ -200,7 +157,6 @@ public class SwitchButton {
         }
     }
     private void switchButton(String color, String name, String when, JButton b, JButton binfo, JButton bwho) throws IOException {
-        //метод решающий какую строку отправлять
         new FlashingLight(b).start();
         if (color.equals("green")) {
             if (b.getBackground().equals(Color.GREEN)) {
@@ -226,13 +182,10 @@ public class SwitchButton {
                 //DONOTHING
             }
         }
-        //пересылаем полученные данные всем пользователям из списка лист
 
         for (int i = 0; i <Server.listOfClients.size() ; i++) {
             try{
                 ConnectionPoint connectionPoint = (ConnectionPoint)Server.listOfClients.get(i);
-
-
                 connectionPoint.dataout.writeUTF(b.getX() + "*" + b.getY() +"_"+color+"_"+name+"_"+when);
                 connectionPoint.dataout.flush();
 

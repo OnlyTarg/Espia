@@ -7,8 +7,6 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class StatusButtons implements Serializable {
-    // private static final long serialVersionUID = 1L;
-    //Класс фиксирующий состояние (цвет) кнопок. Отправляется в виде JSON на клиенты при подключении
     @Expose
     public JButton[] mainButtons, timeButtons, placeButtons;
     @Expose

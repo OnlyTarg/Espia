@@ -20,7 +20,6 @@ public class Client extends JFrame{
     Socket socket;
     InetAddress ipAddress;
     Properties properties = new Properties();
-    //JLabel connectionStatus= new JLabel("Статус соединения");
     boolean statusOfLogger=false;
     boolean infoSide,makingChange;
     public static boolean isAllowed;
@@ -158,13 +157,6 @@ public class Client extends JFrame{
         mainframe.listOfPersons = statusButtons.listOfPersons;
     }
 
-  /*  private void fillingJLabelProperties() {
-        connectionStatus.setBounds(jLabelPossition);
-        connectionStatus.setFont(new Font("Times new Roman",Font.BOLD,20));
-        connectionStatus.setForeground(Color.BLACK);
-        connectionStatus.setText("З'єднання......");
-        mainframe.frame.add(connectionStatus);
-    }*/
 
     private void restart(){
         try {
@@ -182,12 +174,6 @@ public class Client extends JFrame{
     public void startDataExchange()  {
         SwitchButton switchButton = new SwitchButton();
         while(true){
-            /*Массив с значениями с входящего потока:
-                values[0] - положение кнопки по вертекали
-                values[1] - цвет (green;red)
-                values[2] - имя (КПП-1; КПП-2(КТП))
-                values[3] - время
-                */
             try{
                 switchButton.determineButton(null,null,null,socket, datain,dataout,mainframe,0);
             }catch (SocketException e){

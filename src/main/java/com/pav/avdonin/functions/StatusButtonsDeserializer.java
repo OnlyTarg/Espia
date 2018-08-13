@@ -14,7 +14,6 @@ public class StatusButtonsDeserializer  implements JsonDeserializer<StatusButton
         JsonObject jsonObject = jsonElement.getAsJsonObject();
         StatusButtons sb = new StatusButtons(jsonObject.get("listofPersons").getAsInt());
         for (int i = 0; i <jsonObject.get("listofPersons").getAsInt(); i++) {
-            /*sb.listOfPersons.add()*/
             JsonArray prop = jsonObject.getAsJsonArray("b"+i);
             sb.listOfPersons.add(prop.get(0).getAsString());
             sb.mainButtons[i]=new JButton(); sb.mainButtons[i].setText(prop.get(0).getAsString());

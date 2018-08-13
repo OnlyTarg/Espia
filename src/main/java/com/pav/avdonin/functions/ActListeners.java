@@ -30,13 +30,6 @@ public class ActListeners {
     public ActionListener OnlineListenerForServer(Frames frames, String name,JButton b, JButton time, JButton place) {
         this.name = name;
 
-/*Создаю слушатель для кнопок
-        При нажатии на кнопку, она изменяет цвет на противоположный,
-        в зависимости от того какой цвет был установлен до нажатия.
-        После этого в OutputStream передается строка в виде "120 green"
-        где первое значение - "положение кнопки по вертикали", а втрое - "цвет"*/
-
-
         ActionListener actionListener = new ActionListener() {
 
             @Override
@@ -57,7 +50,6 @@ public class ActListeners {
                         if(name.equals("EspiaServer")){
                             for (int i = 0; i <Server.listOfClients.size() ; i++) {
                                 ConnectionPoint connectionPoint = (ConnectionPoint)Server.listOfClients.get(i);
-                                //connectionPoint.dataout.writeUTF(b.getX()+"*"+b.getY() + "_green" + "_" + place.getText() + "_" + time.getText());
                                 connectionPoint.dataout.writeUTF( frames.listOfPersons.indexOf(b.getText())+ "_green" + "_" + place.getText() + "_" + time.getText());
                                 System.out.println(frames.listOfPersons.indexOf(b.getText())+ "_green" + "_" + place.getText() + "_" + time.getText());
                                 connectionPoint.dataout.flush();
@@ -77,7 +69,6 @@ public class ActListeners {
                             place.setText(name);
                         }
                         music.soundDoor();
-                        //binfo.setText(time());
                         if(name.equals("EspiaServer")) {
                             for (int i = 0; i < Server.listOfClients.size(); i++) {
                                 ConnectionPoint connectionPoint = (ConnectionPoint) Server.listOfClients.get(i);
@@ -103,14 +94,8 @@ public class ActListeners {
         };
         return actionListener;
     }
+
     public ActionListener OfflineListener (JButton b, JButton time, JButton place) {
-/*Создаю слушатель для кнопок
-        При нажатии на кнопку, она изменяет цвет на противоположный,
-        в зависимости от того какой цвет был установлен до нажатия.
-        Работает только в офлайне*/
-
-
-
         ActionListener actionListener = null;
         try {
             actionListener = new ActionListener() {
@@ -123,7 +108,6 @@ public class ActListeners {
 
 
                     try {
-                        //clipClick.start();
                         if (buttoncolor.equals(Color.RED)) {
                             b.setBackground(Color.GREEN);
                             music.soundZvonok();

@@ -78,8 +78,6 @@ public class SQL {
 
 
 
-           /* String sqladd = "INSERT INTO UsersHistory VALUES('1','test')"+UserIP+date;
-            stmt.executeUpdate(sql);*/
             prestmt.close();
             conn.close();
         } catch (ClassNotFoundException e1) {

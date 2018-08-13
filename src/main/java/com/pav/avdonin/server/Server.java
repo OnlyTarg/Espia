@@ -161,7 +161,6 @@ public class Server extends JFrame {
 
                 }
             }
-            //Scanner scanner = new Scanner(in, "UTF8");
 
 
             int temp=0;
@@ -172,7 +171,7 @@ public class Server extends JFrame {
         catch(Exception e){
             e.printStackTrace();
             logging.writeExeptionToLogger(e,statusOfLogger,Thread.currentThread());
-            //StackTraceElement [] stack = e.getStackTrace();
+
 
         }
 

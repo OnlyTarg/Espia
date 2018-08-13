@@ -16,11 +16,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Properties;
 
 public  class  Frames extends JFrame {
 
 
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    Properties properties = new Properties();
     public JFrame frame;
     public static Point boundsPoint = new Point();
     public String name = "";
@@ -28,9 +30,18 @@ public  class  Frames extends JFrame {
     public ArrayList<String> listOfPersons;
     int countOfButtons;
     static public JLabel jLabel;
+    static public JLabel connectionStatus;
+    double scope= 1.0;
 
 
     public Frames() {
+        try {
+            properties.load(getClass().getResourceAsStream("/settings.properties"));
+            scope = Double.valueOf(properties.getProperty("scope"));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Помилка під час завантаження налаштувань. Повідомте про цю помилку адміністратора. (0685399549)");
+        }
+
         frame = new JFrame();
         listOfPersons = new ArrayList<>();
         //readListofPersons();
@@ -119,18 +130,20 @@ public  class  Frames extends JFrame {
         frame.setResizable(false);
         frame.setAlwaysOnTop(true);
         frame.setLayout(null);
+
+
     }
     private int[] calculateSizeOfWindow(boolean infosize) {
-        int additional = (int) (Math.round((double) 80/1080*screenSize.height));
-        int buttonSize = (int) (Math.round((double) 60/1080*screenSize.height));
+        int additional = (int) (Math.round((double) 80/1080*screenSize.height*scope));
+        int buttonSize = (int) (Math.round((double) 60/1080*screenSize.height*scope));
         int height = additional + (listOfPersons.size() *buttonSize);
         int width;
 
         if (infosize) {
-            width = (int) (Math.round((double) 350/1920*screenSize.width));
+            width = (int) (Math.round((double) 350/1920*screenSize.width*scope));
             System.out.println("Ширина окна " + width);
         } else {
-            width = (int) (Math.round((double) 260/1920*screenSize.width));
+            width = (int) (Math.round((double) 260/1920*screenSize.width*scope));
         }
 
         int [] size = {width,height};
@@ -164,19 +177,8 @@ public  class  Frames extends JFrame {
         placeButtons = new JButton[listOfPersons.size()];
 
         compareAndAlign(mainButtons,listOfPersons);
-
-       if (frame.getTitle().equals("КПП-2(КТП)")||
-               frame.getTitle().equals("КПП1")||
-               frame.getTitle().equals("EspiaJL")){
-           fillingButtonsProperties(infoSide,name);
-           fillingJLabelConnectionStatus();
-
-       }
-        else {
-           fillingButtonsProperties(infoSide,name);
-           fillingJLabelCountClients();
-       }
-
+        fillingButtonsProperties(infoSide,name);
+        fillingJLabelCountClients(name);
 
         frame.repaint();
         frame.setVisible(true);
@@ -193,12 +195,15 @@ public  class  Frames extends JFrame {
 
         if (frame.getTitle().equals("КПП-2(КТП)")){
             fillingButtonsProperties(infoSide,"Client");
+            fillingJLabelCountClients(name);
         }
         if (frame.getTitle().equals("КПП-1")){
             fillingButtonsProperties(infoSide,"Client");
+            fillingJLabelCountClients(name);
         }
         if (frame.getTitle().equals("EspiaJL")){
             fillingButtonsProperties(infoSide,"Client");
+            fillingJLabelCountClients(name);
         }
 
         //fillingJLabelCountClients();
@@ -213,27 +218,27 @@ public  class  Frames extends JFrame {
 
     public int calculateHeightofButtons (int standartsize){
         double pxl = (double) standartsize / 1080;
-        return  (int) Math.round(pxl*screenSize.height);
+        return  (int) Math.round(pxl*screenSize.height*scope);
 
     }
 
     public int calculateWidthofButtons (int standartsize,boolean infoSide){
         if(infoSide==true){
         double pxl = (double) standartsize / 1920;
-        return  (int) Math.round(pxl*screenSize.width);
+        return  (int) Math.round(pxl*screenSize.width*scope);
         }else {
             double pxl = (double) standartsize*1.1 / 1920;
-            return  (int) Math.round(pxl*screenSize.width);
+            return  (int) Math.round(pxl*screenSize.width*scope);
         }
 
 
     }
     public int [] calculatePosition (int [] standartposition){
 
-       int x = (int) (Math.round((double) standartposition[0] / 1920*screenSize.width));
+       int x = (int) (Math.round((double) standartposition[0] / 1920*screenSize.width*scope));
 
 
-       int y = (int) (Math.round((double) standartposition[1] / 1080*screenSize.height));
+       int y = (int) (Math.round((double) standartposition[1] / 1080*screenSize.height*scope));
 
 
 
@@ -241,7 +246,7 @@ public  class  Frames extends JFrame {
     }
 
     public int calculateFontforMainButtons (int standartsize){
-        return (int) (Math.round((double) standartsize / 1920*screenSize.width));
+        return (int) (Math.round((double) standartsize / 1920*screenSize.width*scope));
 
 
     }
@@ -279,8 +284,8 @@ public  class  Frames extends JFrame {
 
 
 
-        Font fontMain = new Font("Times new Roman",Font.BOLD,calculateFontforMainButtons(20));
-        Font fontTimePlace = new Font("Times new Roman",Font.BOLD,14);
+        Font fontMain = new Font("Times new Roman",Font.BOLD,calculateFontforMainButtons(17));
+        Font fontTimePlace = new Font("Times new Roman",Font.BOLD,calculateFontforMainButtons(12));
 
 
 
@@ -339,7 +344,7 @@ public  class  Frames extends JFrame {
                 if (i<20)frame.add(placeButtons[i]);
                 if(i==9&&infoSide==true){
                     //tempX = (int) Math.round(0.3055*screenSize.height);
-                    int tempY = (int) Math.round(0.0231*screenSize.height);
+                    int tempY = (int) Math.round(0.0231*screenSize.height*scope);
                     placeButtonBounds.setBounds(timeButtonPosition[0] + stepForWidth(330), placeButtonPosition[1], timeplaceButtonWidth, timeplaceButtonHeight);
                 }
             }
@@ -351,10 +356,10 @@ public  class  Frames extends JFrame {
     }
 
     private int stepForHeight(int standartSize ) {
-        return (int) Math.round((double)standartSize/1080*screenSize.height);
+        return (int) Math.round((double)standartSize/1080*screenSize.height*scope);
     }
     private int stepForWidth(int standartSize ) {
-        return (int) Math.round((double)standartSize/1920*screenSize.width);
+        return (int) Math.round((double)standartSize/1920*screenSize.width*scope);
     }
 
 
@@ -363,18 +368,33 @@ public  class  Frames extends JFrame {
             mainButtons[i].addActionListener(new ActListeners().OfflineListener(mainButtons[i],timeButtons[i],placeButtons[i]));
         }
     }
-    private void fillingJLabelCountClients() {
+    private void fillingJLabelCountClients(String name) {
         Rectangle countClientsLabel;
-        Font fontJLabel = new Font("Times new Roman",Font.BOLD,15);
+        Font fontJLabel = new Font("Times new Roman",Font.BOLD,calculateFontforMainButtons(15));
+        int jLabelHeight = calculateHeightofButtons(6)+stepForHeight(60)*listOfPersons.size();
+        int jLabelWidht = calculateWidthofButtons(20,false);
+        int[] jLabelPossition = {jLabelWidht, jLabelHeight};
         if(listOfPersons.size()<10){
-            countClientsLabel = new Rectangle(20,6+(60*listOfPersons.size()),200,30);
+            countClientsLabel = new Rectangle(jLabelPossition[0],jLabelPossition[1],
+                    calculateWidthofButtons(200,false),calculateHeightofButtons(30));
         }else {
-            countClientsLabel = new Rectangle(20,6+(600),200,30);
+            countClientsLabel = new Rectangle(jLabelPossition[0],calculateHeightofButtons(6)+stepForHeight(600),
+                    calculateWidthofButtons(200,false),calculateHeightofButtons(30));
         }
-        jLabel = new JLabel("Кількість клієнтів - 0");
-        jLabel.setFont(fontJLabel);
-        jLabel.setBounds(countClientsLabel);
-        frame.add(jLabel);
+        if(name.equals("EspiaServer")) {
+            jLabel = new JLabel("Кількість клієнтів - 0");
+            jLabel.setFont(fontJLabel);
+            jLabel.setBounds(countClientsLabel);
+            frame.add(jLabel);
+        }
+        else{
+            connectionStatus = new JLabel("З'єднання ...");
+            connectionStatus.setFont(fontJLabel);
+            connectionStatus.setBounds(countClientsLabel);
+            frame.add(connectionStatus);
+        }
+
+
     }
 
     private void fillingJLabelConnectionStatus() {

@@ -6,7 +6,7 @@
 
     <groupId>com.pav.avdonin</groupId>
     <artifactId>Espia</artifactId>
-    <version>1.9</version><name>Espia</name>
+    <version>2.0</version><name>Espia</name>
 
 
     <properties>
@@ -128,13 +128,7 @@
             <version>1.4.196</version>
             <scope>runtime</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/junit/junit -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-            <scope>test</scope>
-        </dependency>
+
 
 
     </dependencies>

@@ -20,7 +20,7 @@ public class Client extends JFrame{
     Socket socket;
     InetAddress ipAddress;
     Properties properties = new Properties();
-    JLabel connectionStatus= new JLabel("Статус соединения");
+    //JLabel connectionStatus= new JLabel("Статус соединения");
     boolean statusOfLogger=false;
     boolean infoSide,makingChange;
     public static boolean isAllowed;
@@ -28,6 +28,7 @@ public class Client extends JFrame{
     int hash=0;
     int serverPort;
     String name,currentIP,address;
+
 
     Frames mainframe;
     Rectangle jLabelPossition;
@@ -73,13 +74,13 @@ public class Client extends JFrame{
             hash = (int)(Math.random()*9999)+0;
             ipAddress = InetAddress.getByName(address);
             connectToServerAndCreateGUI(isConnected);
-            connectionStatus.setForeground(Color.GREEN);
-            connectionStatus.setText("Підключено");
+            mainframe.connectionStatus.setForeground(Color.GREEN);
+            mainframe.connectionStatus.setText("Підключено");
         } catch (Exception e) {
             logging.writeExeptionToLogger(e,statusOfLogger,Thread.currentThread());
             e.printStackTrace();
-            connectionStatus.setForeground(Color.RED);
-            connectionStatus.setText("Помилка (код 01)");
+            mainframe.connectionStatus.setForeground(Color.RED);
+            mainframe.connectionStatus.setText("Помилка (код 01)");
             new AnotherFunctions().close(dataout,datain,socket);
 
         }
@@ -114,7 +115,7 @@ public class Client extends JFrame{
                         }else {
                             jLabelPossition = new Rectangle(20,6+(600),200,30);
                         }
-                        fillingJLabelProperties();
+                        //fillingJLabelProperties();
 
                         if(makingChange==true) {
                             for (int i = 0; i < mainframe.mainButtons.length; i++) {
@@ -157,13 +158,13 @@ public class Client extends JFrame{
         mainframe.listOfPersons = statusButtons.listOfPersons;
     }
 
-    private void fillingJLabelProperties() {
+  /*  private void fillingJLabelProperties() {
         connectionStatus.setBounds(jLabelPossition);
         connectionStatus.setFont(new Font("Times new Roman",Font.BOLD,20));
         connectionStatus.setForeground(Color.BLACK);
         connectionStatus.setText("З'єднання......");
         mainframe.frame.add(connectionStatus);
-    }
+    }*/
 
     private void restart(){
         try {
@@ -191,8 +192,8 @@ public class Client extends JFrame{
                 switchButton.determineButton(null,null,null,socket, datain,dataout,mainframe,0);
             }catch (SocketException e){
                 logging.writeExeptionToLogger(e,statusOfLogger,Thread.currentThread());
-                connectionStatus.setForeground(Color.RED);
-                connectionStatus.setText("Помилка (код 02)");
+                mainframe.connectionStatus.setForeground(Color.RED);
+                mainframe.connectionStatus.setText("Помилка (код 02)");
                 try {
                     Thread.currentThread().sleep(2000);
                 } catch (InterruptedException e1) {
@@ -211,8 +212,8 @@ public class Client extends JFrame{
             }catch (Exception e) {
                 logging.writeExeptionToLogger(e,statusOfLogger,Thread.currentThread());
                 e.printStackTrace();
-                connectionStatus.setForeground(Color.RED);
-                connectionStatus.setText("Помилка (код 03)");
+                mainframe.connectionStatus.setForeground(Color.RED);
+                mainframe.connectionStatus.setText("Помилка (код 03)");
                 new AnotherFunctions().close(dataout,datain,socket);
                 restart();
                 break;

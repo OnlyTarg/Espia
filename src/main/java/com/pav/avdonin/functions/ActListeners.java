@@ -51,7 +51,6 @@ public class ActListeners {
                             for (int i = 0; i <Server.listOfClients.size() ; i++) {
                                 ConnectionPoint connectionPoint = (ConnectionPoint)Server.listOfClients.get(i);
                                 connectionPoint.dataout.writeUTF( frames.listOfPersons.indexOf(b.getText())+ "_green" + "_" + place.getText() + "_" + time.getText());
-                                System.out.println(frames.listOfPersons.indexOf(b.getText())+ "_green" + "_" + place.getText() + "_" + time.getText());
                                 connectionPoint.dataout.flush();
                             }
                         }

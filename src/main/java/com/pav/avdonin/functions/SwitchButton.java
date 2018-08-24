@@ -156,7 +156,7 @@ public class SwitchButton {
                 break;
         }
     }
-    private void switchButton(String color, String name, String when, JButton b, JButton binfo, JButton bwho) throws IOException {
+    private void switchButton(String color, String name, String when, JButton b, JButton time, JButton place) throws IOException {
         new FlashingLight(b).start();
         if (color.equals("green")) {
             if (b.getBackground().equals(Color.GREEN)) {
@@ -164,8 +164,8 @@ public class SwitchButton {
             }
             if (b.getBackground().equals(Color.RED)) {
                 b.setBackground(Color.GREEN);
-                binfo.setText(functions.time());
-                bwho.setText(name);
+                time.setText(functions.time());
+                place.setText(name);
                 music.soundZvonok();
             }
 
@@ -173,8 +173,8 @@ public class SwitchButton {
         if (color.equals("red")) {
             if(b.getBackground().equals(Color.GREEN)){
                 b.setBackground(Color.RED);
-                binfo.setText(functions.time());
-                bwho.setText(name);
+                time.setText(functions.time());
+                place.setText(name);
                 music.soundDoor();
 
             }
@@ -186,7 +186,7 @@ public class SwitchButton {
         for (int i = 0; i <Server.listOfClients.size() ; i++) {
             try{
                 ConnectionPoint connectionPoint = (ConnectionPoint)Server.listOfClients.get(i);
-                connectionPoint.dataout.writeUTF(b.getX() + "*" + b.getY() +"_"+color+"_"+name+"_"+when);
+                connectionPoint.dataout.writeUTF( Server.mainframes.listOfPersons.indexOf(b.getText())+"_"+color+"_"+place.getText()+"_"+time.getText());
                 connectionPoint.dataout.flush();
 
             }catch(Exception e){

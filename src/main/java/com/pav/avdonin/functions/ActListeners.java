@@ -1,7 +1,6 @@
 package com.pav.avdonin.functions;
 
 import com.pav.avdonin.clients.Client;
-import com.pav.avdonin.functions.StatusButtons;
 import com.pav.avdonin.media.Music;
 import com.pav.avdonin.server.ConnectionPoint;
 import com.pav.avdonin.server.Server;
@@ -12,14 +11,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.logging.Level;
 
 public class ActListeners {
     String name;
@@ -50,7 +45,7 @@ public class ActListeners {
                         if(name.equals("EspiaServer")){
                             for (int i = 0; i <Server.listOfClients.size() ; i++) {
                                 ConnectionPoint connectionPoint = (ConnectionPoint)Server.listOfClients.get(i);
-                                connectionPoint.dataout.writeUTF( frames.listOfPersons.indexOf(b.getText())+ "_green" + "_" + place.getText() + "_" + time.getText());
+                                connectionPoint.dataout.writeUTF(frames.listOfPersons.indexOf(b.getText())+ "_green" + "_" + place.getText() + "_" + time.getText());
                                 connectionPoint.dataout.flush();
                             }
                         }

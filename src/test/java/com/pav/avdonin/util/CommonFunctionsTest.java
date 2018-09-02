@@ -1,4 +1,3 @@
-/*
 package com.pav.avdonin.util;
 import org.junit.Test;
 
@@ -13,7 +12,7 @@ public class CommonFunctionsTest {
 
     @Test
     public void getCurrentTime() {
-      //  String currentTime = new CommonFunctions().getCurrentTime();
+        String currentTime = new CommonFunctions().getCurrentTime();
         Pattern p = Pattern.compile("\\d\\d\\.\\d\\d\\s\\d\\d\\:\\d\\d");
         Matcher m = p.matcher(currentTime);
         System.out.println(m.matches());
@@ -43,4 +42,4 @@ public class CommonFunctionsTest {
         List<String> dayOfWeek = Arrays.asList(new String [] {"понедельник","вторник","среда","четверг","пятница", "суббота", "воскресенье"});
         assert (dayOfWeek.contains(new CommonFunctions().getDayOfWeek()));
     }
-}*/
+}

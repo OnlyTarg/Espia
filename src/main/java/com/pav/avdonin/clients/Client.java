@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.pav.avdonin.functions.*;
 import com.pav.avdonin.logger.Logging;
+import com.pav.avdonin.util.CommonFunctions;
 import com.pav.avdonin.visual.Frames;
 
 
@@ -80,7 +81,7 @@ public class Client extends JFrame{
             e.printStackTrace();
             mainframe.connectionStatus.setForeground(Color.RED);
             mainframe.connectionStatus.setText("Помилка (код 01)");
-            new AnotherFunctions().close(dataout,datain,socket);
+            new CommonFunctions().close(dataout,datain,socket);
 
         }
 
@@ -137,7 +138,7 @@ public class Client extends JFrame{
 
     private void connectToServer() throws IOException {
         socket = new Socket(ipAddress, serverPort);
-        socket.setSoTimeout(30000);
+        //socket.setSoTimeout(30000);
         datain = new DataInputStream(socket.getInputStream());
         dataout = new DataOutputStream(socket.getOutputStream());
         dataout.writeUTF("candidate_"+currentIP+"_"+hash);
@@ -187,7 +188,7 @@ public class Client extends JFrame{
                     logging.writeExeptionToLogger(e,statusOfLogger,Thread.currentThread());
                 }
                 mainframe.frame.dispose();
-                new AnotherFunctions().close(dataout,datain,socket);
+                new CommonFunctions().close(dataout,datain,socket);
                 if(isAllowed==true){
                     restart();
                 }
@@ -200,7 +201,7 @@ public class Client extends JFrame{
                 e.printStackTrace();
                 mainframe.connectionStatus.setForeground(Color.RED);
                 mainframe.connectionStatus.setText("Помилка (код 03)");
-                new AnotherFunctions().close(dataout,datain,socket);
+                new CommonFunctions().close(dataout,datain,socket);
                 restart();
                 break;
             }

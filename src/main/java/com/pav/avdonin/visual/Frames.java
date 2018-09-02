@@ -1,7 +1,7 @@
 package com.pav.avdonin.visual;
 import com.pav.avdonin.clients.Client;
 import com.pav.avdonin.functions.ActListeners;
-import com.pav.avdonin.functions.AnotherFunctions;
+import com.pav.avdonin.util.CommonFunctions;
 import com.pav.avdonin.functions.StatusButtons;
 import com.pav.avdonin.server.ConnectionPoint;
 import com.pav.avdonin.server.Server;
@@ -84,7 +84,7 @@ public  class  Frames extends JFrame {
                     try {
                         for (int i = 0; i <Server.listOfClients.size() ; i++) {
                             ConnectionPoint cp = (ConnectionPoint) Server.listOfClients.get(i);
-                            Server.sql.exitFromSession(cp.getName(), AnotherFunctions.timeWithSeconds(),cp.ID,"server stopped");
+                            Server.sql.exitFromSession(cp.getName(), CommonFunctions.getCurrentTimeWithSeconds(),cp.ID,"server stopped");
                             FileUtils.writeStringToFile(Server.client,"","UTF8");
                         }
                         frame.dispose();

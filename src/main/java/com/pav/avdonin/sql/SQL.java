@@ -6,7 +6,7 @@ import java.io.File;
 import java.sql.*;
 
 public class SQL {
-    //sql.exitFromSession(Thread.currentThread().getName(), timeWithSeconds(),ID,"");*/
+    //sql.exitFromSession(Thread.currentThread().getName(), getCurrentTimeWithSeconds(),ID,"");*/
 
 
     static final String JDBC_DRIVER = "org.h2.Driver";

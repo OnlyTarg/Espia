@@ -5,6 +5,7 @@ import com.pav.avdonin.media.Music;
 import com.pav.avdonin.server.ConnectionPoint;
 import com.pav.avdonin.server.Server;
 import com.pav.avdonin.sql.SQL;
+import com.pav.avdonin.util.CommonFunctions;
 import com.pav.avdonin.visual.FlashingLight;
 import com.pav.avdonin.visual.Frames;
 
@@ -16,12 +17,11 @@ import java.io.IOException;
 import java.net.Socket;
 
 public class SwitchButton {
-    AnotherFunctions functions = new AnotherFunctions();
+    CommonFunctions functions = new CommonFunctions();
     Music music = new Music();
     SQL sql = new SQL();
 
     public void determineButton(ConnectionPoint cp, String ip, String userName, Socket socket, DataInputStream datain, DataOutputStream dataout, Frames mainframe, long ID) throws IOException {
-
 
         String value = datain.readUTF();
         String[] values = value.split("_");
@@ -119,7 +119,7 @@ public class SwitchButton {
                 System.out.println(hashForSql);
                 cp.ID = hashForSql;
                 //ConnectionPoint.ID=hashForSql;
-                sql.addEntering(AnotherFunctions.dayOfWeek(),ip,userName,AnotherFunctions.timeWithSeconds(),hashForSql);
+                sql.addEntering(CommonFunctions.getDayOfWeek(),ip,userName,CommonFunctions.getCurrentTimeWithSeconds(),hashForSql);
                 if (values.length == 3 && Server.mapallowedClients.containsKey(values[1])) {
                     System.out.println(values[1]);
                     dataout.writeUTF("isAllowed_" + "YES");
@@ -164,7 +164,7 @@ public class SwitchButton {
             }
             if (b.getBackground().equals(Color.RED)) {
                 b.setBackground(Color.GREEN);
-                time.setText(functions.time());
+                time.setText(functions.getCurrentTime());
                 place.setText(name);
                 music.soundZvonok();
             }
@@ -173,7 +173,7 @@ public class SwitchButton {
         if (color.equals("red")) {
             if(b.getBackground().equals(Color.GREEN)){
                 b.setBackground(Color.RED);
-                time.setText(functions.time());
+                time.setText(functions.getCurrentTime());
                 place.setText(name);
                 music.soundDoor();
 

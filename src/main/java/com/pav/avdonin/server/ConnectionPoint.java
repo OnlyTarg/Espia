@@ -1,7 +1,7 @@
 package com.pav.avdonin.server;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.pav.avdonin.functions.AnotherFunctions;
+import com.pav.avdonin.util.CommonFunctions;
 import com.pav.avdonin.functions.StatusButtons;
 import com.pav.avdonin.functions.StatusButtonsSerializer;
 import com.pav.avdonin.functions.SwitchButton;
@@ -38,10 +38,10 @@ public class ConnectionPoint extends Thread {
         try {
             mainframe.jLabel.setText("Кількість клієнтів - " +Server.listOfClients.size());
             sentStatusOfButtonsToNewClient();
-            CheckingSignal checkingSignal = startCheckingSignal();
+            //CheckingSignal checkingSignal = startCheckingSignal();
             startDataExchange();
-            checkingSignal.interrupt();
-            new AnotherFunctions().close(dataout,datain,socket);
+            //checkingSignal.interrupt();
+            new CommonFunctions().close(dataout,datain,socket);
         } catch(SocketException e){
             Server.logging.writeExeptionToLogger(e,Server.statusOfLogger,Thread.currentThread());
             e.printStackTrace();
@@ -89,9 +89,9 @@ public class ConnectionPoint extends Thread {
                 System.out.println("ID after exiting = " + ID);
 
                 if(reason.equals("press exit")){
-                Server.sql.exitFromSession(Thread.currentThread().getName(), AnotherFunctions.timeWithSeconds(),ID,reason);
+                Server.sql.exitFromSession(Thread.currentThread().getName(), CommonFunctions.getCurrentTimeWithSeconds(),ID,reason);
                 }else {
-                    Server.sql.exitFromSession(Thread.currentThread().getName(), AnotherFunctions.timeWithSeconds(),ID,e.getMessage());
+                    Server.sql.exitFromSession(Thread.currentThread().getName(), CommonFunctions.getCurrentTimeWithSeconds(),ID,e.getMessage());
                     Server.logging.writeExeptionToLogger(e,Server.statusOfLogger,Thread.currentThread());
 
                 }
@@ -102,7 +102,7 @@ public class ConnectionPoint extends Thread {
                         FileUtils.writeStringToFile(Server.client, Server.listOfClients.get(i).toString() + " " + Server.mapallowedClients.get(Server.listOfClients.get(i).toString()) + "\r\n", "UTF8", true);
                 }
                 mainframe.jLabel.setText("Кількість клієнтів - " +Server.listOfClients.size());
-                new AnotherFunctions().close(dataout,datain,socket);
+                new CommonFunctions().close(dataout,datain,socket);
                 break;
             } catch(Exception e){
                 Server.logging.writeExeptionToLogger(e,Server.statusOfLogger,Thread.currentThread());
@@ -113,7 +113,7 @@ public class ConnectionPoint extends Thread {
                     FileUtils.writeStringToFile(Server.client,Server.listOfClients.get(i).toString()+" "+Server.mapallowedClients.get(Server.listOfClients.get(i).toString())+"\r\n","UTF8",true);
                 }
                 mainframe.jLabel.setText("Кількість клієнтів - " +Server.listOfClients.size());
-                new AnotherFunctions().close(dataout,datain,socket);
+                new CommonFunctions().close(dataout,datain,socket);
                 break;
             }
         }

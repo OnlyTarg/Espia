@@ -1,5 +1,6 @@
-package com.pav.avdonin.functions;
+package com.pav.avdonin.dataExchangeFunctions;
 
+import com.pav.avdonin.util.Names;
 import com.pav.avdonin.clients.Client;
 import com.pav.avdonin.media.Music;
 import com.pav.avdonin.server.ConnectionPoint;
@@ -13,54 +14,56 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ActListeners {
+public class ActionListeners {
     String name;
+    private final String ESPIA_SERVER_NAME = Names.EspiaServer.toString();
+    private final String KPP_NAME = Names.КПП1.toString();
+    private final String KTP_NAME = Names.КТП.toString();
     Music music = new Music();
 
 
-
-    public ActionListener OnlineListenerForServer(Frames frames, String name,JButton b, JButton time, JButton place) {
-        this.name = name;
+    public ActionListener OnlineListenerForServer(Frames frames, String appName, JButton b, JButton time, JButton place) {
+        this.name = appName;
 
         ActionListener actionListener = new ActionListener() {
 
             @Override
-            public  void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) {
                 music.soundClick();
-                if(name.equals("EspiaServer")){choiceWhoAndWhen(time,place);}
+                System.out.println(name);
+                if (name.equals(ESPIA_SERVER_NAME)) {
+                    choiceWhoAndWhen(time, place);
+                }
                 Color buttoncolor = b.getBackground();
                 new FlashingLight(b).start();
                 try {
                     if (buttoncolor.equals(Color.RED)) {
-                        if(!name.equals("EspiaServer")){
+                        if (!name.equals(ESPIA_SERVER_NAME)) {
                             time.setText(CommonFunctions.getCurrentTime());
                             place.setText(name);
                         }
                         b.setBackground(Color.GREEN);
-                        music.soundZvonok();
+                        music.soundRing();
 
-                        if(name.equals("EspiaServer")){
-                            for (int i = 0; i <Server.listOfClients.size() ; i++) {
-                                ConnectionPoint connectionPoint = (ConnectionPoint)Server.listOfClients.get(i);
-                                connectionPoint.dataout.writeUTF(frames.listOfPersons.indexOf(b.getText())+ "_green" + "_" + place.getText() + "_" + time.getText());
+                        if (name.equals(ESPIA_SERVER_NAME)) {
+                            for (int i = 0; i < Server.listOfClients.size(); i++) {
+                                ConnectionPoint connectionPoint = (ConnectionPoint) Server.listOfClients.get(i);
+                                connectionPoint.dataout.writeUTF(frames.listOfPersons.indexOf(b.getText()) + "_green" + "_" + place.getText() + "_" + time.getText());
                                 connectionPoint.dataout.flush();
                             }
-                        }
-                        else {
+                        } else {
                             Client.dataout.writeUTF(frames.listOfPersons.indexOf(b.getText()) + "_green" + "_" + place.getText() + "_" + time.getText());
                             Client.dataout.flush();
                         }
 
-
-
                     } else {
                         b.setBackground(Color.RED);
-                        if(!name.equals("EspiaServer")){
+                        if (!name.equals(ESPIA_SERVER_NAME)) {
                             time.setText(CommonFunctions.getCurrentTime());
                             place.setText(name);
                         }
                         music.soundDoor();
-                        if(name.equals("EspiaServer")) {
+                        if (name.equals(ESPIA_SERVER_NAME)) {
                             for (int i = 0; i < Server.listOfClients.size(); i++) {
                                 ConnectionPoint connectionPoint = (ConnectionPoint) Server.listOfClients.get(i);
                                 connectionPoint.dataout.writeUTF(frames.listOfPersons.indexOf(b.getText()) + "_red" + "_" + place.getText() + "_" + time.getText());
@@ -72,14 +75,14 @@ public class ActListeners {
                             Client.dataout.flush();
                         }
 
-                       if(name.equals("EspiaServer")) {Server.statusButtons.writeStatusOFButtons();}
-
-
+                        if (name.equals(ESPIA_SERVER_NAME)) {
+                            Server.statusOfButtons.writeStatusOFButtons();
+                        }
                     }
 
-                }catch (Exception ex){
+                } catch (Exception ex) {
                     ex.printStackTrace();
-                    JOptionPane.showMessageDialog(null,"Помилка в передачі даних.(клас OnlineListener)");
+                    JOptionPane.showMessageDialog(null, "Помилка в передачі даних.(клас OnlineListener)");
                 }
             }
         };
@@ -94,57 +97,46 @@ public class ActListeners {
                 public void actionPerformed(ActionEvent e) {
                     music.soundClick();
                     Color buttoncolor = b.getBackground();
-
-                    if(name.equals("EspiaSever")) {
+                    System.out.println(name);
+                    if (name.equals(ESPIA_SERVER_NAME)) {
                         choiceWhoAndWhen(time, place);
                     }
-
 
                     try {
                         if (buttoncolor.equals(Color.RED)) {
                             b.setBackground(Color.GREEN);
-                            music.soundZvonok();
-
-
-
+                            music.soundRing();
 
                         } else {
                             b.setBackground(Color.RED);
                             music.soundDoor();
-
-
-
                         }
                         new FlashingLight(b).start();
-                        Server.statusButtons.writeStatusOFButtons();
-
-                    }catch (Exception ex){
+                        Server.statusOfButtons.writeStatusOFButtons();
+                    } catch (Exception ex) {
                         ex.printStackTrace();
-
                     }
                 }
             };
         } catch (Exception e) {
             e.printStackTrace();
-            StackTraceElement [] stack = e.getStackTrace();
-
+            StackTraceElement[] stack = e.getStackTrace();
         }
         return actionListener;
     }
-    public  void choiceWhoAndWhen(JButton binfo,JButton bwho){
+
+    public void choiceWhoAndWhen(JButton binfo, JButton bwho) {
         Server.mainframes.setAlwaysOnTop(false);
         Object when = JOptionPane.showInputDialog(null,
                 "", "Введіть дату",
-                JOptionPane.INFORMATION_MESSAGE, null,null,CommonFunctions.getCurrentTime());
+                JOptionPane.INFORMATION_MESSAGE, null, null, CommonFunctions.getCurrentTime());
         binfo.setText(when.toString());
-        Object[] possibleValues = { "КПП-1", "КПП-2(КТП)" };
+        Object[] possibleValues = {KPP_NAME, KTP_NAME};
         Object who = JOptionPane.showInputDialog(null,
                 "", "Виберіть правильне",
                 JOptionPane.INFORMATION_MESSAGE, null,
                 possibleValues, possibleValues[0]);
-
         bwho.setText(who.toString());
         Server.mainframes.setAlwaysOnTop(true);
     }
-
 }

@@ -2,6 +2,8 @@ package com.pav.avdonin;
 
 import com.pav.avdonin.clients.Client;
 import com.pav.avdonin.server.Server;
+import com.pav.avdonin.util.Names;
+
 import javax.swing.*;
 import java.io.IOException;
 import java.net.*;
@@ -26,14 +28,15 @@ public class Main extends JFrame {
             if (currentIP.equals(ipKPP)){
 
                 makingChange = Boolean.valueOf(properties.getProperty("makingChangeForKPP"));
-                new Client("КПП-1",makingChange,infoSide);
+                new Client(Names.КПП1.toString(),makingChange,infoSide);
             }
             if (currentIP.equals(ipKTP)){
                 makingChange = Boolean.valueOf(properties.getProperty("makingChangeForKPP"));
-                new Client("КПП-2(КТП)",makingChange,infoSide);
+                new Client(Names.КТП.toString(),makingChange,infoSide);
             }
             if (currentIP.equals(ipServer)){
-                new Server("EspiaServer");
+                Server server = new Server(Names.EspiaServer.toString());
+                server.startServer();
             }
 
         }
@@ -44,7 +47,7 @@ public class Main extends JFrame {
             else {
                 System.out.println("tut");
                 makingChange = Boolean.valueOf(properties.getProperty("makingChangeForEspiaJL"));
-                new Client("EspiaJL",makingChange,infoSide);
+                new Client(Names.EspiaJL.toString(),makingChange,infoSide);
             }
         }
     }

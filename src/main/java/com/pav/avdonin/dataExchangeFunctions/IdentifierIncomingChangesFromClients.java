@@ -1,10 +1,10 @@
-package com.pav.avdonin.functions;
+package com.pav.avdonin.dataExchangeFunctions;
 
 import com.pav.avdonin.clients.Client;
 import com.pav.avdonin.media.Music;
 import com.pav.avdonin.server.ConnectionPoint;
 import com.pav.avdonin.server.Server;
-import com.pav.avdonin.sql.SQL;
+import com.pav.avdonin.sql.ClientsConnectionHistory;
 import com.pav.avdonin.util.CommonFunctions;
 import com.pav.avdonin.visual.FlashingLight;
 import com.pav.avdonin.visual.Frames;
@@ -16,10 +16,10 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-public class SwitchButton {
+public class IdentifierIncomingChangesFromClients {
     CommonFunctions functions = new CommonFunctions();
     Music music = new Music();
-    SQL sql = new SQL();
+    ClientsConnectionHistory clientsConnectionHistory = new ClientsConnectionHistory();
 
     public void determineButton(ConnectionPoint cp, String ip, String userName, Socket socket, DataInputStream datain, DataOutputStream dataout, Frames mainframe, long ID) throws IOException {
 
@@ -119,7 +119,7 @@ public class SwitchButton {
                 System.out.println(hashForSql);
                 cp.ID = hashForSql;
                 //ConnectionPoint.ID=hashForSql;
-                sql.addEntering(CommonFunctions.getDayOfWeek(),ip,userName,CommonFunctions.getCurrentTimeWithSeconds(),hashForSql);
+                clientsConnectionHistory.addEntering(CommonFunctions.getDayOfWeek(), ip, userName, CommonFunctions.getCurrentTimeWithSeconds(), hashForSql);
                 if (values.length == 3 && Server.mapallowedClients.containsKey(values[1])) {
                     System.out.println(values[1]);
                     dataout.writeUTF("isAllowed_" + "YES");
@@ -133,29 +133,30 @@ public class SwitchButton {
                 //DO NOTHING;
                 break;
             case "isAllowed":
-                    if(values[1].equals("YES")){
-                    Client.isAllowed=true;
+                if (values[1].equals("YES")) {
+                    Client.isAllowed = true;
                     mainframe.frame.setVisible(true);
 
 
-                }else {
+                } else {
                     mainframe.frame.setVisible(false);
-                    JOptionPane.showMessageDialog(null,"Вхід не дозволено. Зверніться до адміністратора.");
-                    Client.isAllowed=false;
+                    JOptionPane.showMessageDialog(null, "Вхід не дозволено. Зверніться до адміністратора.");
+                    Client.isAllowed = false;
                     mainframe.dispose();
-                    functions.close(dataout,datain,socket);
+                    functions.close(dataout, datain, socket);
                 }
                 break;
             case "exiting":
                 cp.reason = "press exit";
                 if (ID == 0) {
-                    SQL.goodExitInformer(77777);
+                    ClientsConnectionHistory.goodExitInformer(77777);
                 } else {
-                    SQL.goodExitInformer(ID);
+                    ClientsConnectionHistory.goodExitInformer(ID);
                 }
                 break;
         }
     }
+
     private void switchButton(String color, String name, String when, JButton b, JButton time, JButton place) throws IOException {
         new FlashingLight(b).start();
         if (color.equals("green")) {
@@ -166,30 +167,30 @@ public class SwitchButton {
                 b.setBackground(Color.GREEN);
                 time.setText(functions.getCurrentTime());
                 place.setText(name);
-                music.soundZvonok();
+                music.soundRing();
             }
 
         }
         if (color.equals("red")) {
-            if(b.getBackground().equals(Color.GREEN)){
+            if (b.getBackground().equals(Color.GREEN)) {
                 b.setBackground(Color.RED);
                 time.setText(functions.getCurrentTime());
                 place.setText(name);
                 music.soundDoor();
 
             }
-            if(b.getBackground().equals(Color.RED)){
+            if (b.getBackground().equals(Color.RED)) {
                 //DONOTHING
             }
         }
 
-        for (int i = 0; i <Server.listOfClients.size() ; i++) {
-            try{
-                ConnectionPoint connectionPoint = (ConnectionPoint)Server.listOfClients.get(i);
-                connectionPoint.dataout.writeUTF( Server.mainframes.listOfPersons.indexOf(b.getText())+"_"+color+"_"+place.getText()+"_"+time.getText());
+        for (int i = 0; i < Server.listOfClients.size(); i++) {
+            try {
+                ConnectionPoint connectionPoint = (ConnectionPoint) Server.listOfClients.get(i);
+                connectionPoint.dataout.writeUTF(Server.mainframes.listOfPersons.indexOf(b.getText()) + "_" + color + "_" + place.getText() + "_" + time.getText());
                 connectionPoint.dataout.flush();
 
-            }catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

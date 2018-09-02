@@ -1,10 +1,11 @@
 package com.pav.avdonin.server;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.pav.avdonin.util.CommonFunctions;
-import com.pav.avdonin.functions.StatusButtons;
-import com.pav.avdonin.functions.StatusButtonsSerializer;
-import com.pav.avdonin.functions.SwitchButton;
+import com.pav.avdonin.dataExchangeFunctions.statusOfButtons.StatusOfButtons;
+import com.pav.avdonin.dataExchangeFunctions.statusOfButtons.StatusButtonsSerializer;
+import com.pav.avdonin.dataExchangeFunctions.IdentifierIncomingChangesFromClients;
 import com.pav.avdonin.visual.Frames;
 import org.apache.commons.io.FileUtils;
 
@@ -14,15 +15,16 @@ import java.net.SocketException;
 
 public class ConnectionPoint extends Thread {
 
-    public  long ID =0;
-    public  String reason = "";
+    public long ID = 0;
+    public String reason = "";
     Frames mainframe;
 
     private Socket socket;
     public DataOutputStream dataout;
     public DataInputStream datain;
+    public final String ENCODING = "UTF8";
 
-    public ConnectionPoint(Socket socket,Frames mainframe){
+    public ConnectionPoint(Socket socket, Frames mainframe) {
         this.mainframe = mainframe;
         this.socket = socket;
         try {
@@ -33,22 +35,22 @@ public class ConnectionPoint extends Thread {
         }
 
     }
+
     @Override
     public void run() {
         try {
-            mainframe.jLabel.setText("Кількість клієнтів - " +Server.listOfClients.size());
+            mainframe.jLabel.setText("Кількість клієнтів - " + Server.listOfClients.size());
             sentStatusOfButtonsToNewClient();
-            //CheckingSignal checkingSignal = startCheckingSignal();
+            CheckingSignal checkingSignal = startCheckingSignal();
             startDataExchange();
-            //checkingSignal.interrupt();
-            new CommonFunctions().close(dataout,datain,socket);
-        } catch(SocketException e){
-            Server.logging.writeExeptionToLogger(e,Server.statusOfLogger,Thread.currentThread());
+            checkingSignal.interrupt();
+            new CommonFunctions().close(dataout, datain, socket);
+        } catch (SocketException e) {
+            Server.logging.writeExeptionToLogger(e, Server.statusOfLogger, Thread.currentThread());
             e.printStackTrace();
-            StackTraceElement [] stack = e.getStackTrace();
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
-            Server.logging.writeExeptionToLogger(e,Server.statusOfLogger,Thread.currentThread());
+            Server.logging.writeExeptionToLogger(e, Server.statusOfLogger, Thread.currentThread());
         }
 
     }
@@ -61,59 +63,52 @@ public class ConnectionPoint extends Thread {
     }
 
     private void sentStatusOfButtonsToNewClient() throws IOException {
-        StatusButtons statusButtons = new StatusButtons(mainframe.mainButtons,mainframe.timeButtons,
-                mainframe.placeButtons,mainframe.listOfPersons);
+        StatusOfButtons statusOfButtons = new StatusOfButtons(mainframe.mainButtons, mainframe.timeButtons,
+                mainframe.placeButtons, mainframe.listOfPersons);
         GsonBuilder gsonBuilder = new GsonBuilder().setPrettyPrinting();
-        gsonBuilder.registerTypeAdapter(StatusButtons.class, new StatusButtonsSerializer());
+        gsonBuilder.registerTypeAdapter(StatusOfButtons.class, new StatusButtonsSerializer());
         Gson gson = gsonBuilder.excludeFieldsWithoutExposeAnnotation().create();
-        dataout.writeUTF(gson.toJson(statusButtons));
+        dataout.writeUTF(gson.toJson(statusOfButtons));
         dataout.flush();
     }
 
     private void startDataExchange() throws IOException {
-        //Метод для принятия данных от клиента
-        String value = "";
-        SwitchButton switchButton = new SwitchButton();
+        //String value = "";
+        IdentifierIncomingChangesFromClients identifierIncomingChangesFromClients = new IdentifierIncomingChangesFromClients();
 
-        while(true) {
-
-
+        while (true) {
             try {
                 String ip = Server.listOfClients.get(Server.listOfClients.size() - 1).toString();
-                switchButton.determineButton(this, ip,Server.mapallowedClients.get(ip),socket, datain,dataout,mainframe,ID);
-                Server.statusButtons.writeStatusOFButtons();
+                identifierIncomingChangesFromClients.determineButton(this, ip, Server.mapallowedClients.get(ip), socket, datain, dataout, mainframe, ID);
+                Server.statusOfButtons.writeStatusOFButtons();
 
-            } catch (SocketException e){
+            } catch (SocketException e) {
                 e.printStackTrace();
                 Server.listOfClients.remove(currentThread());
                 System.out.println("ID after exiting = " + ID);
-
-                if(reason.equals("press exit")){
-                Server.sql.exitFromSession(Thread.currentThread().getName(), CommonFunctions.getCurrentTimeWithSeconds(),ID,reason);
-                }else {
-                    Server.sql.exitFromSession(Thread.currentThread().getName(), CommonFunctions.getCurrentTimeWithSeconds(),ID,e.getMessage());
-                    Server.logging.writeExeptionToLogger(e,Server.statusOfLogger,Thread.currentThread());
-
+                if (reason.equals("press exit")) {
+                    Server.clientsConnectionHistory.exitFromSession(Thread.currentThread().getName(), CommonFunctions.getCurrentTimeWithSeconds(), ID, reason);
+                } else {
+                    Server.clientsConnectionHistory.exitFromSession(Thread.currentThread().getName(), CommonFunctions.getCurrentTimeWithSeconds(), ID, e.getMessage());
+                    Server.logging.writeExeptionToLogger(e, Server.statusOfLogger, Thread.currentThread());
                 }
-
-
-                FileUtils.writeStringToFile(Server.client,"","UTF8");
-                for (int i = 0; i <Server.listOfClients.size() ; i++) {
-                        FileUtils.writeStringToFile(Server.client, Server.listOfClients.get(i).toString() + " " + Server.mapallowedClients.get(Server.listOfClients.get(i).toString()) + "\r\n", "UTF8", true);
+                FileUtils.writeStringToFile(Server.client, "", ENCODING);
+                for (int i = 0; i < Server.listOfClients.size(); i++) {
+                    FileUtils.writeStringToFile(Server.client, Server.listOfClients.get(i).toString() + " " + Server.mapallowedClients.get(Server.listOfClients.get(i).toString()) + "\r\n", "UTF8", true);
                 }
-                mainframe.jLabel.setText("Кількість клієнтів - " +Server.listOfClients.size());
-                new CommonFunctions().close(dataout,datain,socket);
+                mainframe.jLabel.setText("Кількість клієнтів - " + Server.listOfClients.size());
+                new CommonFunctions().close(dataout, datain, socket);
                 break;
-            } catch(Exception e){
-                Server.logging.writeExeptionToLogger(e,Server.statusOfLogger,Thread.currentThread());
+            } catch (Exception e) {
+                Server.logging.writeExeptionToLogger(e, Server.statusOfLogger, Thread.currentThread());
                 e.printStackTrace();
                 Server.listOfClients.remove(currentThread());
-                FileUtils.writeStringToFile(Server.client,"","UTF8");
-                for (int i = 0; i <Server.listOfClients.size() ; i++) {
-                    FileUtils.writeStringToFile(Server.client,Server.listOfClients.get(i).toString()+" "+Server.mapallowedClients.get(Server.listOfClients.get(i).toString())+"\r\n","UTF8",true);
+                FileUtils.writeStringToFile(Server.client, "", ENCODING);
+                for (int i = 0; i < Server.listOfClients.size(); i++) {
+                    FileUtils.writeStringToFile(Server.client, Server.listOfClients.get(i).toString() + " " + Server.mapallowedClients.get(Server.listOfClients.get(i).toString()) + "\r\n", ENCODING, true);
                 }
-                mainframe.jLabel.setText("Кількість клієнтів - " +Server.listOfClients.size());
-                new CommonFunctions().close(dataout,datain,socket);
+                mainframe.jLabel.setText("Кількість клієнтів - " + Server.listOfClients.size());
+                new CommonFunctions().close(dataout, datain, socket);
                 break;
             }
         }
@@ -124,24 +119,24 @@ public class ConnectionPoint extends Thread {
         return socket.getInetAddress().toString().substring(1);
     }
 
-
-    private class CheckingSignal extends Thread{
+    private class CheckingSignal extends Thread {
         ConnectionPoint connectionPoint;
-        public CheckingSignal(ConnectionPoint connection){
+
+        public CheckingSignal(ConnectionPoint connection) {
             this.connectionPoint = connection;
         }
 
         @Override
         public void run() {
-            this.setName(connectionPoint.getName()+"(signal)");
-            while(!Thread.currentThread().isInterrupted()){
+            this.setName(connectionPoint.getName() + "(signal)");
+            while (!Thread.currentThread().isInterrupted()) {
                 try {
                     connectionPoint.dataout.writeUTF("Connection test");
                     connectionPoint.dataout.flush();
                     Thread.currentThread().sleep(10000);
 
                 } catch (IOException e) {
-                    Server.logging.writeExeptionToLogger(e,Server.statusOfLogger,Thread.currentThread());
+                    Server.logging.writeExeptionToLogger(e, Server.statusOfLogger, Thread.currentThread());
                     e.printStackTrace();
                     break;
                 } catch (InterruptedException e) {

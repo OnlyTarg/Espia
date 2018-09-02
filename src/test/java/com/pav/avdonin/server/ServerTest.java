@@ -1,5 +1,6 @@
 package com.pav.avdonin.server;
 
+import com.pav.avdonin.util.Names;
 import com.pav.avdonin.util.CommonFunctions;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,7 +31,7 @@ public class ServerTest {
         Thread serverStart = new Thread(new Runnable() {
             @Override
             public void run() {
-                server = new Server("EspiaServer");
+                server = new Server(Names.EspiaServer.toString());
                 server.startServer();
             }
         });
@@ -46,6 +47,7 @@ public class ServerTest {
         dataout.writeUTF("candidate_" + testIP + "_" + 1111);
         dataout.flush();
         datain.readUTF(); //recieve json (status of buttons from server)
+        datain.readUTF(); //recieve serverTestMessege (status of buttons from server)
         String isAllowed = datain.readUTF();
         CommonFunctions.close(dataout,datain,socket);
         assertEquals("isAllowed_YES",isAllowed);

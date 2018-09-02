@@ -2,10 +2,11 @@ package com.pav.avdonin.server; /**
  * Created by CleBo on 07.12.2017.
  */
 
-import com.pav.avdonin.functions.ActListeners;
-import com.pav.avdonin.functions.StatusButtons;
+import com.pav.avdonin.util.Names;
+import com.pav.avdonin.dataExchangeFunctions.ActionListeners;
+import com.pav.avdonin.dataExchangeFunctions.statusOfButtons.StatusOfButtons;
 import com.pav.avdonin.logger.Logging;
-import com.pav.avdonin.sql.SQL;
+import com.pav.avdonin.sql.ClientsConnectionHistory;
 import com.pav.avdonin.visual.Frames;
 import org.apache.commons.io.FileUtils;
 
@@ -18,7 +19,7 @@ import java.util.List;
 
 
 public class Server extends JFrame {
-    transient public static SQL sql = new SQL();
+    transient public static ClientsConnectionHistory clientsConnectionHistory = new ClientsConnectionHistory();
     transient private Socket socket;
     transient private ServerSocket server;
     transient public static Frames mainframes;
@@ -30,7 +31,7 @@ public class Server extends JFrame {
     transient public static File client = new File("clients.txt");
     transient public static List listOfClients = Collections.synchronizedList(new ArrayList<ConnectionPoint>());
 
-    static public StatusButtons statusButtons;
+    static public StatusOfButtons statusOfButtons;
 
     public Server(String name) {
         this.name = name;
@@ -38,7 +39,7 @@ public class Server extends JFrame {
 
     public void startServer() {
         createServerLogger();
-        sql.createSQL();
+        clientsConnectionHistory.createSQL();
         createGUI(name);
         loadPropertiesOptions();
         readAllowedClients();
@@ -94,7 +95,7 @@ public class Server extends JFrame {
             b.removeActionListener((b.getActionListeners())[0]);
         }
         for (int i = 0; i < mainframes.mainButtons.length; i++) {
-            mainframes.mainButtons[i].addActionListener(new ActListeners().OnlineListenerForServer(mainframes, mainframes.name, mainframes.mainButtons[i],
+            mainframes.mainButtons[i].addActionListener(new ActionListeners().OnlineListenerForServer(mainframes, mainframes.name, mainframes.mainButtons[i],
                     mainframes.timeButtons[i], mainframes.placeButtons[i]));
         }
     }
@@ -111,12 +112,12 @@ public class Server extends JFrame {
     }
 
     private void setSavedStatusOfButtons() {
-        statusButtons = new StatusButtons(mainframes.mainButtons, mainframes.timeButtons,
+        statusOfButtons = new StatusOfButtons(mainframes.mainButtons, mainframes.timeButtons,
                 mainframes.placeButtons, mainframes.listOfPersons);
         File file = new File("status.txt");
         if (file.length() > 0) {
             try {
-                statusButtons.readStatusOFButtons();
+                statusOfButtons.readStatusOFButtons();
             } catch (IOException e) {
                 logging.writeExeptionToLogger(e, statusOfLogger, Thread.currentThread());
                 e.printStackTrace();
@@ -166,7 +167,7 @@ public class Server extends JFrame {
     }
 
     public static void main(String[] args) {
-        Server s = new Server("EspiaServer");
+        Server s = new Server(Names.EspiaServer.toString());
         s.startServer();
 
     }

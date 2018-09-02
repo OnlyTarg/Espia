@@ -1,5 +1,7 @@
-package com.pav.avdonin.functions;
+package com.pav.avdonin.dataExchangeFunctions;
 
+import com.pav.avdonin.util.Names;
+import com.pav.avdonin.dataExchangeFunctions.statusOfButtons.StatusOfButtons;
 import com.pav.avdonin.server.Server;
 import com.pav.avdonin.visual.Frames;
 import org.junit.Test;
@@ -12,7 +14,7 @@ import java.io.IOException;
 
 import static org.mockito.Mockito.*;
 
-public class ActListenersTest {
+public class ActionListenersTest {
 
 
     @Test
@@ -21,11 +23,11 @@ public class ActListenersTest {
         JButton someButton = mock(JButton.class);
         ActionEvent actionEvent = mock(ActionEvent.class);
         Frames frames = Server.mainframes = mock(Frames.class);
-        StatusButtons statusButtons = Server.statusButtons = mock(StatusButtons.class);
+        StatusOfButtons statusOfButtons = Server.statusOfButtons = mock(StatusOfButtons.class);
 
         when(someButton.getBackground()).thenReturn(Color.RED);
-        doNothing().when(statusButtons).writeStatusOFButtons();
+        doNothing().when(statusOfButtons).writeStatusOFButtons();
         doNothing().when(frames).setAlwaysOnTop(false);
-        new ActListeners().OfflineListener(someButton, someButton, someButton, "КПП1").actionPerformed(actionEvent);
+        new ActionListeners().OfflineListener(someButton, someButton, someButton, Names.КПП1.toString()).actionPerformed(actionEvent);
     }
 }

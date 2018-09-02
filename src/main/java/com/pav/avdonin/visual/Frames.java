@@ -342,7 +342,7 @@ public  class  Frames extends JFrame {
 
     private void addOfflineActionListeners() {
         for (int i = 0; i <mainButtons.length ; i++) {
-            mainButtons[i].addActionListener(new ActListeners().OfflineListener(mainButtons[i],timeButtons[i],placeButtons[i]));
+            mainButtons[i].addActionListener(new ActListeners().OfflineListener(mainButtons[i],timeButtons[i],placeButtons[i],"EspiaServer"));
         }
     }
     private void fillingJLabelCountClients(String name) {

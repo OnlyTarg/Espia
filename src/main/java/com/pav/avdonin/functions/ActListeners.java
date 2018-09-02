@@ -4,6 +4,7 @@ import com.pav.avdonin.clients.Client;
 import com.pav.avdonin.media.Music;
 import com.pav.avdonin.server.ConnectionPoint;
 import com.pav.avdonin.server.Server;
+import com.pav.avdonin.util.CommonFunctions;
 import com.pav.avdonin.visual.FlashingLight;
 import com.pav.avdonin.visual.Frames;
 
@@ -11,10 +12,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 
 public class ActListeners {
     String name;
@@ -36,7 +33,7 @@ public class ActListeners {
                 try {
                     if (buttoncolor.equals(Color.RED)) {
                         if(!name.equals("EspiaServer")){
-                            time.setText(time());
+                            time.setText(CommonFunctions.getCurrentTime());
                             place.setText(name);
                         }
                         b.setBackground(Color.GREEN);
@@ -59,7 +56,7 @@ public class ActListeners {
                     } else {
                         b.setBackground(Color.RED);
                         if(!name.equals("EspiaServer")){
-                            time.setText(time());
+                            time.setText(CommonFunctions.getCurrentTime());
                             place.setText(name);
                         }
                         music.soundDoor();
@@ -89,7 +86,7 @@ public class ActListeners {
         return actionListener;
     }
 
-    public ActionListener OfflineListener (JButton b, JButton time, JButton place) {
+    public ActionListener OfflineListener(JButton b, JButton time, JButton place, String name) {
         ActionListener actionListener = null;
         try {
             actionListener = new ActionListener() {
@@ -98,7 +95,9 @@ public class ActListeners {
                     music.soundClick();
                     Color buttoncolor = b.getBackground();
 
-                    choiceWhoAndWhen(time,place);
+                    if(name.equals("EspiaSever")) {
+                        choiceWhoAndWhen(time, place);
+                    }
 
 
                     try {
@@ -136,7 +135,7 @@ public class ActListeners {
         Server.mainframes.setAlwaysOnTop(false);
         Object when = JOptionPane.showInputDialog(null,
                 "", "Введіть дату",
-                JOptionPane.INFORMATION_MESSAGE, null,null,time());
+                JOptionPane.INFORMATION_MESSAGE, null,null,CommonFunctions.getCurrentTime());
         binfo.setText(when.toString());
         Object[] possibleValues = { "КПП-1", "КПП-2(КТП)" };
         Object who = JOptionPane.showInputDialog(null,
@@ -148,18 +147,4 @@ public class ActListeners {
         Server.mainframes.setAlwaysOnTop(true);
     }
 
-   public String time (){
-       DateFormat df = new SimpleDateFormat("dd.MM HH:mm");
-       Date currenttime = Calendar.getInstance().getTime();
-       String time = df.format(currenttime);
-       return time;
-
-   }
-    public String timeWithSeconds(){
-        DateFormat df = new SimpleDateFormat("dd.MM HH:mm:ss");
-        Date currenttime = Calendar.getInstance().getTime();
-        String time = df.format(currenttime);
-        return time;
-
-    }
 }

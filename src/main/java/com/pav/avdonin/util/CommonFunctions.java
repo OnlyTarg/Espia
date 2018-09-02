@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.logging.Level;
 
 public class CommonFunctions {
-    public String getCurrentTime(){
+    public static String getCurrentTime(){
         DateFormat df = new SimpleDateFormat("dd.MM HH:mm");
         Date currenttime = Calendar.getInstance().getTime();
         String time = df.format(currenttime);

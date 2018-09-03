@@ -1,4 +1,4 @@
-package com.pav.avdonin.dataExchangeFunctions.statusOfButtons;
+package com.pav.avdonin.dataexchange.statusofbuttons;
 
 import com.google.gson.annotations.Expose;
 

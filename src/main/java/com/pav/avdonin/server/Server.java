@@ -3,8 +3,8 @@ package com.pav.avdonin.server; /**
  */
 
 import com.pav.avdonin.util.Names;
-import com.pav.avdonin.dataExchangeFunctions.ActionListeners;
-import com.pav.avdonin.dataExchangeFunctions.statusOfButtons.StatusOfButtons;
+import com.pav.avdonin.dataexchange.ActionListeners;
+import com.pav.avdonin.dataexchange.statusofbuttons.StatusOfButtons;
 import com.pav.avdonin.logger.Logging;
 import com.pav.avdonin.sql.ClientsConnectionHistory;
 import com.pav.avdonin.visual.Frames;
@@ -167,7 +167,7 @@ public class Server extends JFrame {
     }
 
     public static void main(String[] args) {
-        Server s = new Server(Names.EspiaServer.toString());
+        Server s = new Server(Names.ESPIA_SERVER.getValue());
         s.startServer();
 
     }

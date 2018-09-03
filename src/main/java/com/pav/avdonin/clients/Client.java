@@ -5,9 +5,9 @@ package com.pav.avdonin.clients; /**
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.pav.avdonin.util.Names;
-import com.pav.avdonin.dataExchangeFunctions.*;
-import com.pav.avdonin.dataExchangeFunctions.statusOfButtons.StatusButtonsDeserializer;
-import com.pav.avdonin.dataExchangeFunctions.statusOfButtons.StatusOfButtons;
+import com.pav.avdonin.dataexchange.*;
+import com.pav.avdonin.dataexchange.statusofbuttons.StatusButtonsDeserializer;
+import com.pav.avdonin.dataexchange.statusofbuttons.StatusOfButtons;
 import com.pav.avdonin.logger.Logging;
 import com.pav.avdonin.util.CommonFunctions;
 import com.pav.avdonin.visual.Frames;
@@ -213,7 +213,7 @@ public class Client extends JFrame {
     }
 
     public static void main(String[] args) {
-        Client c = new Client(Names.EspiaJL.toString(), true, false);
+        Client c = new Client(Names.KPP.getValue(), true, false);
     }
 
 

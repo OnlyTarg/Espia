@@ -31,7 +31,7 @@ public class ServerTest {
         Thread serverStart = new Thread(new Runnable() {
             @Override
             public void run() {
-                server = new Server(Names.EspiaServer.toString());
+                server = new Server(Names.ESPIA_SERVER.getValue());
                 server.startServer();
             }
         });

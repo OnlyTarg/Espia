@@ -28,14 +28,14 @@ public class Main extends JFrame {
             if (currentIP.equals(ipKPP)){
 
                 makingChange = Boolean.valueOf(properties.getProperty("makingChangeForKPP"));
-                new Client(Names.КПП1.toString(),makingChange,infoSide);
+                new Client(Names.KPP.getValue(),makingChange,infoSide);
             }
             if (currentIP.equals(ipKTP)){
                 makingChange = Boolean.valueOf(properties.getProperty("makingChangeForKPP"));
-                new Client(Names.КТП.toString(),makingChange,infoSide);
+                new Client(Names.KTP.getValue(),makingChange,infoSide);
             }
             if (currentIP.equals(ipServer)){
-                Server server = new Server(Names.EspiaServer.toString());
+                Server server = new Server(Names.ESPIA_SERVER.getValue());
                 server.startServer();
             }
 
@@ -47,7 +47,7 @@ public class Main extends JFrame {
             else {
                 System.out.println("tut");
                 makingChange = Boolean.valueOf(properties.getProperty("makingChangeForEspiaJL"));
-                new Client(Names.EspiaJL.toString(),makingChange,infoSide);
+                new Client(Names.ESPIA_JL.getValue(),makingChange,infoSide);
             }
         }
     }

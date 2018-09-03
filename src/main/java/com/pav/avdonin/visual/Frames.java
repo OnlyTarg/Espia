@@ -2,9 +2,9 @@ package com.pav.avdonin.visual;
 
 import com.pav.avdonin.util.Names;
 import com.pav.avdonin.clients.Client;
-import com.pav.avdonin.dataExchangeFunctions.ActionListeners;
+import com.pav.avdonin.dataexchange.ActionListeners;
 import com.pav.avdonin.util.CommonFunctions;
-import com.pav.avdonin.dataExchangeFunctions.statusOfButtons.StatusOfButtons;
+import com.pav.avdonin.dataexchange.statusofbuttons.StatusOfButtons;
 import com.pav.avdonin.server.ConnectionPoint;
 import com.pav.avdonin.server.Server;
 import org.apache.commons.io.FileUtils;
@@ -22,10 +22,10 @@ import java.util.Properties;
 
 public class Frames extends JFrame {
 
-    public final String SERVER_NAME = Names.EspiaServer.toString();
-    public final String KPP_NAME = Names.КПП1.toString();
-    public final String KTP_NAME = Names.КТП.toString();
-    public final String ESPIA_JL_NAME = Names.EspiaJL.toString();
+    public final String SERVER_NAME = Names.ESPIA_SERVER.getValue();
+    public final String KPP_NAME = Names.KPP.getValue();
+    public final String KTP_NAME = Names.KTP.getValue();
+    public final String ESPIA_JL_NAME = Names.ESPIA_JL.getValue();
 
 
     public final int STANDART_HEIGHT = 1080;

@@ -3,9 +3,9 @@ package com.pav.avdonin.server;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.pav.avdonin.util.CommonFunctions;
-import com.pav.avdonin.dataExchangeFunctions.statusOfButtons.StatusOfButtons;
-import com.pav.avdonin.dataExchangeFunctions.statusOfButtons.StatusButtonsSerializer;
-import com.pav.avdonin.dataExchangeFunctions.IdentifierIncomingChangesFromClients;
+import com.pav.avdonin.dataexchange.statusofbuttons.StatusOfButtons;
+import com.pav.avdonin.dataexchange.statusofbuttons.StatusButtonsSerializer;
+import com.pav.avdonin.dataexchange.IdentifierIncomingChangesFromClients;
 import com.pav.avdonin.visual.Frames;
 import org.apache.commons.io.FileUtils;
 

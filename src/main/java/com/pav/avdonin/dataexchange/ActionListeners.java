@@ -1,4 +1,4 @@
-package com.pav.avdonin.dataExchangeFunctions;
+package com.pav.avdonin.dataexchange;
 
 import com.pav.avdonin.util.Names;
 import com.pav.avdonin.clients.Client;
@@ -16,9 +16,9 @@ import java.awt.event.ActionListener;
 
 public class ActionListeners {
     String name;
-    private final String ESPIA_SERVER_NAME = Names.EspiaServer.toString();
-    private final String KPP_NAME = Names.КПП1.toString();
-    private final String KTP_NAME = Names.КТП.toString();
+    private final String ESPIA_SERVER_NAME = Names.ESPIA_SERVER.getValue();
+    private final String KPP_NAME = Names.KPP.getValue();
+    private final String KTP_NAME = Names.KTP.getValue();
     Music music = new Music();
 
 

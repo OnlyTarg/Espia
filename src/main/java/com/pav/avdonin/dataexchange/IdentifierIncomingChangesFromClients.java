@@ -1,4 +1,4 @@
-package com.pav.avdonin.dataExchangeFunctions;
+package com.pav.avdonin.dataexchange;
 
 import com.pav.avdonin.clients.Client;
 import com.pav.avdonin.media.Music;

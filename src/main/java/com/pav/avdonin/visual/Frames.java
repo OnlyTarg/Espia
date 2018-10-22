@@ -295,16 +295,18 @@ public class Frames extends JFrame {
                 mainButtonBounds.setBounds(mainButtonPosition[0] + stepForWidth(STANDART_WIDTH_DISTANCE_BETWEEN_BUTTONS), mainButtonPosition[1], mainButtonWidth, mainButtonHeight);
             }
             if (i == 9 && !infoSide) {
-                mainButtonBounds.setBounds(mainButtonPosition[0] + stepForWidth(60), mainButtonPosition[1], mainButtonWidth, mainButtonHeight);
+                mainButtonBounds.setBounds(mainButtonPosition[0] + stepForWidth(240), mainButtonPosition[1], mainButtonWidth, mainButtonHeight);
             }
         }
 
+
         if (infoSide) {
+            System.out.println("tut");
             for (int i = 0; i < timeButtons.length; i++) {
                 if (name.equals(SERVER_NAME)) {
                     timeButtons[i] = new JButton("....");
                 }
-
+                System.out.println("tut");
                 timeButtons[i].setFont(fontTimePlace);
                 timeButtons[i].setBounds(timeButtonBounds);
                 if (i == 0) System.out.println("Часовая кнопка положение " + timeButtonBounds.x);

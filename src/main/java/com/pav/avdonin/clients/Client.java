@@ -213,7 +213,7 @@ public class Client extends JFrame {
     }
 
     public static void main(String[] args) {
-        Client c = new Client(Names.KPP.getValue(), true, false);
+        Client c = new Client(Names.KPP.getValue(), true, true);
     }
 
 

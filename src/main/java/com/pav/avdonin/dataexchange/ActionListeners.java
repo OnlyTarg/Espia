@@ -13,6 +13,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class ActionListeners {
     String name;
@@ -124,6 +125,29 @@ public class ActionListeners {
         }
         return actionListener;
     }
+
+    public ActionListener sendMessageListener(Frames frames) {
+
+
+        ActionListener actionListener = new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+
+                            for (int i = 0; i < Server.listOfClients.size(); i++) {
+                                ConnectionPoint connectionPoint = (ConnectionPoint) Server.listOfClients.get(i);
+                                try {
+                                    String message = JOptionPane.showInputDialog("Введіть повідомлення");
+                                    connectionPoint.dataout.writeUTF("message_"+message);
+                                    connectionPoint.dataout.flush();
+                                } catch (IOException e1) {
+                                    e1.printStackTrace();
+                                }
+                            }
+                        }
+        };
+        return actionListener;
+    }
+
 
     public void choiceWhoAndWhen(JButton binfo, JButton bwho) {
         Server.mainframes.setAlwaysOnTop(false);

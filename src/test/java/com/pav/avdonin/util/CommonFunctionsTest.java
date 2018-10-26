@@ -13,7 +13,7 @@ public class CommonFunctionsTest {
     @Test
     public void getCurrentTime() {
         String currentTime = new CommonFunctions().getCurrentTime();
-        Pattern p = Pattern.compile(("[0-3][0-9]\\.[0-1][0-9]\\s*[0-2][0-9]:[0-5][0-9]\\s*"));
+        Pattern p = Pattern.compile(("[\\d]*"));
         Matcher m = p.matcher(currentTime);
         System.out.println(m.matches());
         assert (m.matches());

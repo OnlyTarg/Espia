@@ -154,6 +154,10 @@ public class IdentifierIncomingChangesFromClients {
                     ClientsConnectionHistory.goodExitInformer(ID);
                 }
                 break;
+            case "message":
+
+                JOptionPane.showMessageDialog(null, values[1],"Warning",JOptionPane.WARNING_MESSAGE);
+                break;
         }
     }
 

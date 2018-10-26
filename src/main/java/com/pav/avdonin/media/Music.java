@@ -10,7 +10,7 @@ public class Music {
 
     Clip clipClick, clipZvonok, clipDoor;
 
-    public void soundDoor() {
+    public synchronized void soundDoor() {
 
         try {
             clipDoor = AudioSystem.getClip();
@@ -29,7 +29,7 @@ public class Music {
 
     }
 
-    public void soundClick() {
+    public synchronized void soundClick() {
         try {
             clipClick = AudioSystem.getClip();
             InputStream input = new BufferedInputStream(getClass().getResourceAsStream("/click1.wav"));
@@ -47,7 +47,7 @@ public class Music {
 
     }
 
-    public void soundRing() {
+    public synchronized void soundRing() {
         try {
             clipZvonok = AudioSystem.getClip();
             InputStream input = new BufferedInputStream(getClass().getResourceAsStream("/zv1.wav"));

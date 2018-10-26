@@ -43,6 +43,7 @@ public class Frames extends JFrame {
     public ArrayList<String> listOfPersons;
     int countOfButtons;
     static public JLabel jLabel;
+    static  public JButton sendMessage;
     static public JLabel connectionStatus;
     double scope = 1.0;
 
@@ -187,7 +188,7 @@ public class Frames extends JFrame {
 
         compareAndAlign(mainButtons, listOfPersons);
         fillingButtonsProperties(infoSide, name);
-        fillingJLabelCountClients(name);
+        fillingJLabelCountClientsAndJButtonSendMessge(name);
 
         frame.repaint();
         frame.setVisible(true);
@@ -204,15 +205,15 @@ public class Frames extends JFrame {
 
         if (frame.getTitle().equals(KTP_NAME)) {
             fillingButtonsProperties(infoSide, "Client");
-            fillingJLabelCountClients(name);
+            fillingJLabelCountClientsAndJButtonSendMessge(name);
         }
         if (frame.getTitle().equals(KPP_NAME)) {
             fillingButtonsProperties(infoSide, "Client");
-            fillingJLabelCountClients(name);
+            fillingJLabelCountClientsAndJButtonSendMessge(name);
         }
         if (frame.getTitle().equals(ESPIA_JL_NAME)) {
             fillingButtonsProperties(infoSide, "Client");
-            fillingJLabelCountClients(name);
+            fillingJLabelCountClientsAndJButtonSendMessge(name);
         }
 
         frame.repaint();
@@ -359,23 +360,40 @@ public class Frames extends JFrame {
         }
     }
 
-    private void fillingJLabelCountClients(String name) {
+    private void fillingJLabelCountClientsAndJButtonSendMessge(String name) {
         Rectangle countClientsLabel;
+        Rectangle sendMessageBounds;
         Font fontJLabel = new Font("Times new Roman", Font.BOLD, calculateFontforMainButtons(15));
         int jLabelHeight = calculateHeightofButtons(6) + stepForHeight(STANDART_HEIGHT_DISTANCE_BETWEEN_BUTTONS) * listOfPersons.size();
         int jLabelWidht = calculateWidthofButtons(20, false);
+        int sendMessageHeight = calculateHeightofButtons(6) + stepForHeight(STANDART_HEIGHT_DISTANCE_BETWEEN_BUTTONS) * listOfPersons.size();
+        int sendMessageWidht = calculateWidthofButtons(192, false);
+
         int[] jLabelPossition = {jLabelWidht, jLabelHeight};
+        int[] sendMessagePossition = {sendMessageWidht, sendMessageHeight};
         if (listOfPersons.size() < 10) {
             countClientsLabel = new Rectangle(jLabelPossition[0], jLabelPossition[1],
                     calculateWidthofButtons(200, false), calculateHeightofButtons(30));
+            sendMessageBounds= new Rectangle(sendMessagePossition[0], jLabelPossition[1],
+                    calculateWidthofButtons(110, false), calculateHeightofButtons(30));
         } else {
             countClientsLabel = new Rectangle(jLabelPossition[0], calculateHeightofButtons(6) + stepForHeight(600),
                     calculateWidthofButtons(200, false), calculateHeightofButtons(30));
+            sendMessageBounds = new Rectangle(sendMessagePossition[0], calculateHeightofButtons(6) + stepForHeight(600),
+                    calculateWidthofButtons(110, false), calculateHeightofButtons(30));
         }
         if (name.equals(SERVER_NAME)) {
             jLabel = new JLabel("Кількість клієнтів - 0");
             jLabel.setFont(fontJLabel);
             jLabel.setBounds(countClientsLabel);
+
+
+            sendMessage = new JButton("Повідомлення");
+            sendMessage.setBounds(sendMessageBounds);
+            frame.add(sendMessage);
+            sendMessage.addActionListener(new ActionListeners().sendMessageListener(Server.mainframes));
+
+
             frame.add(jLabel);
         } else {
             connectionStatus = new JLabel("З'єднання ...");

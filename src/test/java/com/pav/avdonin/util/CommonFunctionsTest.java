@@ -1,4 +1,5 @@
 package com.pav.avdonin.util;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -11,6 +12,7 @@ import static org.junit.Assert.*;
 public class CommonFunctionsTest {
 
     @Test
+    @Ignore
     public void getCurrentTime() {
         String currentTime = new CommonFunctions().getCurrentTime();
         Pattern p = Pattern.compile(("[\\d]*"));

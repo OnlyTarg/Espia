@@ -156,7 +156,7 @@ public class IdentifierIncomingChangesFromClients {
                 break;
             case "message":
 
-                JOptionPane.showMessageDialog(null, values[1],"Warning",JOptionPane.WARNING_MESSAGE);
+               /* JOptionPane.showMessageDialog(null, values[1],"Warning",JOptionPane.WARNING_MESSAGE);*/
                 break;
         }
     }
@@ -171,7 +171,11 @@ public class IdentifierIncomingChangesFromClients {
                 b.setBackground(Color.GREEN);
                 time.setText(functions.getCurrentTime());
                 place.setText(name);
-                music.soundRing();
+                try {
+                    music.soundRing();
+                } catch (Exception e) {
+                    System.out.println("mistake at ring");
+                }
             }
 
         }

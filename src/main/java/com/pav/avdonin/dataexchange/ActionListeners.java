@@ -14,6 +14,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.concurrent.Executors;
 
 public class ActionListeners {
     String name;
@@ -30,7 +31,11 @@ public class ActionListeners {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                music.soundClick();
+                try {
+                    music.soundClick();
+                } catch (Exception e1) {
+                    System.out.println("mistake 5");
+                }
                 System.out.println(name);
                 if (name.equals(ESPIA_SERVER_NAME)) {
                     choiceWhoAndWhen(time, place);
@@ -44,7 +49,11 @@ public class ActionListeners {
                             place.setText(name);
                         }
                         b.setBackground(Color.GREEN);
-                        music.soundRing();
+                        try {
+                            music.soundRing();
+                        } catch (Exception e1) {
+                            System.out.println(" Exeption ring");
+                        }
 
                         if (name.equals(ESPIA_SERVER_NAME)) {
                             for (int i = 0; i < Server.listOfClients.size(); i++) {
@@ -63,7 +72,11 @@ public class ActionListeners {
                             time.setText(CommonFunctions.getCurrentTime());
                             place.setText(name);
                         }
-                        music.soundDoor();
+                        try {
+                            music.soundDoor();
+                        } catch (Exception e1) {
+                            System.out.println( "exeption door");
+                        }
                         if (name.equals(ESPIA_SERVER_NAME)) {
                             for (int i = 0; i < Server.listOfClients.size(); i++) {
                                 ConnectionPoint connectionPoint = (ConnectionPoint) Server.listOfClients.get(i);
@@ -83,7 +96,7 @@ public class ActionListeners {
 
                 } catch (Exception ex) {
                     ex.printStackTrace();
-                    JOptionPane.showMessageDialog(null, "Помилка в передачі даних.(клас OnlineListener)");
+                    System.out.println("!!!!!!!!!!Помилка в передачі даних.(клас OnlineListener)");
                 }
             }
         };
@@ -96,7 +109,11 @@ public class ActionListeners {
             actionListener = new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    music.soundClick();
+                    try {
+                        music.soundClick();
+                    } catch (Exception e1) {
+                        System.out.println("mistake 6");
+                    }
                     Color buttoncolor = b.getBackground();
                     System.out.println(name);
                     if (name.equals(ESPIA_SERVER_NAME)) {
@@ -110,7 +127,11 @@ public class ActionListeners {
 
                         } else {
                             b.setBackground(Color.RED);
-                            music.soundDoor();
+                            try {
+                                music.soundDoor();
+                            } catch (Exception e1) {
+                                System.out.println("mistake door");
+                            }
                         }
                         new FlashingLight(b).start();
                         Server.statusOfButtons.writeStatusOFButtons();
@@ -133,17 +154,17 @@ public class ActionListeners {
 
             public void actionPerformed(ActionEvent e) {
 
-                            for (int i = 0; i < Server.listOfClients.size(); i++) {
-                                ConnectionPoint connectionPoint = (ConnectionPoint) Server.listOfClients.get(i);
-                                try {
-                                    String message = JOptionPane.showInputDialog("Введіть повідомлення");
-                                    connectionPoint.dataout.writeUTF("message_"+message);
-                                    connectionPoint.dataout.flush();
-                                } catch (IOException e1) {
-                                    e1.printStackTrace();
-                                }
-                            }
-                        }
+                for (int i = 0; i < Server.listOfClients.size(); i++) {
+                    ConnectionPoint connectionPoint = (ConnectionPoint) Server.listOfClients.get(i);
+                    try {
+                        String message = JOptionPane.showInputDialog("Введіть повідомлення");
+                        connectionPoint.dataout.writeUTF("message_" + message);
+                        connectionPoint.dataout.flush();
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            }
         };
         return actionListener;
     }
